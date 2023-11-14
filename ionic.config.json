@@ -1,0 +1,7 @@
+{
+  "name": "kickdayUi",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
