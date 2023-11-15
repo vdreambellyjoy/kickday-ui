@@ -21,6 +21,86 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+
+  <ion-row class="kd_center_align_items">
+    <ion-col>
+      <ion-text>User ID: 1122</ion-text>
+    </ion-col>
+    <ion-col>
+      <ion-text>Customer/Maker</ion-text>
+    </ion-col>
+    <ion-col class="kd_flex kd_end_align">
+      <img src="../../../assets/edit-icon-24.png" alt="" class="kd_svg_size">
+    </ion-col>
+  </ion-row>
+
+  <ion-row style="border-bottom: none !important; width: 100%;" class="kd_center_align">
+    <div class="kd_round round_new kd_center_align profile-photo">
+      <img [src]="userData?.imageUrl" alt="LOGO">
+    </div>
+    <ion-col style="margin: 15px 0px;">
+      <ion-label>{{userData?.name}}</ion-label><br>
+      <ion-label>kphb, Hyderabad</ion-label>
+    </ion-col>
+    <ion-col style="margin: 15px 0px;">
+      <ion-label class="kd_main_heading">$ 4500</ion-label><br>
+      <ion-label>Money Spent</ion-label>
+    </ion-col>
+  </ion-row>
+
+  <div class="card-outline">
+    <ion-row class="kd_margin_bott_10">
+      <ion-col>
+        <ion-text>Name</ion-text><br>
+        <div class="pad-top5">
+          <ion-text>Bhanu Prakash</ion-text>
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-text>Email</ion-text><br>
+        <div class="pad-top5">
+          <ion-text>bhanuGmail.com</ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+  
+    <ion-row class="kd_margin_bott_10">
+      <ion-col>
+        <ion-text>Mobile</ion-text><br>
+        <div class="pad-top5">
+          <ion-text>9875452165</ion-text>
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-text>Location</ion-text><br>
+        <div class="pad-top5">
+          <ion-text>kphb, Hyderabad</ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="border-top: dashed; padding-top: 10px;">
+      <ion-col>
+        <ion-text class="kd_main_heading">02</ion-text><br>
+        <div class="pad-top5">
+          <ion-text>Listings</ion-text>
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-text class="kd_main_heading">$ 1254</ion-text><br>
+        <div class="pad-top5">
+          <ion-text>Money Earned</ion-text>
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-text class="kd_main_heading">$ 154</ion-text><br>
+        <div class="pad-top5">
+          <ion-text>%12</ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+
   <ion-row>
     <ion-col>
       <ion-button expand="block" (click)="openKitchenImages(true)">Kitchen Images</ion-button>
@@ -33,63 +113,18 @@
     </ion-col> -->
   </ion-row>
 
-  <div style="padding: 15px; border: solid 1px black; margin: 15px 5px; border-radius: 14px;">
-    <ion-row>
-      <ion-col>
-        <ion-text>Bank Name</ion-text>
-      </ion-col>
-      <ion-col>
-        <ion-text>{{userData?.bankDetails?.bankName}}</ion-text>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-text>Branch</ion-text>
-      </ion-col>
-      <ion-col>
-        <ion-text>{{userData?.bankDetails?.branch}}</ion-text>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-text>Account Number</ion-text>
-      </ion-col>
-      <ion-col>
-        <ion-text>{{userData?.bankDetails?.accountNumber}}</ion-text>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-text>Account Name</ion-text>
-      </ion-col>
-      <ion-col>
-        <ion-text>{{userData?.bankDetails?.accountName}}</ion-text>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-text>Account Type</ion-text>
-      </ion-col>
-      <ion-col>
-        <ion-text>{{userData?.bankDetails?.accountType}}</ion-text>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-text>IFSC Code</ion-text>
-      </ion-col>
-      <ion-col>
-        <ion-text>{{userData?.bankDetails?.ifscCode}}</ion-text>
-      </ion-col>
-    </ion-row>
+  <div class="card-outline">
+    <div *ngFor="let detail of getBankDetails()">
+      <ion-row>
+        <ion-col>
+          <ion-text>{{ detail.label }}</ion-text>
+        </ion-col>
+        <ion-col>
+          <ion-text>{{ detail.value }}</ion-text>
+        </ion-col>
+      </ion-row>
+    </div>
   </div>
-
-
 
   <ion-modal [isOpen]="isMakerImagesOpen">
     <ng-template>

@@ -41,7 +41,7 @@
 }
 
 .kd_main_heading {
-    font-size: 20px;
+    font-size: 20px !important;
     color: black;
     font-weight: bold;
 }
@@ -92,6 +92,7 @@ ion-button {
 
 ion-text {
     color: black;
+    font-size: 16px !important;
 }
 
 .kd_flex{

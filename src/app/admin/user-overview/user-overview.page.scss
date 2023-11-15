@@ -16,3 +16,20 @@ ion-toggle {
 ion-toggle.ios {
     --ion-color-base: #22242880 !important;
 }
+
+.profile-photo{
+    height: 60px;
+    max-width: 60px;
+    margin: 10px;
+}
+
+.pad-top5 {
+    padding-top: 5px;
+}
+
+.card-outline {
+    padding: 15px;
+    border: solid 1px black;
+    margin: 15px 5px;
+    border-radius: 14px;
+}
