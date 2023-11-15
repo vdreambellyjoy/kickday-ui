@@ -11,6 +11,22 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'allUsers',
+    loadChildren: () => import('./admin/all-users/all-users.module').then( m => m.AllUsersPageModule)
+  },
+  {
+    path: 'userOverview/:id',
+    loadChildren: () => import('./admin/user-overview/user-overview.module').then( m => m.UserOverviewPageModule)
+  },
+  {
+    path: 'adminDashboard',
+    loadChildren: () => import('./admin/admin-dashboard/admin-dashboard.module').then( m => m.AdminDashboardPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./admin/profile/profile.module').then( m => m.ProfilePageModule)
+  },
 ];
 
 @NgModule({

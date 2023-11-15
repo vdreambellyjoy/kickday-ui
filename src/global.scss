@@ -24,3 +24,275 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+.kd_col_center_align {
+    display: flex;
+    align-items: center;
+}
+
+.kd_svg_size{
+    height: 40px;
+    width: 40px;
+}
+
+.kd_back_button {
+    height: 25px;
+    width: 25px;
+}
+
+.kd_main_heading {
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+}
+
+.kd_transperent_header {
+    --background: white;
+    --border-width: 0px !important;
+}
+
+ion-button {
+    --background: #ededed;
+    --background-activated: rgb(187, 53, 53); 
+    --color: black;
+    --border-radius: 5px;
+    --border-color: black;
+    --border-style: solid;
+    --border-width: 1px;
+    --box-shadow: 0 2px 3px 0 rgb(0, 0, 0, 0.25);
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    min-height: 48px;
+    margin-right: 10px;
+    text-transform: none;
+    width: 100%;
+}
+
+.count_button {
+    --padding-bottom: 0px;
+    --padding-top: 0px;
+    --padding-end: 0px;
+    --padding-start: 0px;
+    height: 27px;
+    width: 90px;
+    margin: 0px;
+    min-height: auto;
+    --border-radius: 6px;
+    --border-color: transparent;
+}
+
+.kd_save_button {
+    font-size: 16px;
+    --background: burlywood;
+    margin-bottom: 20px;
+    width: 100%
+}
+
+ion-text {
+    color: black;
+}
+
+.kd_flex{
+    display: flex;
+}
+
+.kd_flex_row_center {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.kd_flex_col_center {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.kd_end_align {
+    flex-direction: row;
+    justify-content: end;
+}
+
+.kd_center_align_items {
+    display: flex;
+    align-items: center;
+}
+
+.icon_style {
+    height: 18px;
+    width: 18px;
+    padding-right: 10px;
+}
+
+.kd_no_padding {
+    padding: 0px !important;
+}
+
+ion-item {
+    --padding-start: 0px;
+    --border-style: none;
+}
+
+.kd_margin_bott_10 {
+    margin-bottom: 10px;
+}
+
+.searchbar-input.sc-ion-searchbar-md {
+    padding-inline: 10px !important;
+}
+
+.searchbar-left-aligned.sc-ion-searchbar-ios-h .searchbar-input.sc-ion-searchbar-ios {
+    padding-inline-start: 0px !important;
+    background: white;
+}
+
+.search_item {
+    height: 50px;
+    border: 1px solid;
+    border-radius: 14px;
+    margin: 10px 0px;
+    padding: 0;
+    display: flex;
+}
+
+ion-textarea.custom {
+    --color: black;
+    --padding-end: 10px;
+    --padding-start: 10px;
+    --placeholder-color: black;
+    --border-width: 1px;
+    --border-radius: 9px;
+    border: solid 1px black;
+    border-radius: 14px;
+    padding: 10px 0px;
+}
+
+.native-textarea.sc-ion-textarea-md {
+    --padding-bottom: 5px !important;
+    --padding-top: 5px !important;
+}
+
+.sc-ion-textarea-md-h {
+    --highlight-color: none;
+}
+
+.kd_footer_card_styles {
+    margin: 0px;
+    border-radius: 0px;
+    bottom: 0px;
+    position: fixed;
+    width: 100%;
+    padding: 10px 15px;
+    box-shadow: none;
+}
+
+.kd_round {
+    max-width: 125px;
+    height: 125px;
+    width: 100%;
+    background-color: rgb(50,50,50,0.6);
+    border-radius: 50%;
+    line-height: 1.21;
+    color: white;
+    font-size: 34px;
+    margin:20px;
+    float: left;
+}
+
+.kd_center_align {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.kd_font_size_12 {
+    font-size: 12px;
+}
+
+.kd_orders_card {
+    border: solid 1px black;
+    padding: 5px;
+    margin: 0px;
+    border-radius: 14px;
+    box-shadow: none;
+}
+
+ion-input {
+    --highlight-color-focused: none !important;
+}
+
+.first_letter_styles {
+    height: 40px;
+    width: 40px;
+    background: lightsteelblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.select-text {
+    display: none !important;
+}
+
+//footer styles
+
+.icon-text_styles {
+    font-size: 12px;
+    padding-top: 5px;
+}
+
+.ripple_background {
+    color: #b58ff1;
+    border-radius: 18px
+}
+
+.footer_icon_styles {
+    height: 40px;
+    width: 40px;
+}
+
+swiper-container {
+    width: 100%;
+    height: 100%;
+}
+   
+swiper-slide {
+    width: 100%;
+    height: 100%;
+}
+
+swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.alert-button-group.sc-ion-alert-md {
+    justify-content: space-between !important;
+}
+
+.alert-wrapper.sc-ion-alert-md {
+    min-width: 310px !important;
+}
+
+.selected-item {
+    color: blue;
+}
+
+.search-results {
+    position: absolute;
+    z-index: 1000;
+    width: 98%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 8px;
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 0px 10px;
+}

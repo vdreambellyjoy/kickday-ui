@@ -1,0 +1,106 @@
+<ion-header [translucent]="true" style="box-shadow: none;">
+  <ion-toolbar>
+    <ion-row style="margin: 10px;">
+      <ion-col size="2" style="display: flex; justify-content: start; align-items: center;" (click)="navigateBackToAdminDashboard()">
+        <ion-icon name="arrow-back-outline" class="kd_back_button"></ion-icon>
+      </ion-col>
+      <ion-col size="8" class="kd_flex kd_flex_row_center" style="display: grid;" (click)="naviageteToProfile()">
+        <ion-row>
+          <ion-col class="kd_flex kd_flex_row_center">
+            <ion-icon name="add-circle-outline" class="kd_svg_size"></ion-icon>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-text class="header-text" style="font-size: 18px !important;">New Maker</ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="2">
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <ion-toolbar style="padding: 0px; --background: white; box-shadow: none; background-color: #dfd9f1; --box-shadow: none">
+    <ion-segment (ionChange)="changeSegment($event)" [(ngModel)]="selectedSegment">
+      <ion-segment-button value="All">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="isMaker">
+        <ion-label>Makers</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="draftDone">
+        <ion-label>Drafting</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Customers">
+        <ion-label>Customers</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="Inactive">
+        <ion-label>Inactive</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div style="padding: 15px;">
+    <div style="margin: 15px 0px;" *ngFor="let maker of usersList; index as i" (click)="navigateToUserOverview(maker)">
+      <ion-row>
+        <ion-col size="5">
+          <ion-text>user ID 00000{{i}}</ion-text>
+        </ion-col>
+  
+        <ion-col class="kd_flex kd_flex_row_center kd_font_size_12 flex_start" size="3.5">
+          <ion-text>Customer</ion-text>
+        </ion-col>
+  
+        <ion-col class="kd_font_size_12" size="3.5">
+          <ion-text>Drafting</ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-top: 5px;">
+        <ion-col class="kd_flex" size="10">
+          <div class="first_letter_styles">
+            <ion-text style="font-weight: bold;">P</ion-text>
+          </div>
+          <ion-text style="padding-left: 20px;"><span>{{maker?.userName}}</span> <br> 
+          <span>{{maker?.city}}</span></ion-text>
+        </ion-col>
+        <ion-col size="2" class="kd_flex kd_end_align">
+          <ion-icon name="arrow-forward-circle-outline" class="kd_svg_size"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <!-- <div style="margin: 15px 0px;">
+      <ion-row>
+        <ion-col size="5">
+          <ion-text>user ID 112233</ion-text>
+        </ion-col>
+  
+        <ion-col class="kd_flex kd_flex_row_center kd_font_size_12 flex_start" size="3.5">
+          <ion-text>Customer</ion-text>
+        </ion-col>
+  
+        <ion-col class="kd_font_size_12" size="3.5">
+          <ion-text>Drafting</ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-top: 5px;">
+        <ion-col class="kd_flex" size="10">
+          <div class="first_letter_styles">
+            <ion-text style="font-weight: bold;">R</ion-text>
+          </div>
+          <ion-text style="padding-left: 20px;"><span>Raj Kumar</span> <br> 
+          <span>Kphb, Hyderabad</span></ion-text>
+        </ion-col>
+        <ion-col size="2" class="kd_flex kd_end_align">
+          <ion-icon name="arrow-forward-circle-outline" class="kd_svg_size"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </div> -->
+  </div>
+</ion-content>

@@ -1,0 +1,18 @@
+ion-toggle::part(track) {
+    height: 25px;
+    width: 45px;
+}
+
+ion-toggle {
+    --handle-height: 21px;
+    --handle-width: 21px;
+    --handle-spacing: 2px;
+    --handle-background: white;
+    --track-background: #22242880;
+    --ion-color-base: white !important;
+    --border-radius: 40px;
+}
+
+ion-toggle.ios {
+    --ion-color-base: #22242880 !important;
+}

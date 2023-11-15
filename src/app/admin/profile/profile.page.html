@@ -1,0 +1,157 @@
+<ion-header [translucent]="true" style="box-shadow: none; padding: 10px">
+  <ion-row>
+    <ion-col size="1.5" style="text-align: left;">
+      <ion-icon class="kd_svg_size" name="person-circle-outline"></ion-icon>
+    </ion-col>
+
+    <ion-col size="9" style="padding: 0px;">
+      <ion-toolbar style="padding: 0px; --background: white; background-color: white;">
+        <ion-segment [(ngModel)]="selectedSegment" #segment>
+          <ion-segment-button value="profile">
+            <ion-label>Profile</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="media">
+            <ion-label>Media</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="bank">
+            <ion-label> Bank Account</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+    </ion-col>
+
+    <ion-col size="1.5" style="text-align: right;" (click)="navigateBackToMakersList()">
+      <ion-icon class="kd_svg_size" name="close-circle-outline"></ion-icon>
+    </ion-col>
+  </ion-row>
+</ion-header>
+<ion-content style="height: 100%;">
+  <div style="height: 100%; padding: 20px;">
+    <div *ngIf="selectedSegment === 'profile'">
+      <ion-row style="border-bottom: none !important; width: 100%;">
+        <ion-col>
+          <div class="kd_col_center_align" style="flex-direction: column;">
+            <div class="profile-photo-container">
+              <img [src]="userData?.imageUrl">
+              <label class="upload-label">
+                <input type="file" accept="image/*">
+                Choose Photo*
+              </label>
+            </div>
+            <label class="change-file-label">
+              <input type="file" accept="image/*">
+              Change Photo
+            </label>
+          </div>
+        </ion-col>
+      </ion-row>
+      <form [formGroup]="userDataForm">
+        <div>
+          <ion-card style="display: grid; align-items: center;" class="input_selection">
+            <ion-item>
+              <ion-label position="stacked">Name*</ion-label>
+              <ion-input formControlName="userName" aria-label="Name" placeholder="Enter Name"></ion-input>
+            </ion-item>
+          </ion-card>
+          <ion-card style="display: grid; align-items: center;" class="input_selection">
+            <ion-item>
+              <ion-label position="stacked">Email*</ion-label>
+              <ion-input formControlName="email" aria-label="Email" placeholder="Enter Email"></ion-input>
+            </ion-item>
+          </ion-card>
+          <ion-card style="display: grid; align-items: center;" class="input_selection">
+            <ion-item>
+              <ion-label position="stacked">Mobile*</ion-label>
+              <ion-input formControlName="mobile" aria-label="Mobile" placeholder="Enter Mobile"></ion-input>
+            </ion-item>
+          </ion-card>
+    
+          <ion-card style="display: grid; align-items: center;" class="input_selection">
+            <ion-item>
+              <ion-label position="stacked">Location*</ion-label>
+              <ion-input formControlName="city" aria-label="Location" placeholder="Enter Location"></ion-input>
+            </ion-item>
+          </ion-card>
+    
+          <ion-card style="display: grid; align-items: center; height: 112px; padding-top: 0px;" class="input_selection">
+            <ion-item>
+              <ion-label position="stacked">Bio*</ion-label>
+              <ion-textarea formControlName="bio" aria-label="Bio" maxlength="200" style="font-size: 18px;"></ion-textarea>
+            </ion-item>
+          </ion-card>
+        </div>
+      </form>
+      <ion-button class="kd_save_button" (click)="saveProfile()">Save</ion-button>
+    </div>
+
+    <div *ngIf="selectedSegment === 'media'">
+      <ion-row>
+        <ion-col style="padding: 0px;">
+          <div class="add_img_div ion-activatable ripple-parent">
+            <ion-ripple-effect style="color: #dfd9f1;"></ion-ripple-effect>
+            <ion-icon style="height: 58px; width: 58px;" name="camera-outline"></ion-icon>
+            <ion-text style="font-size: 16px;">Add Image</ion-text>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-button class="kd_save_button" (click)="saveMedia()">Save</ion-button>
+    </div>
+
+    <div *ngIf="selectedSegment === 'bank'">
+      <form [formGroup]="bankDetailsForm">
+        <div>
+          <ion-card style="display: grid; align-items: center; width: 50%; margin-top: 0px;" class="input_selection">
+            <ion-item>
+              <ion-label position="stacked">Comission*</ion-label>
+              <ion-input formControlName="commission" aria-label="Comission" placeholder="Eg: 0%"></ion-input>
+            </ion-item>
+          </ion-card>
+          <ion-card style="display: grid; align-items: center;" class="input_selection">
+            <ion-item>
+              <ion-label position="stacked">Account Name*</ion-label>
+              <ion-input formControlName="accountName" aria-label="Account Name" placeholder="Enter Name"></ion-input>
+            </ion-item>
+          </ion-card>
+          <ion-card style="display: grid; align-items: center;" class="input_selection">
+            <ion-item>
+              <ion-label position="stacked">Account Number*</ion-label>
+              <ion-input formControlName="accountNumber" aria-label="Account Number" placeholder="Enter Account Number"></ion-input>
+            </ion-item>
+          </ion-card>
+
+          <ion-row>
+            <ion-col>
+              <ion-button [ngClass]="this.bankDetailsForm.get('accountType')?.value == 'savings'? 'selected': ''" (click)="setAccountType('savings')">Savings</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button [ngClass]="this.bankDetailsForm.get('accountType')?.value == 'current'? 'selected': ''" (click)="setAccountType('current')">Current</ion-button>
+            </ion-col>
+          </ion-row>
+    
+          <ion-card style="display: grid; align-items: center;" class="input_selection">
+            <ion-item>
+              <ion-label position="stacked">Bank Name*</ion-label>
+              <ion-input formControlName="bankName" aria-label="Bank Name" placeholder="Enter Bank Name"></ion-input>
+            </ion-item>
+          </ion-card>
+
+          <ion-card style="display: grid; align-items: center;" class="input_selection">
+            <ion-item>
+              <ion-label position="stacked">Branch*</ion-label>
+              <ion-input formControlName="branch" aria-label="Branch" placeholder="Enter Branch"></ion-input>
+            </ion-item>
+          </ion-card>
+
+          <ion-card style="display: grid; align-items: center;" class="input_selection">
+            <ion-item>
+              <ion-label position="stacked">IFSC Code*</ion-label>
+              <ion-input formControlName="ifscCode" aria-label="IFSC Code" placeholder="Enter IFSC"></ion-input>
+            </ion-item>
+          </ion-card>
+    
+        </div>
+      </form>
+      <ion-button class="kd_save_button" (click)="submitProfile()">Submit</ion-button>
+    </div>
+  </div>
+</ion-content>
