@@ -32,14 +32,14 @@
         <ion-col>
           <div class="kd_col_center_align" style="flex-direction: column;">
             <div class="profile-photo-container">
-              <img [src]="userData?.imageUrl">
-              <label class="upload-label">
-                <input type="file" accept="image/*">
+              <img *ngIf="userDataForm?.get('profilePhoto')?.value" [src]="userDataForm.get('profilePhoto')?.value">
+              <label class="upload-label" *ngIf="!userDataForm.get('profilePhoto')?.value">
+                <input type="file" accept="image/*" (change)="onFileSelected($event)">
                 Choose Photo*
               </label>
             </div>
-            <label class="change-file-label">
-              <input type="file" accept="image/*">
+            <label *ngIf="userDataForm.get('profilePhoto')?.value" class="change-file-label">
+              <input type="file" accept="image/*" (change)="onFileSelected($event)">
               Change Photo
             </label>
           </div>
@@ -84,14 +84,43 @@
       <ion-button class="kd_save_button" (click)="saveProfile()">Save</ion-button>
     </div>
 
+    <!-- <div *ngIf="selectedSegment === 'media'">
+      <ion-row>
+        <ion-col style="padding: 0px;">
+          
+          <div class="add_img_div ion-activatable ripple-parent">
+            <input type="file" accept="image/*" (change)="uploadPhotos($event)" multiple>
+            <ion-ripple-effect style="color: #dfd9f1;"></ion-ripple-effect>
+            <ion-icon style="height: 58px; width: 58px;" name="camera-outline"></ion-icon>
+            <ion-text style="font-size: 16px;">Add Image</ion-text>
+
+            <ng-container *ngFor="let photo of profilePhotos; let i = index">
+              <img [src]="photo" alt="Selected Photo {{ i + 1 }}">
+            </ng-container>
+          </div>
+
+        </ion-col>
+      </ion-row>
+      <ion-button class="kd_save_button" (click)="saveMedia()">Save</ion-button>
+    </div> -->
+
     <div *ngIf="selectedSegment === 'media'">
       <ion-row>
         <ion-col style="padding: 0px;">
-          <div class="add_img_div ion-activatable ripple-parent">
+    
+          <div class="add_img_div ion-activatable ripple-parent" (click)="fileInput.click()">
+            <input #fileInput type="file" accept="image/*" (change)="addMediaImages($event)" multiple style="display: none;">
             <ion-ripple-effect style="color: #dfd9f1;"></ion-ripple-effect>
             <ion-icon style="height: 58px; width: 58px;" name="camera-outline"></ion-icon>
             <ion-text style="font-size: 16px;">Add Image</ion-text>
           </div>
+
+          <div class="selected-images" style="max-height: 350px; overflow-y: auto; display: flex; flex-wrap: wrap; gap: 10px; border: solid 1px black;padding: 10px; margin-bottom: 20px;">
+            <ng-container *ngFor="let image of mediaImages; let i = index">
+              <img [src]="image" alt="Selected image {{ i + 1 }}" style="flex: 0 0 calc(30% - 10px); max-height: 30%;">
+            </ng-container>
+          </div>
+    
         </ion-col>
       </ion-row>
       <ion-button class="kd_save_button" (click)="saveMedia()">Save</ion-button>

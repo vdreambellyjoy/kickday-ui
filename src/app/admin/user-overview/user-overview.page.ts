@@ -27,6 +27,7 @@ export class UserOverviewPage implements OnInit {
       if (res.success) {
         this.userData = res.data || {};
         this.isToggleChecked = !this.userData.activeUser;
+        this.getBankDetails();
       } else {
         this.router.navigate(['/adminDashboard']);
       }
@@ -36,15 +37,18 @@ export class UserOverviewPage implements OnInit {
   }
 
 
-  getBankDetails(): { label: string; value: string }[] {
-    return [
-      { label: 'Bank Name', value: this.userData?.bankDetails?.bankName },
-      { label: 'Branch', value: this.userData?.bankDetails?.branch },
-      { label: 'Account Number', value: this.userData?.bankDetails?.accountNumber },
-      { label: 'Account Name', value: this.userData?.bankDetails?.accountName },
-      { label: 'Account Type', value: this.userData?.bankDetails?.accountType },
-      { label: 'IFSC Code', value: this.userData?.bankDetails?.ifscCode },
+  getBankDetails() {
+    console.log(this.userData, "46347657");
+
+    const bankData = [
+      { label: 'Bank Name', value: this.userData?.bankName },
+      { label: 'Branch', value: this.userData?.branch },
+      { label: 'Account Number', value: this.userData?.accountNumber },
+      { label: 'Account Name', value: this.userData?.accountName },
+      { label: 'Account Type', value: this.userData?.accountType },
+      { label: 'IFSC Code', value: this.userData?.ifscCode },
     ];
+    return bankData;  
   }
 
   toggleChanged() {

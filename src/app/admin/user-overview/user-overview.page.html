@@ -80,7 +80,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row style="border-top: dashed; padding-top: 10px;">
+    <ion-row style="border-top: dashed; padding-top: 10px;" *ngIf="userData?.role == 'maker'">
       <ion-col>
         <ion-text class="kd_main_heading">02</ion-text><br>
         <div class="pad-top5">
@@ -102,7 +102,7 @@
     </ion-row>
   </div>
 
-  <ion-row>
+  <ion-row *ngIf="userData?.role == 'maker'">
     <ion-col>
       <ion-button expand="block" (click)="openKitchenImages(true)">Kitchen Images</ion-button>
     </ion-col>
@@ -114,7 +114,7 @@
     </ion-col> -->
   </ion-row>
 
-  <div class="card-outline">
+  <div class="card-outline" *ngIf="userData?.role == 'maker'">
     <div *ngFor="let detail of getBankDetails()">
       <ion-row>
         <ion-col>
