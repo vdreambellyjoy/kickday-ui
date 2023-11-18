@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -9,15 +10,38 @@ import { Router } from '@angular/router';
 export class AdminDashboardPage implements OnInit {
 
   userData: any;
+  userCount: any = 0;
+  ordersCount: any = 0;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private adminService: AdminService
+  ) { }
 
   ngOnInit() {
     let data: any = localStorage.getItem('userData');
     this.userData = JSON.parse(data);
   }
 
-  navigateToAllUsers(){
+  ionViewWillEnter() {
+    this.adminService.getOrdersCount({}).subscribe((res: any) => {
+      if (res.success) {
+        this.ordersCount = res.data || 0;
+      }
+    }, (err: any) => {
+      console.log(err);
+    })
+
+    this.adminService.getUsersCount({}).subscribe((res: any) => {
+      if (res.success) {
+        this.userCount = res.data || 0;
+      }
+    }, (err: any) => {
+      console.log(err);
+    })
+  }
+
+  navigateToAllUsers() {
     this.router.navigate(['/allUsers']);
   }
 

@@ -1,0 +1,76 @@
+<div>
+  <ion-row>
+    <ion-col>
+      <img src="../../assets/sample_food_img.webp" alt="">
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-text style="font-size: 18px; font-weight: bold;">Profile type</ion-text>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="kd_margin_bott_10">
+      <ion-item style="border: solid 1px black; border-radius: 14px; padding-left: 10px;">
+        <ion-select [disabled]="showConfirmPin" label="Select profile type" aria-label="Profile type"
+          [(ngModel)]="profileType" style="min-height: 48px;">
+          <ion-select-option value="admin">Admin</ion-select-option>
+          <ion-select-option value="maker">Maker</ion-select-option>
+          <ion-select-option value="customer">Customer</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-text style="font-size: 18px; font-weight: bold;">Mobile Number</ion-text>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="kd_margin_bott_10">
+      <ion-input type="tel" class="input_selection" pattern="[0-9]*" minlength="10" maxlength="10"
+        [(ngModel)]="mobileNumber" style="margin-top: 0px;" placeholder="Enter Mobile"></ion-input>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-text type="tel" style="font-size: 18px; font-weight: bold;">Pin Setup</ion-text>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="kd_margin_bott_10">
+      <ion-input class="input_selection" type="tel" pattern="[0-9]*" minlength="6" maxlength="6"
+        style="margin-top: 0px;" placeholder="Enter Pin" [(ngModel)]="pin"></ion-input>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="profileType === 'customer'">
+    <ion-col class="kd_margin_bott_10">
+      <ion-input class="input_selection" pattern="[0-9]*" minlength="6" maxlength="6" style="margin-top: 0px;"
+        [(ngModel)]="confirmPin" placeholder="Confirm Pin" *ngIf="showConfirmPin"></ion-input>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+      <ion-button *ngIf="!showConfirmPin" (click)="login()">Login</ion-button>
+      <ion-button *ngIf="showConfirmPin" (click)="createCustomer()">create</ion-button>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row>
+    <ion-col class="kd_center_align">
+      <ion-text *ngIf="profileType === 'customer' && !showConfirmPin" class="line" (click)="createAccount()">Create
+        Account</ion-text>
+      <ion-text *ngIf="profileType === 'customer' && showConfirmPin" class="line" (click)="goBackToLogin()">Go To
+        Login</ion-text>
+    </ion-col>
+  </ion-row>
+</div>

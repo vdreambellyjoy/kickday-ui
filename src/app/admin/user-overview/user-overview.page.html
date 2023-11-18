@@ -36,7 +36,8 @@
 
   <ion-row style="border-bottom: none !important; width: 100%;" class="kd_center_align">
     <div class="kd_round round_new kd_center_align profile-photo">
-      <img [src]="userData?.imageUrl" alt="LOGO">
+      <img *ngIf="userData?.iconId" [src]="userData?.iconId" alt="LOGO">
+      <img *ngIf="!userData?.iconId" src="assets/defaultProfilePic.svg" alt="LOGO">
     </div>
     <ion-col style="margin: 15px 0px;">
       <ion-label>{{userData?.name}}</ion-label><br>

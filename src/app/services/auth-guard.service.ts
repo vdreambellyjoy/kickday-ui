@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthServiceService } from './auth-service.service';
 
@@ -8,16 +8,14 @@ import { AuthServiceService } from './auth-service.service';
 })
 export class AuthGuardService {
 
-  constructor(private _authService: AuthServiceService, private _router: Router) { }
+  constructor(private authService: AuthServiceService, private router: Router) { }
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    if (this._authService.checkToken()) {
+    const tokenExists = this.authService.checkToken();
+    if (tokenExists) {
       return true;
     } else {
-      this._router.navigate(['/login']);
-      return false;
+      this.router.createUrlTree(['/login']);
+      return false
     }
-    // navigate to login page
-    // you can save redirect url so after authing we can move them back to the page they requested
-    return false;
   }
 }

@@ -13,32 +13,19 @@ export class AuthServiceService {
   constructor(private http: HttpClient, private route: Router) { }
 
   checkToken() {
-    if (localStorage.getItem('userData')) {
-      // this.authenticationState.next(true);
-      return true;
-    } else {
-      // this.authenticationState.next(false);
-      return false;
-    }
+    if (localStorage.getItem('userData')) return true;
+    else return false;
   }
 
   login(loginData: any): Observable<any> {
-    return this.http.post(environment.baseUrl + "auth/login", loginData);
+    return this.http.post(environment.baseUrl + "/auth/login", loginData);
   }
 
-  saveProfile(data: any): Observable<any> {
-    return  this.http.post(environment.baseUrl + "auth/saveProfile", data);
+  createCustomer(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/auth/createCustomer", data);
   }
 
-  saveBankDetails(data: any): Observable<any> {
-    return  this.http.post(environment.baseUrl + "auth/saveBankDetails", data);
-  }
-
-  getMakers(data: any): Observable<any> {
-    return  this.http.post(environment.baseUrl + "auth/getMakers", data);
-  }
-
-  getMakerById(data: any): Observable<any> {
-    return  this.http.post(environment.baseUrl + "auth/getMakerById", data);
+  logOut() {
+    this.route.navigateByUrl('/login');
   }
 }

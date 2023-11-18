@@ -26,19 +26,19 @@
 <ion-content [fullscreen]="true">
   <ion-toolbar style="padding: 0px; --background: white; box-shadow: none; background-color: #dfd9f1; --box-shadow: none">
     <ion-segment (ionChange)="changeSegment($event)" [(ngModel)]="selectedSegment">
-      <ion-segment-button value="All">
+      <ion-segment-button value="all">
         <ion-label>All</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="isMaker">
+      <ion-segment-button value="maker">
         <ion-label>Makers</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="draftDone">
+      <ion-segment-button value="draft">
         <ion-label>Drafting</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="Customers">
+      <ion-segment-button value="customer">
         <ion-label>Customers</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="Inactive">
+      <ion-segment-button value="inactive">
         <ion-label>Inactive</ion-label>
       </ion-segment-button>
     </ion-segment>

@@ -1,32 +1,38 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
+import { AuthGuardService } from './services/auth-guard.service'
 const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
+  // {
+  //   path: 'home',
+  //   canActivate: [AuthGuardService],
+  //   loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+  // },
   {
     path: 'allUsers',
-    loadChildren: () => import('./admin/all-users/all-users.module').then( m => m.AllUsersPageModule)
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./admin/all-users/all-users.module').then(m => m.AllUsersPageModule)
   },
   {
     path: 'userOverview/:id',
-    loadChildren: () => import('./admin/user-overview/user-overview.module').then( m => m.UserOverviewPageModule)
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./admin/user-overview/user-overview.module').then(m => m.UserOverviewPageModule)
   },
   {
     path: 'adminDashboard',
-    loadChildren: () => import('./admin/admin-dashboard/admin-dashboard.module').then( m => m.AdminDashboardPageModule)
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./admin/admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardPageModule)
   },
   {
     path: 'profile',
-    loadChildren: () => import('./admin/profile/profile.module').then( m => m.ProfilePageModule)
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./admin/profile/profile.module').then(m => m.ProfilePageModule)
   },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({
