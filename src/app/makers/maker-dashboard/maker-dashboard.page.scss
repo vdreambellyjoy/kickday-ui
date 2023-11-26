@@ -1,0 +1,39 @@
+ion-toggle::part(track) {
+    height: 32px;
+    width: 60px;
+}
+
+ion-toggle {
+    --handle-height: 27px;
+    --handle-width: 27px;
+    --handle-spacing: 2px;
+    --handle-background: white;
+    --track-background: #22242880;
+    --ion-color-base: white !important;
+    padding-bottom: 15px;
+    --border-radius: 40px;
+}
+
+ion-toggle.ios {
+    --ion-color-base: #22242880 !important;
+}
+
+.text_center {
+    text-align: center;
+    margin-top: 60px;
+}
+
+.icon-text_styles {
+    font-size: 12px;
+    padding-top: 5px;
+}
+
+.ripple_background {
+    color: #b58ff1;
+    border-radius: 18px
+}
+
+.footer_icon_styles {
+    height: 40px;
+    width: 40px;
+}
