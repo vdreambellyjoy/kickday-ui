@@ -11,6 +11,7 @@ export class AdminService {
 
   constructor(private http: HttpClient, private route: Router) { }
 
+  // admin page API START
   getUsersCount(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/admin/getUsersCount", data);
   }
@@ -38,5 +39,32 @@ export class AdminService {
   updateBankDetails(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/admin/updateBankDetails", data);
   }
+  // admin page API END
+
+
+
+  // maker page API START
+  getMakerDashboardData(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/maker/getMakerDashboardData", data);
+  }
+
+  addListing(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/maker/addListing", data);
+  }
+
+  getMakerListings(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/maker/getMakerListings", data);
+  }
+
+  getListingBasedOnId(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/maker/getListingBasedOnId", data);
+  }
+
+  deleteListing(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/maker/deleteListing", data);
+  }
   
+  // maker page API END
+
+
 }

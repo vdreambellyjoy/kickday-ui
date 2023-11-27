@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-maker-dashboard',
@@ -8,23 +10,37 @@ import { Router } from '@angular/router';
 })
 export class MakerDashboardPage implements OnInit {
 
-  isToggleChecked: boolean = true;
+  isToggleChecked: boolean = false;
+  moneyEarned: any = 0;
+  listingsCount: any = 0;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private adminService: AdminService
+  ) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  ionViewWillEnter() {
+    this.adminService.getMakerDashboardData({}).subscribe((res: any) => {
+      if (res.success) {
+        this.moneyEarned = res.moneyEarned;
+        this.listingsCount = res.listingsCount;
+      }
+    }, (err: any) => {
+      console.log(err);
+    })
   }
 
   toggleChanged() {
     !this.isToggleChecked;
   }
 
-  navigateToCreateListing(){
-    this.router.navigate(['/create-listing'])
+  navigateToAllListings() {
+    this.router.navigate(['/makerListings'])
   }
 
-  navigateToAllListings(){
-    this.router.navigate(['/all-listings'])
+  navigateToCreateListing() {
+    this.router.navigate(['/createLlisting'])
   }
-
 }

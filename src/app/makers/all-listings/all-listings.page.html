@@ -11,9 +11,9 @@
 
 <ion-content [fullscreen]="true">
   <ion-content [fullscreen]="true">
-    <div style="margin: 15px;">
-      <ion-card class="kd_orders_card" (click)="navigateToCustomerOrdersOverview()">
-  
+    <div style="margin: 15px;" *ngFor="let maker of listings;">
+      <ion-card class="kd_orders_card" (click)="navigateToListingOverview(maker._id)">
+
         <ion-row>
           <ion-col>
             <ion-text>Created on 23 May Thursday 3:00PM</ion-text>
@@ -37,14 +37,16 @@
             <ion-text>3 Orders</ion-text>
           </ion-col>
         </ion-row>
-    
+
         <ion-row style="margin-bottom: 10px;">
           <ion-col size="10">
-            <ion-text style="font-weight: bold;">Mutton Biryani with paya preparation on weekend do not miss it.</ion-text>
+            <ion-text style="font-weight: bold;">Mutton Biryani with paya preparation on weekend do not miss
+              it.</ion-text>
           </ion-col>
-    
+
           <ion-col size="2" class="kd_flex kd_end_align">
-            <ion-icon class="icon_style" style="height: 32px; width: 32px; padding-right: 0px;" name="arrow-forward-circle-outline"></ion-icon>
+            <ion-icon class="icon_style" style="height: 32px; width: 32px; padding-right: 0px;"
+              name="arrow-forward-circle-outline"></ion-icon>
           </ion-col>
         </ion-row>
 
@@ -73,7 +75,7 @@
             </div>
           </ion-col>
         </ion-row>
-    
+
       </ion-card>
     </div>
   </ion-content>

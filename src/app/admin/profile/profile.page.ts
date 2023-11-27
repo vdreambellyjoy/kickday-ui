@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonSegment } from '@ionic/angular';
-import { AuthServiceService } from '../../services/auth-service.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+
 import { AdminService } from 'src/app/services/admin.service';
 
 @Component({

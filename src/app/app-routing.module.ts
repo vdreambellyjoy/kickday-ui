@@ -32,27 +32,38 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     loadChildren: () => import('./admin/profile/profile.module').then(m => m.ProfilePageModule)
   },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' },  {
-    path: 'maker-dashboard',
+  {
+    path: 'makerDashboard',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./makers/maker-dashboard/maker-dashboard.module').then( m => m.MakerDashboardPageModule)
   },
   {
-    path: 'all-listings',
-    loadChildren: () => import('./makers/all-listings/all-listings.module').then( m => m.AllListingsPageModule)
-  },
-  {
-    path: 'listing-overview',
-    loadChildren: () => import('./makers/listing-overview/listing-overview.module').then( m => m.ListingOverviewPageModule)
-  },
-  {
-    path: 'create-listing',
+    path: 'createLlisting',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./makers/create-listing/create-listing.module').then( m => m.CreateListingPageModule)
   },
   {
+    path: 'editLlisting/:id',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./makers/create-listing/create-listing.module').then( m => m.CreateListingPageModule)
+  },
+  {
+    path: 'makerListings',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./makers/all-listings/all-listings.module').then( m => m.AllListingsPageModule)
+  },
+  {
+    path: 'listingOverview/:id',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./makers/listing-overview/listing-overview.module').then( m => m.ListingOverviewPageModule)
+  },
+  {
     path: 'maker-order-overview',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./makers/maker-order-overview/maker-order-overview.module').then( m => m.MakerOrderOverviewPageModule)
   },
 
+  { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({

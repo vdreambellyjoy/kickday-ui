@@ -67,7 +67,7 @@ export class LoginPage implements OnInit {
         this.route.navigate(['/adminDashboard']);
       }
       else if (userCopy.role == 'maker') {
-
+        this.route.navigate(['/makerDashboard']);
       }
       else if (userCopy.role == 'customer') {
 

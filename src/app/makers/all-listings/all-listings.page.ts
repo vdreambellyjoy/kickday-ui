@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-all-listings',
@@ -7,22 +9,36 @@ import { Router } from '@angular/router';
   styleUrls: ['./all-listings.page.scss'],
 })
 export class AllListingsPage implements OnInit {
+  listings: any = [];
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private adminService: AdminService
+  ) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  ionViewWillEnter() {
+    this.adminService.getMakerListings({}).subscribe((res: any) => {
+      if (res.success) {
+        this.listings = res.data;
+      }
+    }, (err: any) => {
+      console.log(err);
+    })
   }
+
 
   navigateToCreateListing(){
-    this.router.navigate(['/create-listing'])
+    this.router.navigate(['/createLlisting']);
   }
 
-  navigateToCustomerOrdersOverview(){
-    this.router.navigate(['/customer-orders-overview'])
+  navigateToListingOverview(_id:any){
+    this.router.navigateByUrl('/listingOverview/' + _id);
   }
 
   navigateToDashboard(){
-    this.router.navigate(['/dashboard'])
+    this.router.navigate(['/makerDashboard']);
   }
 
 }
