@@ -22,6 +22,8 @@ export class AllListingsPage implements OnInit {
     this.adminService.getMakerListings({}).subscribe((res: any) => {
       if (res.success) {
         this.listings = res.data;
+        console.log(this.listings,"all listings data");
+        
       }
     }, (err: any) => {
       console.log(err);

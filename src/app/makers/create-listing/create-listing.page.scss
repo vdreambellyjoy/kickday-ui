@@ -38,3 +38,16 @@
     height: 30px;
     width: 30px;
 }
+
+ion-datetime {
+    max-width: 450px !important;
+}
+
+.date_text {
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+ion-button {
+    margin-right: 0px !important;
+}
