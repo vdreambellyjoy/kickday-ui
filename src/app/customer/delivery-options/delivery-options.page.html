@@ -1,0 +1,145 @@
+<ion-content [fullscreen]="true">
+  <div style="margin: 15px;">
+    <ion-row class="kd_margin_bott_10">
+      <ion-col class="kd_flex" size="10">
+        <ion-icon class="icon_style" style="height: 30px; width: 30px;" name="bicycle-outline"></ion-icon>
+        <div>
+          <ion-text style="font-size: 14px;">Delivery from</ion-text>
+        <div class="kd_flex" style="padding-top: 5px;">
+          <ion-icon class="icon_style" name="location-outline"></ion-icon>
+          <ion-text>Miyapur, Hyderabad</ion-text>
+        </div>
+        </div>
+      </ion-col>
+      <ion-col class="kd_flex kd_end_align" size="2" (click)="navigateBackToListingOverview()">
+        <ion-icon name="close-outline" class="kd_svg_size"></ion-icon>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="kd_margin_bott_10">
+      <ion-col class="kd_flex">
+        <ion-icon class="icon_style" style="height: 30px; width: 30px;" name="calendar-outline"></ion-icon>
+        <div>
+          <ion-text style="font-size: 14px; font-weight: bold;">Order will end on</ion-text>
+        <div class="kd_flex" style="padding-top: 5px;">
+          <ion-text>24 June Friday 3:30PM</ion-text>
+        </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="kd_margin_bott_10">
+      <ion-col class="kd_flex">
+        <ion-icon class="icon_style" style="height: 30px; width: 30px;" name="calendar-outline"></ion-icon>
+        <div>
+          <ion-text style="font-size: 14px; font-weight: bold;">Order will delivered on</ion-text>
+        <div class="kd_flex" style="padding-top: 5px;">
+          <ion-text>24 May Friday</ion-text>
+        </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-bottom: 10px;">
+      <ion-col class="kd_flex_row_center ion-no-padding" size="4" style="padding-right: 5px;">
+        <div style="border: solid 2px; border-radius: 14px;">
+          <ion-row>
+            <ion-col class="kd_flex kd_center_align">
+              <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>
+              <ion-text style="font-size: 12px; font-weight: bold;">Neighborhood</ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: center;">
+              <ion-text style="font-weight: bold;">Free Delivery <br> <div style="font-size: 10px;">Will be done by <br> 24th May 1PM - 4PM</div> </ion-text>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+
+      <ion-col class="kd_flex_row_center ion-no-padding" size="4" style="padding-right: 5px;">
+        <div style="border: solid 2px; border-radius: 14px;">
+          <ion-row>
+            <ion-col class="kd_flex kd_center_align">
+              <ion-icon class="icon_style" style="padding-right: 5px;" name="business-outline"></ion-icon>
+              <ion-text style="font-size: 12px; font-weight: bold;">Town</ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: center;">
+              <ion-text style="font-weight: bold;">$90 <br> <div style="font-size: 10px;">Will be done by <br> 24th May 1PM - 4PM</div> </ion-text>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+
+      <ion-col class="kd_flex_row_center ion-no-padding" size="4">
+        <div style="border: solid 2px; border-radius: 14px;">
+          <ion-row>
+            <ion-col class="kd_flex kd_center_align">
+              <ion-icon class="icon_style" style="padding-right: 5px;" name="globe-outline"></ion-icon>
+              <ion-text style="font-size: 12px; font-weight: bold;">PAN India</ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: center;">
+              <ion-text style="font-weight: bold;">$150 <br> <div style="font-size: 10px;">Will be done by <br> 24th May</div> </ion-text>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="kd_center_align_items">
+        <ion-icon name="people-outline" style="height: 30px; width: 30px;"></ion-icon>
+        <ion-text style="margin-left: 10px;">Customer</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <form [formGroup]="deliveryDataForm">
+      <div>
+        <ion-card style="display: grid; align-items: center;" class="input_selection">
+          <ion-item>
+            <ion-label position="stacked">Name*</ion-label>
+            <ion-input formControlName="name" aria-label="Name" placeholder="Enter Name"></ion-input>
+          </ion-item>
+        </ion-card>
+        <ion-card style="display: grid; align-items: center;" class="input_selection">
+          <ion-item>
+            <ion-label position="stacked">Email*</ion-label>
+            <ion-input formControlName="email" aria-label="Email" placeholder="Enter Email"></ion-input>
+          </ion-item>
+        </ion-card>
+        <ion-card style="display: grid; align-items: center;" class="input_selection">
+          <ion-item>
+            <ion-label position="stacked">Mobile*</ion-label>
+            <ion-input formControlName="mobile" aria-label="Mobile" placeholder="Enter Mobile"></ion-input>
+          </ion-item>
+        </ion-card>
+  
+        <ion-card style="display: grid; align-items: center; height: 90px;" class="input_selection">
+          <ion-item>
+            <ion-label position="stacked">Address*</ion-label>
+            <ion-input formControlName="address" aria-label="Location" placeholder="Enter Address"></ion-input>
+          </ion-item>
+        </ion-card>
+  
+        <ion-card style="display: grid; align-items: center;" class="input_selection">
+          <ion-item>
+            <ion-label position="stacked">Googgle Location URL*</ion-label>
+            <ion-input formControlName="LocationUrl" aria-label="Location" placeholder="Location URL"></ion-input>
+          </ion-item>
+        </ion-card>
+      </div>
+    </form>
+
+    <ion-row>
+      <ion-col>
+        <ion-button>SAVE</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </div>
+</ion-content>

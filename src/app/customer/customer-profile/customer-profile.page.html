@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>customerProfile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div style="height: 100%; padding: 20px;">
+    <ion-row style="border-bottom: none !important; width: 100%;">
+      <ion-col>
+        <div class="kd_col_center_align" style="flex-direction: column;">
+          <div class="profile-photo-container">
+            <img *ngIf="userDataForm?.get('profilePhoto')?.value" [src]="userDataForm.get('profilePhoto')?.value">
+            <label class="upload-label" *ngIf="!userDataForm.get('profilePhoto')?.value">
+              <input type="file" accept="image/*" (change)="onFileSelected($event)">
+              Choose Photo*
+            </label>
+          </div>
+          <label *ngIf="userDataForm.get('profilePhoto')?.value" class="change-file-label">
+            <input type="file" accept="image/*" (change)="onFileSelected($event)">
+            Change Photo
+          </label>
+        </div>
+      </ion-col>
+    </ion-row>
+    <form [formGroup]="userDataForm">
+      <div>
+        <ion-card style="display: grid; align-items: center;" class="input_selection">
+          <ion-item>
+            <ion-label position="stacked">Name*</ion-label>
+            <ion-input formControlName="userName" aria-label="Name" placeholder="Enter Name"></ion-input>
+          </ion-item>
+        </ion-card>
+        <ion-card style="display: grid; align-items: center;" class="input_selection">
+          <ion-item>
+            <ion-label position="stacked">Email*</ion-label>
+            <ion-input formControlName="email" aria-label="Email" placeholder="Enter Email"></ion-input>
+          </ion-item>
+        </ion-card>
+        <ion-card style="display: grid; align-items: center;" class="input_selection">
+          <ion-item>
+            <ion-label position="stacked">Mobile*</ion-label>
+            <ion-input formControlName="mobile" aria-label="Mobile" placeholder="Enter Mobile"></ion-input>
+          </ion-item>
+        </ion-card>
+  
+        <ion-card style="display: grid; align-items: center;" class="input_selection">
+          <ion-item>
+            <ion-label position="stacked">Location*</ion-label>
+            <ion-input formControlName="city" aria-label="Location" placeholder="Enter Location"></ion-input>
+          </ion-item>
+        </ion-card>
+  
+        <ion-card style="display: grid; align-items: center; height: 112px; padding-top: 0px;" class="input_selection">
+          <ion-item>
+            <ion-label position="stacked">Bio*</ion-label>
+            <ion-textarea formControlName="bio" aria-label="Bio" maxlength="200" style="font-size: 18px;"></ion-textarea>
+          </ion-item>
+        </ion-card>
+      </div>
+    </form>
+    <ion-button class="kd_save_button" (click)="saveProfile()">Save</ion-button>
+  </div>
+</ion-content>

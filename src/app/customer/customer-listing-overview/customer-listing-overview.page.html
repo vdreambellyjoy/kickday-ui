@@ -1,0 +1,154 @@
+<ion-header [translucent]="true" style="box-shadow: none;">
+  <ion-toolbar>
+    <ion-row style="margin: 10px;">
+      <ion-col style="display: flex; justify-content: start; align-items: center;" (click)="navigateToListings()">
+        <ion-icon name="arrow-back-outline" class="kd_svg_size"></ion-icon>
+      </ion-col>
+      <ion-col style="display: flex; justify-content: center; align-items: center;">
+        <ion-icon name="star-outline" class="kd_svg_size"></ion-icon>
+      </ion-col>
+      <ion-col style="display: flex; justify-content: center; align-items: center;">
+        <ion-icon name="share-social-outline" class="kd_svg_size"></ion-icon>
+      </ion-col>
+      <ion-col style="display: flex; justify-content: end; align-items: center;">
+        <ion-icon name="bag-handle-outline" class="kd_svg_size"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div style="margin: 15px;">
+    <div style="border: solid 1px lightgray; border-radius: 14px;">
+      <swiper-container style="height: 240px;" 
+        #swiper
+        (afterinit)="swiperReady()"
+        (slidechange)="swiperSlideChanged($event)"
+        [loop]="true"
+        [pagination]="true">
+        <swiper-slide>
+          <img src="../../assets/b4rb8qdp19f.webp" alt="">
+        </swiper-slide>
+        <swiper-slide>
+          <img src="../../assets/sample_food_img.webp" alt="">
+        </swiper-slide>
+        <swiper-slide>
+          <img src="../../assets/samosa-chaat.jpg" alt="">
+        </swiper-slide>
+        <swiper-slide>
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/7Y5q41D8_hs" frameborder="0" allowfullscreen></iframe>
+        </swiper-slide>
+      </swiper-container>
+    </div>
+
+      <ion-row>
+        <ion-col class="kd_center_align_items" size="5">
+          <ion-icon class="icon_style" style="padding-bottom: 6px;" name="bag-handle-outline"></ion-icon>
+          <ion-text>Biryani <span>+2</span></ion-text>
+        </ion-col>
+
+        <ion-col class="kd_center_align_items" size="7">
+          <ion-icon name="caret-back-outline" style="padding-right: 10px; color: #0aa26d;" class="kd_back_button" (click)="goPrev()"></ion-icon>
+          <ion-icon name="caret-forward-outline" class="kd_back_button" style="color: #0aa26d;" (click)="goNext()"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-text>Order Delivered On</ion-text>
+          <div style="margin-top: 3px;">
+            <ion-icon class="icon_style" name="calendar-outline"></ion-icon>
+            <ion-text>25 May Friday</ion-text>
+          </div>
+        </ion-col>
+
+        <ion-col class="kd_flex">
+          <div class="first_letter_styles">
+            <ion-text style="font-weight: bold;">R</ion-text>
+          </div>
+          <ion-text style="padding-left: 20px; font-size: 13px;"><span style="font-weight: bold;">Maker 1121</span> <br> <span>Raj Kumar</span> <br> 
+          <span>Kphb, Hyderabad</span></ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-text style="font-size: 22px; font-weight: 600;">Mutton Biryani preparation on weekend do not miss it.</ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-text>Order Ends On</ion-text>
+          <div style="margin-top: 3px;">
+            <ion-icon class="icon_style" name="calendar-outline"></ion-icon>
+            <ion-text>25 June Friday 3:30PM</ion-text>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="padding-top: 15px;">
+        <ion-col size="7">
+          <ion-text>Mutton Biryani Boneless</ion-text> <br>
+          <div style="padding-top: 5px;">
+            <ion-text style="padding-right: 15px;">500g</ion-text>
+            <ion-text>12 Left</ion-text>
+          </div>
+        </ion-col>
+        <ion-col size="2" class="kd_flex kd_center_align">
+          <ion-text>$ 350</ion-text>
+        </ion-col>
+        <ion-col size="3" class="kd_end_align kd_center_align">
+          <ion-button class="count_button">
+            <ion-button class="count_button" style="--border-radius: 0px; --background: white; --background-activated: #bcc4e8;" (click)="decrementCount()">
+              <ion-icon name="remove-outline"></ion-icon>
+            </ion-button>
+            
+            <span class="count" style="padding: 0px 8px;">{{ count }}</span>
+            
+            <ion-button class="count_button" style="--border-radius: 0px; --background: white; --background-activated: #bcc4e8;" (click)="incrementCount()">
+              <ion-icon name="add-outline"></ion-icon>
+            </ion-button>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col style="padding-top: 15px;">
+          <ion-textarea class="custom-textarea" placeholder="Note"></ion-textarea>
+        </ion-col>
+      </ion-row>
+
+      <ion-row (click)="navigateToDeliveryOptions()">
+        <ion-col size="11" class="kd_flex">
+          <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
+          <ion-text class="kd_flex kd_center_align">Delivery from: <span class="kd_flex kd_center_align"><ion-icon class="icon_style" name="location-outline"></ion-icon> 
+            Miyapur, Hyderabad </span></ion-text>
+        </ion-col>
+        <ion-col size="1" class="kd_flex kd_end_align">
+          <ion-icon class="icon_style kd_no_padding" name="chevron-forward-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+      <ion-row (click)="navigateToDeliveryOptions()">
+        <ion-col>
+          <div fill="outline" class="location_type_div ion-activatable ripple-parent">
+            <ion-ripple-effect style="color: #1aa3ff;"></ion-ripple-effect>
+            <span style="font-size: 14px;">Pickup</span> <br> You can pickup on <br> 24 June2:30PM - 5:00PM</div>
+        </ion-col>
+        <ion-col>
+          <div fill="outline" class="location_type_div ion-activatable ripple-parent">
+            <ion-ripple-effect style="color: #1aa3ff;"></ion-ripple-effect>
+            <span style="font-size: 14px;">Delivery Options</span> <br> Neighbourhood <br> Town limits <br> PAN India</div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="navigatetoTab3()">ADD TO CART</ion-button>
+        </ion-col>
+      </ion-row>
+
+  </div>
+
+</ion-content>

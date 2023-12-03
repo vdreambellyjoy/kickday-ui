@@ -1,0 +1,13 @@
+ion-segment-button {
+    --color-checked: #61399f;
+    text-transform: none;
+    font-size: 12px;
+    --padding-start: 0px;
+    --padding-end: 0px;
+    min-width: min-content;
+}
+
+swiper-container {
+    --swiper-pagination-bullet-inactive-color: var(--ion-color-step-500, white);
+    --swiper-theme-color: #0aa26d;
+}

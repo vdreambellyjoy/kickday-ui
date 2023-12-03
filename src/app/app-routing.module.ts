@@ -64,6 +64,27 @@ const routes: Routes = [
   },
 
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'customerProfile',
+    loadChildren: () => import('./customer/customer-profile/customer-profile.module').then( m => m.CustomerProfilePageModule)
+  },
+  {
+    path: 'customer-listings',
+    loadChildren: () => import('./customer/customer-listings/customer-listings.module').then( m => m.CustomerListingsPageModule)
+  },
+  {
+    path: 'customer-listing-overview',
+    loadChildren: () => import('./customer/customer-listing-overview/customer-listing-overview.module').then( m => m.CustomerListingOverviewPageModule)
+  },  {
+    path: 'delivery-options',
+    loadChildren: () => import('./customer/delivery-options/delivery-options.module').then( m => m.DeliveryOptionsPageModule)
+  },
+  {
+    path: 'final-payment',
+    loadChildren: () => import('./customer/final-payment/final-payment.module').then( m => m.FinalPaymentPageModule)
+  },
+
+
 ];
 
 @NgModule({
