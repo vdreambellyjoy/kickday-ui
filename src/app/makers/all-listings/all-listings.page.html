@@ -40,8 +40,7 @@
 
         <ion-row style="margin-bottom: 10px;">
           <ion-col size="10">
-            <ion-text style="font-weight: bold;">Mutton Biryani with paya preparation on weekend do not miss
-              it.</ion-text>
+            <ion-text style="font-weight: bold;">{{maker.label}}</ion-text>
           </ion-col>
 
           <ion-col size="2" class="kd_flex kd_end_align">
@@ -64,14 +63,14 @@
           <ion-col class="kd_flex">
             <ion-icon class="icon_style" style="height: 30px; width: 30px;" name="calendar-outline"></ion-icon>
             <div class="kd_flex" style="padding-top: 5px;">
-              <ion-text>24 June Friday 3:30PM</ion-text>
+              <ion-text>{{maker.endDateTime | date:'d MMMM EEE h:mm a'}}</ion-text>
             </div>
           </ion-col>
 
           <ion-col class="kd_flex">
             <ion-icon class="icon_style" style="height: 30px; width: 30px;" name="calendar-outline"></ion-icon>
             <div class="kd_flex" style="padding-top: 5px;">
-              <ion-text>24 June Friday 3:30PM</ion-text>
+              <ion-text>{{maker.startDateTime | date:'d MMMM EEE h:mm a'}}</ion-text>
             </div>
           </ion-col>
         </ion-row>

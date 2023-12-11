@@ -7,25 +7,6 @@
 
   <ion-row>
     <ion-col>
-      <ion-text style="font-size: 18px; font-weight: bold;">Profile type</ion-text>
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col class="kd_margin_bott_10">
-      <ion-item style="border: solid 1px black; border-radius: 14px; padding-left: 10px;">
-        <ion-select [disabled]="showConfirmPin" label="Select profile type" aria-label="Profile type"
-          [(ngModel)]="profileType" style="min-height: 48px;">
-          <ion-select-option value="admin">Admin</ion-select-option>
-          <ion-select-option value="maker">Maker</ion-select-option>
-          <ion-select-option value="customer">Customer</ion-select-option>
-        </ion-select>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col>
       <ion-text style="font-size: 18px; font-weight: bold;">Mobile Number</ion-text>
     </ion-col>
   </ion-row>
@@ -67,9 +48,9 @@
 
   <ion-row>
     <ion-col class="kd_center_align">
-      <ion-text *ngIf="profileType === 'customer' && !showConfirmPin" class="line" (click)="createAccount()">Create
+      <ion-text *ngIf="!showConfirmPin" class="line" (click)="createAccount()">Create
         Account</ion-text>
-      <ion-text *ngIf="profileType === 'customer' && showConfirmPin" class="line" (click)="goBackToLogin()">Go To
+      <ion-text *ngIf="showConfirmPin" class="line" (click)="goBackToLogin()">Go To
         Login</ion-text>
     </ion-col>
   </ion-row>

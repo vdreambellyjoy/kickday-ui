@@ -1,7 +1,7 @@
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment'
 
 
@@ -25,7 +25,12 @@ export class AuthServiceService {
     return this.http.post(environment.baseUrl + "/auth/createCustomer", data);
   }
 
-  logOut() {
+  logOut(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/auth/logOut", data);
+  }
+  
+  localLogOut() {
+    localStorage.clear();
     this.route.navigateByUrl('/login');
   }
 }

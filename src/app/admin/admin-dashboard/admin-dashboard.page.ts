@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
+import { AuthServiceService } from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -15,7 +16,8 @@ export class AdminDashboardPage implements OnInit {
 
   constructor(
     private router: Router,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private authService: AuthServiceService
   ) { }
 
   ngOnInit() {
@@ -43,6 +45,15 @@ export class AdminDashboardPage implements OnInit {
 
   navigateToAllUsers() {
     this.router.navigate(['/allUsers']);
+  }
+
+  logOut() {
+    this.authService.logOut({}).subscribe((res: any) => {
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    }, (err: any) => {
+      console.log(err);
+    })
   }
 
 }

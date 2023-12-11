@@ -63,8 +63,17 @@ export class AdminService {
   deleteListing(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/maker/deleteListing", data);
   }
-  
   // maker page API END
 
+
+  // customer page API START
+  updateCustomerDetails(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/updateCustomerDetails", data);
+  }
+
+  getAllListingsForCustomer(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/getAllListingsForCustomer", data);
+  }
+  // customer page API END
 
 }

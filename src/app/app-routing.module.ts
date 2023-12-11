@@ -63,19 +63,21 @@ const routes: Routes = [
     loadChildren: () => import('./makers/maker-order-overview/maker-order-overview.module').then( m => m.MakerOrderOverviewPageModule)
   },
 
-  { path: '**', redirectTo: 'login', pathMatch: 'full' },
+
   {
     path: 'customerProfile',
+    canActivate: [AuthGuardService],
     loadChildren: () => import('./customer/customer-profile/customer-profile.module').then( m => m.CustomerProfilePageModule)
   },
   {
-    path: 'customer-listings',
+    path: 'customerListings',
     loadChildren: () => import('./customer/customer-listings/customer-listings.module').then( m => m.CustomerListingsPageModule)
   },
   {
     path: 'customer-listing-overview',
     loadChildren: () => import('./customer/customer-listing-overview/customer-listing-overview.module').then( m => m.CustomerListingOverviewPageModule)
-  },  {
+  },
+  {
     path: 'delivery-options',
     loadChildren: () => import('./customer/delivery-options/delivery-options.module').then( m => m.DeliveryOptionsPageModule)
   },
@@ -83,8 +85,7 @@ const routes: Routes = [
     path: 'final-payment',
     loadChildren: () => import('./customer/final-payment/final-payment.module').then( m => m.FinalPaymentPageModule)
   },
-
-
+  { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({

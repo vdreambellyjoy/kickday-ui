@@ -17,8 +17,8 @@
       <img *ngIf="userData?.iconId" [src]="userData?.iconId" alt="LOGO">
       <img *ngIf="!userData?.iconId" src="assets/defaultProfilePic.svg" alt="LOGO">
     </div>
-    <ion-col style="margin: 30px 0px;">
-      <ion-label>{{userData.userName}}</ion-label><br>
+    <ion-col style="margin: 40px 0px;">
+      <ion-label>{{userData.firstName}}{{userData.lastName}}</ion-label><br>
       <ion-label>
         {{userData.address}}
       </ion-label>
@@ -27,7 +27,7 @@
 
   <ion-row>
     <ion-col style="margin: 15px;">
-      <ion-button>Logout</ion-button>
+      <ion-button (click)="logOut()">Logout</ion-button>
     </ion-col>
   </ion-row>
 

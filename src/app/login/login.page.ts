@@ -1,6 +1,6 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from '../services/auth-service.service'
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +15,8 @@ export class LoginPage implements OnInit {
   confirmPin: any = '';
 
   constructor(
-    private auth: AuthServiceService,
-    private route: Router
+    private route: Router,
+    private auth: AuthServiceService
   ) { }
   ngOnInit() {
 
@@ -70,7 +70,8 @@ export class LoginPage implements OnInit {
         this.route.navigate(['/makerDashboard']);
       }
       else if (userCopy.role == 'customer') {
-
+        let page = userCopy.firstTimeLogin ? '/customerProfile' : '/customerListings'
+        this.route.navigate([page]);
       }
     }
   }

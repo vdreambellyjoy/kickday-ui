@@ -1,6 +1,8 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { AdminService } from '../../services/admin.service'
+
 
 @Component({
   selector: 'app-customer-profile',
@@ -10,33 +12,34 @@ import { Router } from '@angular/router';
 export class CustomerProfilePage implements OnInit {
 
   userDataForm: FormGroup;
-  profilePhoto: string = '';
-
   constructor(
+    private route: Router,
     private fb: FormBuilder,
-    private router: Router,
+    private adminService: AdminService
   ) {
     this.userDataForm = this.fb.group({
       userName: ['', Validators.required],
       email: ['', Validators.required],
-      mobile: ['', Validators.required],
+      mobile: [''],
       city: ['', Validators.required],
       bio: '',
-      profilePhoto: ['', Validators.required],
+      image: ['', Validators.required],
+      imageName: [''],
     })
-   }
-
-  ngOnInit() {
   }
+
+  ngOnInit() { }
 
   ionViewWillEnter() {
     this.userDataForm.reset();
+    let userData: any = localStorage.getItem('userData');
+    userData = JSON.parse(userData);
+    this.userDataForm.get('mobile')?.setValue(userData.mobileNumber);
   }
 
   onFileSelected(event: any) {
     const fileInput = event.target as HTMLInputElement;
     const files = fileInput.files;
-  
     if (files && files.length > 0) {
       const file = files[0] as File;
       this.uploadPhoto(file);
@@ -44,26 +47,26 @@ export class CustomerProfilePage implements OnInit {
   }
 
   uploadPhoto(file: File) {
-    console.log(file, "fileeeee");
-  
-    if (file && this.userDataForm && this.userDataForm.get('profilePhoto')) {
+    if (file && this.userDataForm && this.userDataForm.get('image')) {
       const reader = new FileReader();
-  
       reader.onload = (e: any) => {
         const imageData = e.target.result;
         this.userDataForm.patchValue({
-          profilePhoto: imageData
+          image: imageData,
+          imageName: file.name,
         });
       };
-  
       reader.readAsDataURL(file);
     }
   }
 
-  saveProfile(){
+  saveProfile() {
     const formData = this.userDataForm.value;
-    console.log(formData);
-    
+    this.adminService.updateCustomerDetails(formData).subscribe((res: any) => {
+      this.route.navigate(['/customerListings']);
+    }, (err: any) => {
+      console.log('userNot found , show error')
+    })
   }
 
 }

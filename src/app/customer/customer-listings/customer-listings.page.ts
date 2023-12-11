@@ -1,6 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { Swiper } from 'swiper';
+import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
+import { AdminService } from 'src/app/services/admin.service';
 @Component({
   selector: 'app-customer-listings',
   templateUrl: './customer-listings.page.html',
@@ -9,40 +11,44 @@ import { Swiper } from 'swiper';
 export class CustomerListingsPage implements OnInit {
 
   @ViewChild('swiper')
-  swiperRef: ElementRef | undefined ;
+  swiperRef: ElementRef | undefined;
   swiper?: Swiper;
 
   selectedSegment: string = 'All';
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private adminService: AdminService
+  ) { }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
+    this.adminService.getAllListingsForCustomer({}).subscribe((res: any) => {
+      console.log(res);
+    }, (err: any) => {
+      console.log(err);
+    })
     this.swiperReady();
   }
 
-  navigateToSearch(){
-    this.router.navigate(['/search'])
+  navigateToSearch() {
   }
 
-  navigateToOrders(){
-    this.router.navigate(['/orders'])
+  navigateToOrders() {
   }
 
-  navigateToDashboard(){
-    this.router.navigate(['/dashboard'])
+  navigateToDashboard() {
   }
 
-  navigateToListingOverview(){
-    this.router.navigate(['/listing-overview'])
+  navigateToListingOverview() {
   }
 
   swiperSlideChanged(e: any) {
     console.log('changed: ', e);
   }
- 
+
   swiperReady() {
     this.swiper = this.swiperRef?.nativeElement.swiper;
     console.log('Swiper ready:', this.swiper);
@@ -52,13 +58,12 @@ export class CustomerListingsPage implements OnInit {
     if (!this.swiper || this.swiper.destroyed) {
       this.swiperReady();
     }
-  
+
     if (this.swiper && !this.swiper.destroyed) {
       this.swiper.slideNext();
-      console.log("nextttt");
     }
   }
-  
+
   goPrev() {
     if (!this.swiper || this.swiper.destroyed) {
       this.swiperReady();
@@ -66,7 +71,6 @@ export class CustomerListingsPage implements OnInit {
 
     if (this.swiper && !this.swiper.destroyed) {
       this.swiper.slidePrev();
-      console.log("prevvvvvv");
     }
   }
 

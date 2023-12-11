@@ -32,13 +32,13 @@
         <ion-col>
           <div class="kd_col_center_align" style="flex-direction: column;">
             <div class="profile-photo-container">
-              <img *ngIf="userDataForm?.get('profilePhoto')?.value" [src]="userDataForm.get('profilePhoto')?.value">
-              <label class="upload-label" *ngIf="!userDataForm.get('profilePhoto')?.value">
+              <img *ngIf="userDataForm?.get('image')?.value" [src]="userDataForm.get('image')?.value">
+              <label class="upload-label" *ngIf="!userDataForm.get('image')?.value">
                 <input type="file" accept="image/*" (change)="onFileSelected($event)">
                 Choose Photo*
               </label>
             </div>
-            <label *ngIf="userDataForm.get('profilePhoto')?.value" class="change-file-label">
+            <label *ngIf="userDataForm.get('image')?.value" class="change-file-label">
               <input type="file" accept="image/*" (change)="onFileSelected($event)">
               Change Photo
             </label>

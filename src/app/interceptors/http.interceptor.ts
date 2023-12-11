@@ -25,7 +25,7 @@ export class HttpRequestHandler implements HttpInterceptor {
         return next.handle(nextRequest)
             .pipe(catchError((error: HttpErrorResponse) => {
                 if (error.status == 401 || error.error == 'tokenError') {
-                    this.authService.logOut();
+                    this.authService.localLogOut();
                     return throwError('Access Denied.');
                 } else {
                     return throwError(error);
