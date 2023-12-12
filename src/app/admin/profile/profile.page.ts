@@ -16,7 +16,7 @@ export class ProfilePage implements OnInit {
   selectedSegment: string = 'profile';
   userData: any;
   profilePhoto: string = '';
-  mediaImages: string[] = [];
+  mediaImages: any = [];
   userDataForm: FormGroup;
   bankDetailsForm: FormGroup;
   mediaData: FormGroup;
@@ -75,9 +75,11 @@ export class ProfilePage implements OnInit {
   }
 
   saveMedia() {
-    const mediaFormData = this.mediaImages;
-    console.log(mediaFormData,"slected image urls");
-
+    let val = { ...this.userDataForm.value };
+    this.adminService.updateKitchenImages({ ...val, image: this.mediaImages }).subscribe((res: any) => {
+    }, (err: any) => {
+      console.log(err);
+    })
     this.selectedSegment = 'bank';
     this.segment.value = 'bank';
   }
@@ -86,7 +88,6 @@ export class ProfilePage implements OnInit {
   onFileSelected(event: any) {
     const fileInput = event.target as HTMLInputElement;
     const files = fileInput.files;
-  
     if (files && files.length > 0) {
       const file = files[0] as File;
       this.uploadPhoto(file);
@@ -110,23 +111,19 @@ export class ProfilePage implements OnInit {
   addMediaImages(event: any) {
     const fileInput = event.target as HTMLInputElement;
     const files = fileInput.files;
-  
     if (files && files.length > 0) {
       this.addMultipleMediaImages(files);
     }
   }
-  
+
   addMultipleMediaImages(files: FileList) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const reader = new FileReader();
-  
       reader.onload = (e: any) => {
         const imageData = e.target.result;
-        this.mediaImages.push(imageData);
+        this.mediaImages.push({ image: imageData, imageName: file.name });
       };
-      console.log(this.mediaImages,"array of image Data");
-      
       reader.readAsDataURL(file);
     }
   }

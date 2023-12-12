@@ -36,6 +36,10 @@ export class AdminService {
     return this.http.post(environment.baseUrl + "/admin/createMaker", data);
   }
 
+  updateKitchenImages(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/admin/updateKitchenImages", data);
+  }
+
   updateBankDetails(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/admin/updateBankDetails", data);
   }

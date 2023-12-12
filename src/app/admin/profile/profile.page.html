@@ -117,7 +117,7 @@
 
           <div class="selected-images" style="max-height: 350px; overflow-y: auto; display: flex; flex-wrap: wrap; gap: 10px; border: solid 1px black;padding: 10px; margin-bottom: 20px;">
             <ng-container *ngFor="let image of mediaImages; let i = index">
-              <img [src]="image" alt="Selected image {{ i + 1 }}" style="flex: 0 0 calc(30% - 10px); max-height: 30%;">
+              <img [src]="image.image" alt="Selected image {{ i + 1 }}" style="flex: 0 0 calc(30% - 10px); max-height: 30%;">
             </ng-container>
           </div>
     
