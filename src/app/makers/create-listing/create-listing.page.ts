@@ -56,7 +56,7 @@ export class CreateListingPage implements OnInit {
     {
       text: 'OK',
       role: 'confirm',
-      handler: (data:any) => {
+      handler: (data: any) => {
         // 'data' parameter contains the entered text
         console.log('Entered text:', data.enteredText);
       },
@@ -69,13 +69,14 @@ export class CreateListingPage implements OnInit {
       placeholder: 'Enter URL',
     },
   ];
+  isFreeDelivery: any = false;
 
   constructor(
     private router: Router,
     private adminService: AdminService,
-    public loadingCtrl: LoadingController, 
-  ) { 
-    this.autocompleteService = new google.maps.places.AutocompleteService(); 
+    public loadingCtrl: LoadingController,
+  ) {
+    this.autocompleteService = new google.maps.places.AutocompleteService();
   }
 
   ngOnInit() { }
@@ -111,6 +112,7 @@ export class CreateListingPage implements OnInit {
 
   selectItem(item: string) {
     if (!this.selectedItems.includes(item)) {
+      this.selectedItems = [];
       this.selectedItems.push(item);
       this.selectedItemsText = '';
       this.results = [];
@@ -136,9 +138,10 @@ export class CreateListingPage implements OnInit {
 
   addDeliveryItem() {
     if (this.deliveryType && this.deliveryPrice) {
+      this.deliveryItems = [];
       this.deliveryItems.push({ type: this.deliveryType, price: this.deliveryPrice });
       this.deliveryType = '';
-      this.deliveryPrice = 0;
+      // this.deliveryPrice = 0;
     }
   }
 
@@ -148,13 +151,13 @@ export class CreateListingPage implements OnInit {
 
   addListing() {
     let obj = {
-      address: 'sattenapalli, guntur 522403',
-      lat: '',
-      lng: '',
+      address:this.selectedPrediction.formatted_address,
+      lat: this.selectedPrediction.lat,
+      lng: this.selectedPrediction.lng,
       label: this.label,
-      category: this.selectedItems,
-      startDateTime: new Date(),
-      endDateTime: new Date(),
+      category: this.selectedItems[0],
+      startDateTime: new Date(this.orderDeliveredDateTime),
+      endDateTime: new Date(this.orderEndDateTime),
       orders: this.items,
       deliveryOptions: this.deliveryItems,
       youtubeUrl: '',
@@ -182,7 +185,6 @@ export class CreateListingPage implements OnInit {
   }
 
   onDateTimeChange(type: string) {
-
     if (type === 'orderEndDateTime') {
       console.log('Selected Order Ends with Date & Time:', this.orderEndDateTime);
       this.showOrderEndDateTimePicker = false;
@@ -195,11 +197,11 @@ export class CreateListingPage implements OnInit {
   async onSearchInput() {
     if (this.search?.length > 0) {
       const loading = await this.loadingCtrl.create();
-      this.autocompleteService.getPlacePredictions({ input: this.search }, (predictions:any, status:any) => {
+      this.autocompleteService.getPlacePredictions({ input: this.search }, (predictions: any, status: any) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           this.predictions = predictions;
-          console.log(predictions,465654);
-          
+          console.log(predictions, 465654);
+
         } else {
           this.predictions = [];
         }
@@ -210,23 +212,19 @@ export class CreateListingPage implements OnInit {
   }
 
   onPredictionSelect(prediction: any) {
-    console.log('Selected prediction:', prediction);
-    this.selectedPrediction = prediction;
-    // this.currentData.location = this.selectedPrediction;
     this.search = prediction.description
     const placeService = new google.maps.places.PlacesService(document.createElement('div'));
     placeService.getDetails({ placeId: prediction.place_id }, (placeResult: any, status: any) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        // this.currentData.location = prediction.structured_formatting.main_text
-        console.log('Latitude:', placeResult.geometry.location.lat());
-        console.log('Longitude:', placeResult.geometry.location.lng());
-        // this.currentData.latitude = placeResult.geometry.location.lat();
-        // this.currentData.longitude = placeResult.geometry.location.lng();
-        // this.currentData.placeId = prediction.place_id;
-        // console.log('City:', placeResult.address_components.filter((c: any) => c.types.includes('locality'))[0]?.long_name);
+        this.selectedPrediction = placeResult;
+        this.selectedPrediction.lat =  placeResult.geometry.location.lat();
+        this.selectedPrediction.lng =  placeResult.geometry.location.lng();
       }
     });
     this.predictions = []
   }
 
+  toggleFreeDelivery() {
+    this.isFreeDelivery = !this.isFreeDelivery;
+  }
 }

@@ -182,11 +182,11 @@
       </ion-col>
 
       <ion-col size="2.75">
-        <ion-button style="font-size: 10px; margin: 0px;">Free Delivery</ion-button>
+        <ion-button (click)="toggleFreeDelivery()" style="font-size: 10px; margin: 0px;">{{ isFreeDelivery ? 'Delivery Fee' : 'Free Delivery' }}</ion-button>
       </ion-col>
-
+      
       <ion-col size="2.75">
-        <ion-input class="input_selection" style="margin-top: 0px;" placeholder="$ 0"
+        <ion-input [disabled]="isFreeDelivery" class="input_selection" style="margin-top: 0px;" placeholder="$ 0"
           [(ngModel)]="deliveryPrice"></ion-input>
       </ion-col>
 
