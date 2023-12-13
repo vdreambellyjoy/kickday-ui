@@ -48,7 +48,7 @@
     <div style="margin: 15px 0px;" *ngFor="let maker of usersList; index as i" (click)="navigateToUserOverview(maker)">
       <ion-row>
         <ion-col size="5">
-          <ion-text>user ID 00000{{i}}</ion-text>
+          <ion-text>user ID: {{maker?.ID}}</ion-text>
         </ion-col>
   
         <ion-col class="kd_flex kd_flex_row_center kd_font_size_12 flex_start" size="3.5">
@@ -66,7 +66,7 @@
             <ion-text style="font-weight: bold;">P</ion-text>
           </div>
           <ion-text style="padding-left: 20px;"><span>{{maker?.userName}}</span> <br> 
-          <span>{{maker?.city}}</span></ion-text>
+          <span>{{maker?.address}}</span></ion-text>
         </ion-col>
         <ion-col size="2" class="kd_flex kd_end_align">
           <ion-icon name="arrow-forward-circle-outline" class="kd_svg_size"></ion-icon>

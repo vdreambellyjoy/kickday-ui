@@ -33,6 +33,11 @@ const routes: Routes = [
     loadChildren: () => import('./admin/profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
+    path: 'editprofile/:id',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./admin/profile/profile.module').then(m => m.ProfilePageModule)
+  },
+  {
     path: 'makerDashboard',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./makers/maker-dashboard/maker-dashboard.module').then( m => m.MakerDashboardPageModule)

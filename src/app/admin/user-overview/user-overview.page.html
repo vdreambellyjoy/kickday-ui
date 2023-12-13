@@ -24,12 +24,12 @@
 
   <ion-row class="kd_center_align_items">
     <ion-col>
-      <ion-text>User ID: 1122</ion-text>
+      <ion-text>User ID: {{userData.ID}}</ion-text>
     </ion-col>
     <ion-col>
       <ion-text>{{userData.role}}</ion-text>
     </ion-col>
-    <ion-col class="kd_flex kd_end_align">
+    <ion-col class="kd_flex kd_end_align" (click)="editMaker(userData)">
       <img src="../../../assets/edit-icon-24.png" alt="" class="kd_svg_size">
     </ion-col>
   </ion-row>

@@ -232,8 +232,11 @@
     </ion-row> -->
 
     <ion-row>
-      <ion-col class="kd_flex kd_flex_row_center">
-        <ion-button>Add Images</ion-button>
+      <ion-col>
+        <div class="add_img_div ion-activatable ripple-parent" (click)="fileInput.click()">
+          <input #fileInput type="file" accept="image/*" (change)="addMediaImages($event)" multiple style="display: none;">
+          <ion-button>Add Images</ion-button>
+        </div>
       </ion-col>
       <ion-col>
         <ion-button id="present-alert">Add YouTube URL</ion-button>
@@ -246,6 +249,19 @@
         cssClass="custom-alert"
       >
       </ion-alert>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <div class="selected-images" [ngStyle]="{ border: 'none', padding: '0px', display: mediaImages.length === 0 ? 'none' : 'flex' }"
+        style="max-height: 350px; overflow-y: auto; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+          <ng-container *ngFor="let image of mediaImages; let i = index">
+            <ion-icon name="close" style="position: relative; left: 90%; height: 25px; width: 25px;"
+            (click)="removeImage(i)"></ion-icon>
+            <img [src]="image.imageUrl" alt="Selected image {{ i + 1 }}" style="flex: 0 0 calc(30% - 10px); max-height: 30%;">
+          </ng-container>
+        </div>
+      </ion-col>
     </ion-row>
 
     <ion-row>

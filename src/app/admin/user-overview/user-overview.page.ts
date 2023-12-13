@@ -80,4 +80,10 @@ export class UserOverviewPage implements OnInit {
     this.router.navigate(['/allUsers'])
   }
 
+  editMaker(makerData:any) {
+    console.log(makerData);
+    this.router.navigate(['/editprofile/' + makerData._id])
+  }
+
+
 }
