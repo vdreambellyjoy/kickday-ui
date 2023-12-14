@@ -20,6 +20,7 @@ export class ProfilePage implements OnInit {
   userDataForm: FormGroup;
   bankDetailsForm: FormGroup;
   mediaData: FormGroup;
+  private _id: any;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -53,6 +54,18 @@ export class ProfilePage implements OnInit {
   ionViewWillEnter() {
     this.bankDetailsForm.reset();
     this.userDataForm.reset();
+    this._id = this.router.url.split('/')[2];
+    if (this._id) {
+      this.adminService.getUserBasedOnId({ _id: this._id }).subscribe((res: any) => {
+        if (res.success) {
+          console.log(res);
+        } else {
+          this.router.navigate(['/adminDashboard']);
+        }
+      }, (err: any) => {
+        console.log(err);
+      })
+    }
   }
 
   setAccountType(type: any) {
@@ -62,7 +75,7 @@ export class ProfilePage implements OnInit {
   saveProfile() {
     const formData = this.userDataForm.value;
     if (this.userDataForm.valid) {
-      this.adminService.createMaker(this.userDataForm.value).subscribe((res: any) => {
+      this.adminService.createMaker({ ...this.userDataForm.value, _id: this._id }).subscribe((res: any) => {
         if (res.success) {
           this.userData = res.data || {};
           this.selectedSegment = 'media';
@@ -76,7 +89,7 @@ export class ProfilePage implements OnInit {
 
   saveMedia() {
     let val = { ...this.userDataForm.value };
-    this.adminService.updateKitchenImages({ ...val, image: this.mediaImages }).subscribe((res: any) => {
+    this.adminService.updateKitchenImages({ ...val, image: this.mediaImages,_id: this._id }).subscribe((res: any) => {
     }, (err: any) => {
       console.log(err);
     })

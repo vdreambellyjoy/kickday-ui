@@ -33,4 +33,8 @@ export class AuthServiceService {
     localStorage.clear();
     this.route.navigateByUrl('/login');
   }
+
+  getLogoImageById(fileId:any): Promise<any> {
+    return this.http.post(environment.baseUrl + "/auth/getlogofile", fileId).toPromise();
+  };
 }

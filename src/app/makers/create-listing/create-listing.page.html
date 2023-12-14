@@ -258,7 +258,7 @@
           <ng-container *ngFor="let image of mediaImages; let i = index">
             <ion-icon name="close" style="position: relative; left: 90%; height: 25px; width: 25px;"
             (click)="removeImage(i)"></ion-icon>
-            <img [src]="image.imageUrl" alt="Selected image {{ i + 1 }}" style="flex: 0 0 calc(30% - 10px); max-height: 30%;">
+            <img [src]="image.image" alt="Selected image {{ i + 1 }}" style="flex: 0 0 calc(30% - 10px); max-height: 30%;">
           </ng-container>
         </div>
       </ion-col>

@@ -38,8 +38,6 @@ export class UserOverviewPage implements OnInit {
 
 
   getBankDetails() {
-    console.log(this.userData, "46347657");
-
     const bankData = [
       { label: 'Bank Name', value: this.userData?.bankName },
       { label: 'Branch', value: this.userData?.branch },
@@ -52,7 +50,6 @@ export class UserOverviewPage implements OnInit {
   }
 
   toggleChanged() {
-    console.log(this.isToggleChecked);
     this.adminService.activeDeActiveUser({ _id: this._id, value: this.isToggleChecked }).subscribe((res: any) => {
       if (res.success) {
         this.userData = res.data || {};
@@ -65,6 +62,7 @@ export class UserOverviewPage implements OnInit {
   }
 
   openKitchenImages(isOpen: boolean) {
+    console.log(this.userData)
     this.isMakerImagesOpen = isOpen;
   }
 
@@ -81,7 +79,6 @@ export class UserOverviewPage implements OnInit {
   }
 
   editMaker(makerData:any) {
-    console.log(makerData);
     this.router.navigate(['/editprofile/' + makerData._id])
   }
 

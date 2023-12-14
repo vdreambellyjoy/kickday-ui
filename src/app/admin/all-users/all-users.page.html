@@ -1,7 +1,8 @@
 <ion-header [translucent]="true" style="box-shadow: none;">
   <ion-toolbar>
     <ion-row style="margin: 10px;">
-      <ion-col size="2" style="display: flex; justify-content: start; align-items: center;" (click)="navigateBackToAdminDashboard()">
+      <ion-col size="2" style="display: flex; justify-content: start; align-items: center;"
+        (click)="navigateBackToAdminDashboard()">
         <ion-icon name="arrow-back-outline" class="kd_back_button"></ion-icon>
       </ion-col>
       <ion-col size="8" class="kd_flex kd_flex_row_center" style="display: grid;" (click)="naviageteToProfile()">
@@ -24,7 +25,8 @@
 
 
 <ion-content [fullscreen]="true">
-  <ion-toolbar style="padding: 0px; --background: white; box-shadow: none; background-color: #dfd9f1; --box-shadow: none">
+  <ion-toolbar
+    style="padding: 0px; --background: white; box-shadow: none; background-color: #dfd9f1; --box-shadow: none">
     <ion-segment (ionChange)="changeSegment($event)" [(ngModel)]="selectedSegment">
       <ion-segment-button value="all">
         <ion-label>All</ion-label>
@@ -50,11 +52,11 @@
         <ion-col size="5">
           <ion-text>user ID: {{maker?.ID}}</ion-text>
         </ion-col>
-  
+
         <ion-col class="kd_flex kd_flex_row_center kd_font_size_12 flex_start" size="3.5">
           <ion-text>{{maker?.role}}</ion-text>
         </ion-col>
-  
+
         <!-- <ion-col class="kd_font_size_12" size="3.5">
           <ion-text>Drafting</ion-text>
         </ion-col> -->
@@ -63,10 +65,13 @@
       <ion-row style="margin-top: 5px;">
         <ion-col class="kd_flex" size="10">
           <div class="first_letter_styles">
-            <ion-text style="font-weight: bold;">P</ion-text>
+            <ion-text style="font-weight: bold;" *ngIf="!maker?.profileId">P</ion-text>
+            <ion-text style="font-weight: bold;" *ngIf="maker?.profileId">
+              <img [src]="maker?.profileId | getLogo | async">
+            </ion-text>
           </div>
-          <ion-text style="padding-left: 20px;"><span>{{maker?.userName}}</span> <br> 
-          <span>{{maker?.address}}</span></ion-text>
+          <ion-text style="padding-left: 20px;"><span>{{maker?.userName}}</span> <br>
+            <span>{{maker?.address}}</span></ion-text>
         </ion-col>
         <ion-col size="2" class="kd_flex kd_end_align">
           <ion-icon name="arrow-forward-circle-outline" class="kd_svg_size"></ion-icon>

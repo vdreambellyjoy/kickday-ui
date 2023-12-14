@@ -162,6 +162,7 @@ export class CreateListingPage implements OnInit {
       orders: this.items,
       deliveryOptions: this.deliveryItems,
       youtubeUrl: '',
+      image: this.mediaImages,
     }
     this.adminService.addListing(obj).subscribe((res: any) => {
       if (res.success) {
@@ -187,10 +188,8 @@ export class CreateListingPage implements OnInit {
 
   onDateTimeChange(type: string) {
     if (type === 'orderEndDateTime') {
-      console.log('Selected Order Ends with Date & Time:', this.orderEndDateTime);
       this.showOrderEndDateTimePicker = false;
     } else if (type === 'orderDeliveredDateTime') {
-      console.log('Selected Order Delivered on:', this.orderDeliveredDateTime);
       this.showOrderDeliveredDateTimePicker = false;
     }
   }
@@ -201,8 +200,6 @@ export class CreateListingPage implements OnInit {
       this.autocompleteService.getPlacePredictions({ input: this.search }, (predictions: any, status: any) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           this.predictions = predictions;
-          console.log(predictions, 465654);
-
         } else {
           this.predictions = [];
         }
@@ -232,7 +229,6 @@ export class CreateListingPage implements OnInit {
   addMediaImages(event: any) {
     const fileInput = event.target as HTMLInputElement;
     const files = fileInput.files;
-  
     if (files && files.length > 0) {
       this.addMultipleMediaImages(files);
     }
@@ -246,18 +242,16 @@ export class CreateListingPage implements OnInit {
       reader.onload = (e: any) => {
         const imageData = e.target.result as string;
         const imageName = file.name;
-        const imageObject = { imageUrl: imageData, imageName };
+        const imageObject = { image: imageData, imageName };
         this.mediaImages.push(imageObject);
       };
       reader.readAsDataURL(file);
     }
-    console.log(this.mediaImages,"array of image objects");
   }
 
   removeImage(index: number) {
     this.mediaImages.splice(index, 1);
     const mediaFormData = this.mediaImages;
-    console.log(mediaFormData,"slected image urlssss");
   }
 
 }
