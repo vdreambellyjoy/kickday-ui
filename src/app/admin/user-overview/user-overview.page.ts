@@ -79,7 +79,7 @@ export class UserOverviewPage implements OnInit {
   }
 
   editMaker(makerData:any) {
-    this.router.navigate(['/editprofile/' + makerData._id])
+    this.router.navigate(['/profile', { userId: makerData._id }]);
   }
 
 

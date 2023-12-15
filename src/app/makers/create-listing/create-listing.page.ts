@@ -24,6 +24,7 @@ export class CreateListingPage implements OnInit {
   autocompleteService: any;
   predictions: any;
   mediaImages: any = [];
+  bindingData: any;
   addCategoryData = [
     'Biryani',
     'Sweets',
@@ -87,6 +88,9 @@ export class CreateListingPage implements OnInit {
     if (this._id) {
       this.adminService.getListingBasedOnId({ _id: this._id }).subscribe((res: any) => {
         if (res.success) {
+          this.bindingData = res.data
+          this.orderEndDateTime = this.bindingData.endDateTime;
+          this.orderDeliveredDateTime = this.bindingData.startDateTime;
           console.log(res)
         }
       }, (err: any) => {

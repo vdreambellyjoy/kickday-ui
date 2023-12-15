@@ -63,7 +63,7 @@ const routes: Routes = [
     loadChildren: () => import('./makers/listing-overview/listing-overview.module').then( m => m.ListingOverviewPageModule)
   },
   {
-    path: 'maker-order-overview',
+    path: 'makerOrderOverview',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./makers/maker-order-overview/maker-order-overview.module').then( m => m.MakerOrderOverviewPageModule)
   },

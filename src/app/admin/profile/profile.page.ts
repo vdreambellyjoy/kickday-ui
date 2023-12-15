@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonSegment } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -15,6 +15,7 @@ export class ProfilePage implements OnInit {
   @ViewChild('segment') segment!: IonSegment;
   selectedSegment: string = 'profile';
   userData: any;
+  bindUserData: any
   profilePhoto: string = '';
   mediaImages: any = [];
   userDataForm: FormGroup;
@@ -24,7 +25,8 @@ export class ProfilePage implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private activatedroute: ActivatedRoute
   ) {
     this.userDataForm = this.fb.group({
       userName: ['', Validators.required],
@@ -49,23 +51,32 @@ export class ProfilePage implements OnInit {
     })
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    
+  }
 
   ionViewWillEnter() {
     this.bankDetailsForm.reset();
     this.userDataForm.reset();
-    this._id = this.router.url.split('/')[2];
-    if (this._id) {
-      this.adminService.getUserBasedOnId({ _id: this._id }).subscribe((res: any) => {
-        if (res.success) {
-          console.log(res);
-        } else {
-          this.router.navigate(['/adminDashboard']);
-        }
-      }, (err: any) => {
-        console.log(err);
-      })
-    }
+    this.activatedroute.paramMap.subscribe(params => {
+      const userId = params.get('userId');
+      if (userId) {
+        this.adminService.getUserBasedOnId({ _id: userId }).subscribe(
+          (res: any) => {
+            if (res.success) {
+              this.userData = res.data || {};
+              this.bindUserData = { ...this.userData };
+              this.userDataForm.patchValue(this.bindUserData); 
+            } else {
+              this.router.navigate(['/adminDashboard']);
+            }
+          },
+          (err: any) => {
+            console.log(err);
+          }
+        );
+      }
+    });
   }
 
   setAccountType(type: any) {

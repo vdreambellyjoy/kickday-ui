@@ -38,8 +38,8 @@
 
   <ion-row style="border-bottom: none !important; width: 100%;" class="kd_center_align">
     <div class="kd_round round_new kd_center_align profile-photo">
-      <img *ngIf="userData?.profileId" [src]="userData?.profileId | getLogo | async" alt="LOGO">
-      <img *ngIf="!userData?.profileId" src="assets/defaultProfilePic.svg" alt="LOGO">
+      <img *ngIf="userData?.profileId" [src]="userData?.profileId | getLogo | async" alt="LOGO" class="img_border">
+      <img *ngIf="!userData?.profileId" src="assets/defaultProfilePic.svg" alt="LOGO" class="img_border">
     </div>
     <ion-col style="margin: 15px 0px;">
       <ion-label>{{userData.userName}}</ion-label><br>

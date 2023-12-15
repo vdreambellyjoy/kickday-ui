@@ -48,8 +48,8 @@ export class ListingOverviewPage implements OnInit {
     this.router.navigate(['/makerListings'])
   }
 
-  navigateToOrderFullDetails() {
-    // this.router.navigate(['/order-full-details'])
+  navigateToOrderOverview() {
+    this.router.navigate(['/makerOrderOverview'])
   }
 
 }

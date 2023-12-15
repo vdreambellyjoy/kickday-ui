@@ -65,7 +65,7 @@
       <ion-row style="margin-top: 5px;">
         <ion-col class="kd_flex" size="10">
           <div class="first_letter_styles">
-            <ion-text style="font-weight: bold;" *ngIf="!maker?.profileId">P</ion-text>
+            <ion-text style="font-weight: bold;" *ngIf="!maker?.profileId">{{maker.userName.charAt(0).toUpperCase()}}</ion-text>
             <ion-text style="font-weight: bold;" *ngIf="maker?.profileId">
               <img [src]="maker?.profileId | getLogo | async">
             </ion-text>

@@ -10,10 +10,10 @@
           <ion-segment-button value="profile">
             <ion-label>Profile</ion-label>
           </ion-segment-button>
-          <ion-segment-button value="media">
+          <ion-segment-button value="media" [disabled]="selectedSegment === 'profile'">
             <ion-label>Media</ion-label>
           </ion-segment-button>
-          <ion-segment-button value="bank">
+          <ion-segment-button value="bank" [disabled]="selectedSegment === 'media' || 'profile'">
             <ion-label> Bank Account</ion-label>
           </ion-segment-button>
         </ion-segment>
@@ -50,33 +50,33 @@
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Name*</ion-label>
-              <ion-input formControlName="userName" aria-label="Name" placeholder="Enter Name"></ion-input>
+              <ion-input formControlName="userName" aria-label="Name" placeholder="Enter Name" [value]="bindUserData?.userName"></ion-input>
             </ion-item>
           </ion-card>
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Email*</ion-label>
-              <ion-input formControlName="email" aria-label="Email" placeholder="Enter Email"></ion-input>
+              <ion-input formControlName="email" aria-label="Email" placeholder="Enter Email" [value]="bindUserData?.email"></ion-input>
             </ion-item>
           </ion-card>
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Mobile*</ion-label>
-              <ion-input formControlName="mobile" aria-label="Mobile" placeholder="Enter Mobile"></ion-input>
+              <ion-input formControlName="mobile" aria-label="Mobile" placeholder="Enter Mobile" [value]="bindUserData?.mobileNumber"></ion-input>
             </ion-item>
           </ion-card>
     
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Location*</ion-label>
-              <ion-input formControlName="city" aria-label="Location" placeholder="Enter Location"></ion-input>
+              <ion-input formControlName="city" aria-label="Location" placeholder="Enter Location" [value]="bindUserData?.address"></ion-input>
             </ion-item>
           </ion-card>
     
           <ion-card style="display: grid; align-items: center; height: 112px; padding-top: 0px;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Bio*</ion-label>
-              <ion-textarea formControlName="bio" aria-label="Bio" maxlength="200" style="font-size: 18px;"></ion-textarea>
+              <ion-textarea formControlName="bio" aria-label="Bio" maxlength="200" [value]="bindUserData?.bio" style="font-size: 18px;"></ion-textarea>
             </ion-item>
           </ion-card>
         </div>
@@ -132,19 +132,19 @@
           <ion-card style="display: grid; align-items: center; width: 50%; margin-top: 0px;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Comission*</ion-label>
-              <ion-input formControlName="commission" aria-label="Comission" placeholder="Eg: 0%"></ion-input>
+              <ion-input formControlName="commission" aria-label="Comission" placeholder="Eg: 0%" [value]="bindUserData?.commission"></ion-input>
             </ion-item>
           </ion-card>
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Account Name*</ion-label>
-              <ion-input formControlName="accountName" aria-label="Account Name" placeholder="Enter Name"></ion-input>
+              <ion-input formControlName="accountName" aria-label="Account Name" placeholder="Enter Name" [value]="bindUserData?.accountName"></ion-input>
             </ion-item>
           </ion-card>
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Account Number*</ion-label>
-              <ion-input formControlName="accountNumber" aria-label="Account Number" placeholder="Enter Account Number"></ion-input>
+              <ion-input formControlName="accountNumber" aria-label="Account Number" placeholder="Enter Account Number" [value]="bindUserData?.accountNumber"></ion-input>
             </ion-item>
           </ion-card>
 
@@ -160,21 +160,21 @@
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Bank Name*</ion-label>
-              <ion-input formControlName="bankName" aria-label="Bank Name" placeholder="Enter Bank Name"></ion-input>
+              <ion-input formControlName="bankName" aria-label="Bank Name" placeholder="Enter Bank Name" [value]="bindUserData?.bankName"></ion-input>
             </ion-item>
           </ion-card>
 
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Branch*</ion-label>
-              <ion-input formControlName="branch" aria-label="Branch" placeholder="Enter Branch"></ion-input>
+              <ion-input formControlName="branch" aria-label="Branch" placeholder="Enter Branch" [value]="bindUserData?.branch"></ion-input>
             </ion-item>
           </ion-card>
 
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">IFSC Code*</ion-label>
-              <ion-input formControlName="ifscCode" aria-label="IFSC Code" placeholder="Enter IFSC"></ion-input>
+              <ion-input formControlName="ifscCode" aria-label="IFSC Code" placeholder="Enter IFSC" [value]="bindUserData?.ifscCode"></ion-input>
             </ion-item>
           </ion-card>
     
