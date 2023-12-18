@@ -10,9 +10,10 @@ import { AdminService } from '../../services/admin.service';
 })
 export class MakerDashboardPage implements OnInit {
 
-  isToggleChecked: boolean = false;
+  userData: any = {};
   moneyEarned: any = 0;
   listingsCount: any = 0;
+  isToggleChecked: boolean = false;
 
   constructor(
     private router: Router,
@@ -22,6 +23,8 @@ export class MakerDashboardPage implements OnInit {
   ngOnInit() { }
 
   ionViewWillEnter() {
+    let data: any = localStorage.getItem('userData');
+    this.userData = JSON.parse(data);
     this.adminService.getMakerDashboardData({}).subscribe((res: any) => {
       if (res.success) {
         this.moneyEarned = res.moneyEarned;
@@ -37,10 +40,14 @@ export class MakerDashboardPage implements OnInit {
   }
 
   navigateToAllListings() {
-    this.router.navigate(['/makerListings'])
+    this.router.navigate(['/listings'])
   }
 
   navigateToCreateListing() {
     this.router.navigate(['/createLlisting'])
+  }
+
+  editMaker() {
+    this.router.navigateByUrl('/editprofile/' + this.userData._id)
   }
 }

@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { AdminService } from '../../services/admin.service';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 
 declare var google: any;
 @Component({
@@ -75,6 +75,7 @@ export class CreateListingPage implements OnInit {
 
   constructor(
     private router: Router,
+    private navCtrl: NavController,
     private adminService: AdminService,
     public loadingCtrl: LoadingController,
   ) {
@@ -170,7 +171,7 @@ export class CreateListingPage implements OnInit {
     }
     this.adminService.addListing(obj).subscribe((res: any) => {
       if (res.success) {
-        this.router.navigate(['/makerListings']);
+        this.router.navigate(['/listings']);
       }
     }, (err: any) => {
       console.log(err);
@@ -178,8 +179,8 @@ export class CreateListingPage implements OnInit {
   }
 
 
-  navigateToCustomerOrders() {
-    this.router.navigate(['/makerListings']);
+  goToBack() {
+    this.navCtrl.back();
   }
 
   openDateTimePicker(type: string) {

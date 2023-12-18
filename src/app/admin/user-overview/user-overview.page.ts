@@ -62,7 +62,6 @@ export class UserOverviewPage implements OnInit {
   }
 
   openKitchenImages(isOpen: boolean) {
-    console.log(this.userData)
     this.isMakerImagesOpen = isOpen;
   }
 
@@ -78,8 +77,8 @@ export class UserOverviewPage implements OnInit {
     this.router.navigate(['/allUsers'])
   }
 
-  editMaker(makerData:any) {
-    this.router.navigate(['/profile', { userId: makerData._id }]);
+  editMaker(maker:any) {
+    this.router.navigateByUrl('/editprofile/' + maker._id)
   }
 
 

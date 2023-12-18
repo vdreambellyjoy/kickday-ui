@@ -38,4 +38,8 @@ export class ListingOverViewPage implements OnInit {
     this.navCtrl.back(); // Or perform your desired action
   }
 
+  openOrderDetails(order: any) {
+    this.router.navigateByUrl('/customerOrderDetails/' + order._id)
+  }
+
 }

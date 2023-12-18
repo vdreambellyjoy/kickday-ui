@@ -30,7 +30,7 @@ const routes: Routes = [
   {
     path: 'listings',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./common/listings/listings.module').then( m => m.ListingsPageModule)
+    loadChildren: () => import('./common/listings/listings.module').then(m => m.ListingsPageModule)
   },
   {
     path: 'listingOverView/:id',
@@ -38,14 +38,18 @@ const routes: Routes = [
     loadChildren: () => import('./common/listing-over-view/listing-over-view.module').then(m => m.ListingOverViewPageModule)
   },
   {
+    path: 'customerOrderDetails/:id',
+    loadChildren: () => import('./common/customer-order-details/customer-order-details.module').then(m => m.CustomerOrderDetailsPageModule)
+  },
+  {
     path: 'profile',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./admin/profile/profile.module').then(m => m.ProfilePageModule)
+    loadChildren: () => import('./common/profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
     path: 'editprofile/:id',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./admin/profile/profile.module').then(m => m.ProfilePageModule)
+    loadChildren: () => import('./common/profile/profile.module').then(m => m.ProfilePageModule)
   },
 
 

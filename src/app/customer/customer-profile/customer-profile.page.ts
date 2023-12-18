@@ -25,6 +25,7 @@ export class CustomerProfilePage implements OnInit {
       bio: '',
       image: ['', Validators.required],
       imageName: [''],
+      imageId: ''
     })
   }
 
@@ -54,6 +55,7 @@ export class CustomerProfilePage implements OnInit {
         this.userDataForm.patchValue({
           image: imageData,
           imageName: file.name,
+          imageId: ''
         });
       };
       reader.readAsDataURL(file);
