@@ -13,6 +13,7 @@ export class ListingOverViewPage implements OnInit {
   _id: any = '';
   userData: any = {};
   listingData: any = {};
+  selectedSegment: string = 'All';
 
   constructor(
     private router: Router,
@@ -40,6 +41,11 @@ export class ListingOverViewPage implements OnInit {
 
   openOrderDetails(order: any) {
     this.router.navigateByUrl('/customerOrderDetails/' + order._id)
+  }
+
+  goToCustomerOrderDetails() {
+    console.log("Customer Order Details");
+    
   }
 
 }

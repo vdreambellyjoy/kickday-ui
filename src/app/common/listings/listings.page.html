@@ -1,19 +1,109 @@
-<ion-header [translucent]="true" style="box-shadow: none;">
+<ion-header [translucent]="true" style="box-shadow: none">
   <ion-toolbar>
-    <ion-row style="margin: 10px;">
-      <ion-col size="4" style="display: flex; justify-content: start; align-items: center;">
-        <ion-icon name="arrow-back-outline" class="kd_back_button" *ngIf="userData.role == 'admin'"
-          (click)="goToBack()"></ion-icon>
-      </ion-col>
-      <ion-col style="text-align: left;" class="kd_col_center_align">
+    <ion-row style="padding: 5px 10px 0px 10px">
+      <ion-col class="kd_center_align_items">
         <ion-icon name="bag-handle-outline" class="kd_svg_size"></ion-icon>
-        <ion-text style="padding-left: 10px; font-size: 18px;">listings</ion-text>
+        <ion-text style="padding-left: 10px; font-size: 18px">Listings</ion-text>
       </ion-col>
     </ion-row>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-content [fullscreen]="true">
+    <div style="margin: 15px">
+      <ion-card class="kd_orders_card" *ngFor="let item of listings" (click)="openListing(item)">
+        <ion-row>
+          <ion-col>
+            <ion-text>Created on {{ item.startDateTime | date:'d MMMM EEE
+              h:mma'}}</ion-text>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <ion-text>Listing ID</ion-text>
+          </ion-col>
+
+          <ion-col>
+            <ion-text>1123</ion-text>
+          </ion-col>
+
+          <ion-col>
+            <ion-text>Active</ion-text>
+          </ion-col>
+
+          <ion-col>
+            <ion-text>{{item.listingOrders.length}} Orders</ion-text>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="margin-bottom: 10px">
+          <ion-col size="10">
+            <ion-text style="font-weight: bold">{{item.label}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" class="kd_flex kd_end_align">
+            <ion-icon class="icon_style" style="height: 32px; width: 32px; padding-right: 0px"
+              name="arrow-forward-circle-outline"></ion-icon>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class="ion-no-padding">
+            <ion-text style="font-size: 14px; font-weight: bold">Order will end on</ion-text>
+          </ion-col>
+
+          <ion-col class="ion-no-padding">
+            <ion-text style="font-size: 14px; font-weight: bold">Order will delivered on</ion-text>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class="kd_flex">
+            <ion-icon class="icon_style" style="height: 30px; width: 30px" name="calendar-outline"></ion-icon>
+            <div class="kd_flex" style="padding-top: 5px">
+              <ion-text>{{ item.endDateTime | date:'d MMMM EEE h:mma'}}</ion-text>
+            </div>
+          </ion-col>
+
+          <ion-col class="kd_flex">
+            <ion-icon class="icon_style" style="height: 30px; width: 30px" name="calendar-outline"></ion-icon>
+            <div class="kd_flex" style="padding-top: 5px">
+              <ion-text>{{ item.startDateTime | date:'d MMMM EEE h:mma'}}</ion-text>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </div>
+  </ion-content>
+</ion-content>
+
+<ion-footer style="bottom: 0px; position: absolute">
+  <ion-card style="margin: 0px; border-radius: 0px; padding: 10px">
+    <ion-row>
+      <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent">
+        <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
+        <ion-icon name="bag-handle-outline" class="footer_icon_styles"></ion-icon>
+        <ion-text class="icon-text_styles">Listings</ion-text>
+      </ion-col>
+
+      <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent" (click)="navigateToCreateListing()">
+        <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
+        <ion-icon name="add-circle-outline" class="footer_icon_styles"></ion-icon>
+        <ion-text class="icon-text_styles">Create Listing</ion-text>
+      </ion-col>
+
+      <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent" (click)="navigateToDashboard()">
+        <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
+        <ion-icon name="person-circle-outline" class="footer_icon_styles"></ion-icon>
+        <ion-text class="icon-text_styles">Profile</ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-footer>
+
+<!-- <ion-content [fullscreen]="true">
   <ion-card *ngFor="let item of listings" (click)="openListing(item)">
     <ion-card-header>
       <ion-card-title>Card Title</ion-card-title>
@@ -24,4 +114,4 @@
       Here's a small text description for the card content. Nothing more, nothing less.
     </ion-card-content>
   </ion-card>
-</ion-content>
+</ion-content> -->
