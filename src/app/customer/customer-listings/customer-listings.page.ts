@@ -20,17 +20,10 @@ export class CustomerListingsPage implements OnInit {
 
   ngOnInit() {}
 
-  ionViewWillEnter() {
-    // this.adminService.getAllListingsForCustomer({}).subscribe((res: any) => {
-    //   console.log(res);
-    //   this.listings = res.list
-    // }, (err: any) => {
-    //   console.log(err);
-    // })
-    // this.swiperReady();
-
+  ngAfterViewInit() {
     this.adminService.getAllListingsForCustomer({}).subscribe(
       (res: any) => {
+        console.log(res);
         this.listings = res.list || [];
       },
       (err: any) => {

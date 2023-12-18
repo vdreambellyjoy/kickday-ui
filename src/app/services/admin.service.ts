@@ -16,8 +16,12 @@ export class AdminService {
     return this.http.post(environment.baseUrl + "/admin/getUsersCount", data);
   }
 
-  getOrdersCount(data: any): Observable<any> {
-    return this.http.post(environment.baseUrl + "/admin/getOrdersCount", data);
+  getListingsCount(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/admin/getListingsCount", data);
+  }
+
+  getAllListings(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/admin/getAllListings", data);
   }
 
   getAllUsersList(data: any): Observable<any> {

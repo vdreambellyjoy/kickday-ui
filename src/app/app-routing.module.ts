@@ -13,6 +13,11 @@ const routes: Routes = [
   //   loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   // },
   {
+    path: 'adminDashboard',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./admin/admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardPageModule)
+  },
+  {
     path: 'allUsers',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./admin/all-users/all-users.module').then(m => m.AllUsersPageModule)
@@ -23,9 +28,14 @@ const routes: Routes = [
     loadChildren: () => import('./admin/user-overview/user-overview.module').then(m => m.UserOverviewPageModule)
   },
   {
-    path: 'adminDashboard',
+    path: 'listings',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./admin/admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardPageModule)
+    loadChildren: () => import('./common/listings/listings.module').then( m => m.ListingsPageModule)
+  },
+  {
+    path: 'listingOverView/:id',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./common/listing-over-view/listing-over-view.module').then(m => m.ListingOverViewPageModule)
   },
   {
     path: 'profile',
@@ -37,58 +47,50 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     loadChildren: () => import('./admin/profile/profile.module').then(m => m.ProfilePageModule)
   },
+
+
   {
     path: 'makerDashboard',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./makers/maker-dashboard/maker-dashboard.module').then( m => m.MakerDashboardPageModule)
+    loadChildren: () => import('./makers/maker-dashboard/maker-dashboard.module').then(m => m.MakerDashboardPageModule)
   },
   {
     path: 'createLlisting',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./makers/create-listing/create-listing.module').then( m => m.CreateListingPageModule)
+    loadChildren: () => import('./makers/create-listing/create-listing.module').then(m => m.CreateListingPageModule)
   },
   {
     path: 'editLlisting/:id',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./makers/create-listing/create-listing.module').then( m => m.CreateListingPageModule)
-  },
-  {
-    path: 'makerListings',
-    canActivate: [AuthGuardService],
-    loadChildren: () => import('./makers/all-listings/all-listings.module').then( m => m.AllListingsPageModule)
-  },
-  {
-    path: 'listingOverview/:id',
-    canActivate: [AuthGuardService],
-    loadChildren: () => import('./makers/listing-overview/listing-overview.module').then( m => m.ListingOverviewPageModule)
+    loadChildren: () => import('./makers/create-listing/create-listing.module').then(m => m.CreateListingPageModule)
   },
   {
     path: 'makerOrderOverview',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./makers/maker-order-overview/maker-order-overview.module').then( m => m.MakerOrderOverviewPageModule)
+    loadChildren: () => import('./makers/maker-order-overview/maker-order-overview.module').then(m => m.MakerOrderOverviewPageModule)
   },
 
 
   {
     path: 'customerProfile',
     canActivate: [AuthGuardService],
-    loadChildren: () => import('./customer/customer-profile/customer-profile.module').then( m => m.CustomerProfilePageModule)
+    loadChildren: () => import('./customer/customer-profile/customer-profile.module').then(m => m.CustomerProfilePageModule)
   },
   {
     path: 'customerListings',
-    loadChildren: () => import('./customer/customer-listings/customer-listings.module').then( m => m.CustomerListingsPageModule)
+    loadChildren: () => import('./customer/customer-listings/customer-listings.module').then(m => m.CustomerListingsPageModule)
   },
   {
     path: 'customer-listing-overview',
-    loadChildren: () => import('./customer/customer-listing-overview/customer-listing-overview.module').then( m => m.CustomerListingOverviewPageModule)
+    loadChildren: () => import('./customer/customer-listing-overview/customer-listing-overview.module').then(m => m.CustomerListingOverviewPageModule)
   },
   {
     path: 'delivery-options',
-    loadChildren: () => import('./customer/delivery-options/delivery-options.module').then( m => m.DeliveryOptionsPageModule)
+    loadChildren: () => import('./customer/delivery-options/delivery-options.module').then(m => m.DeliveryOptionsPageModule)
   },
   {
     path: 'final-payment',
-    loadChildren: () => import('./customer/final-payment/final-payment.module').then( m => m.FinalPaymentPageModule)
+    loadChildren: () => import('./customer/final-payment/final-payment.module').then(m => m.FinalPaymentPageModule)
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];

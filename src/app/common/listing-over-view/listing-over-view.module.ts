@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ListingOverviewPageRoutingModule } from './listing-overview-routing.module';
+import { ListingOverViewPageRoutingModule } from './listing-over-view-routing.module';
 
-import { ListingOverviewPage } from './listing-overview.page';
+import { ListingOverViewPage } from './listing-over-view.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ListingOverviewPageRoutingModule
+    ListingOverViewPageRoutingModule
   ],
-  declarations: [ListingOverviewPage]
+  declarations: [ListingOverViewPage]
 })
-export class ListingOverviewPageModule {}
+export class ListingOverViewPageModule {}

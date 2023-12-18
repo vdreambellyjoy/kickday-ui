@@ -5,9 +5,9 @@
       <ion-label class="kd_main_heading">Sign In</ion-label>
     </ion-col>
 
-    <ion-col style="text-align: right;">
+    <!-- <ion-col style="text-align: right;">
       <ion-icon class="kd_svg_size" name="close-circle-outline"></ion-icon>
-    </ion-col>
+    </ion-col> -->
   </ion-row>
 </ion-header>
 
@@ -39,7 +39,7 @@
   </ion-row>
 
   <ion-row style="margin-top: 15px;">
-    <ion-col class="kd_flex kd_flex_row_center">
+    <ion-col class="kd_flex kd_flex_row_center" (click)="navigateToListings()">
       <ion-text class="bold_text">{{ordersCount}} Orders</ion-text>
       <img src="../../assets/right_arrow.png" alt="" class="arrow_icon">
     </ion-col>

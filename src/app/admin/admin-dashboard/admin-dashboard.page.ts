@@ -26,7 +26,7 @@ export class AdminDashboardPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.adminService.getOrdersCount({}).subscribe((res: any) => {
+    this.adminService.getListingsCount({}).subscribe((res: any) => {
       if (res.success) {
         this.ordersCount = res.data || 0;
       }
@@ -47,6 +47,10 @@ export class AdminDashboardPage implements OnInit {
     this.router.navigate(['/allUsers']);
   }
 
+  navigateToListings() {
+    this.router.navigate(['/listings']);
+  }
+  
   logOut() {
     this.authService.logOut({}).subscribe((res: any) => {
       localStorage.clear();

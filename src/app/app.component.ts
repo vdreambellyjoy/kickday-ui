@@ -10,18 +10,14 @@ register();
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(
-    private platform: Platform,
-    private route: Router
-  ) { }
-  
+  constructor(private platform: Platform, private route: Router) {}
+
   ngOnInit() {
     this.platform.ready().then((res) => {
       if (localStorage.getItem('token') && localStorage.getItem('userData')) {
         let userData: any = localStorage.getItem('userData');
-        if (!userData) this.route.navigateByUrl('/login')
+        if (!userData) this.route.navigateByUrl('/login');
       }
-    })
+    });
   }
-
 }
