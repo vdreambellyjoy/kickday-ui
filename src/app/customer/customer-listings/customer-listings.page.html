@@ -1,12 +1,15 @@
-<ion-header [translucent]="true" style="box-shadow: none;">
+<ion-header [translucent]="true" style="box-shadow: none">
   <ion-toolbar>
-    <ion-row style="margin: 10px;">
-      <ion-col size="3" style="display: flex; justify-content: start; align-items: center;">
+    <ion-row style="margin: 10px">
+      <ion-col
+        size="3"
+        style="display: flex; justify-content: start; align-items: center"
+      >
         <ion-icon name="logo-google" class="kd_svg_size"></ion-icon>
       </ion-col>
       <ion-col size="5" class="kd_flex kd_flex_row_center">
         <ion-icon name="location-outline" class="kd_back_button"></ion-icon>
-        <ion-text style="margin-left: 10px;">Hyderabad</ion-text>
+        <ion-text style="margin-left: 10px">Hyderabad</ion-text>
       </ion-col>
       <ion-col size="2" class="kd_flex kd_end_align">
         <ion-icon name="bag-handle-outline" class="kd_svg_size"></ion-icon>
@@ -19,7 +22,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-toolbar style="padding: 0px; --background: white; box-shadow: none; background-color: #dfd9f1; --box-shadow: none">
+  <ion-toolbar
+    style="
+      padding: 0px;
+      --background: white;
+      box-shadow: none;
+      background-color: #dfd9f1;
+      --box-shadow: none;
+    "
+  >
     <ion-segment [(ngModel)]="selectedSegment">
       <ion-segment-button value="All">
         <ion-label>All</ion-label>
@@ -39,74 +50,104 @@
     </ion-segment>
   </ion-toolbar>
 
-  <div style="border: solid 1px lightgray; border-radius: 14px; margin: 20px;">
-    <swiper-container style="height: 240px;" 
-    #swiper
-    (afterinit)="swiperReady()"
-    (slidechange)="swiperSlideChanged($event)"
-    [loop]="true"
-    [pagination]="true" (click)="navigateToListingOverview()">
-      <swiper-slide>
-        <img src="../../assets/b4rb8qdp19f.webp" alt="">
-      </swiper-slide>
-      <swiper-slide>
-        <img src="../../assets/sample_food_img.webp" alt="">
-      </swiper-slide>
-      <swiper-slide>
-        <img src="../../assets/samosa-chaat.jpg" alt="">
-      </swiper-slide>
-      <swiper-slide>
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/7Y5q41D8_hs" frameborder="0" allowfullscreen></iframe>
+  <div
+    style="border: solid 1px lightgray; border-radius: 14px; margin: 20px"
+    *ngFor="let listing of listings"
+  >
+    <swiper-container
+      style="height: 240px"
+      #swiper
+      (afterinit)="swiperReady()"
+      (slidechange)="swiperSlideChanged($event)"
+      [loop]="true"
+      [pagination]="true"
+      (click)="navigateToListingOverview()"
+    >
+      <swiper-slide *ngFor="let image of listing.imageArray">
+        <img [src]="image | getLogo | async" />
       </swiper-slide>
     </swiper-container>
 
-    <ion-row style="padding: 10px;">
+    <ion-row style="padding: 10px">
       <ion-col class="kd_flex" size="4.75">
         <div class="first_letter_styles">
-          <ion-text style="font-weight: bold;">R</ion-text>
+          <ion-text style="font-weight: bold">R</ion-text>
         </div>
-        <ion-text style="padding-left: 20px; font-size: 13px;"><span style="font-weight: bold;">Maker 1121</span> <br> <span>Raj Kumar</span> <br> 
-        <span>Kphb, Hyderabad</span></ion-text>
+        <ion-text style="padding-left: 20px; font-size: 13px"
+          ><span style="font-weight: bold">Maker 1121</span> <br />
+          <span>Raj Kumar</span> <br />
+          <span>Kphb, Hyderabad</span></ion-text
+        >
       </ion-col>
 
-      <ion-col style="display: flex; justify-content: center;" size="2.5">
-        <ion-icon name="caret-back-outline" style="padding-right: 10px; color: #0aa26d;" class="kd_back_button" (click)="goPrev()"></ion-icon>
-        <ion-icon name="caret-forward-outline" class="kd_back_button" style="color: #0aa26d;" (click)="goNext()"></ion-icon>
+      <ion-col style="display: flex; justify-content: center" size="2.5">
+        <ion-icon
+          name="caret-back-outline"
+          style="padding-right: 10px; color: #0aa26d"
+          class="kd_back_button"
+          (click)="goPrev()"
+        ></ion-icon>
+        <ion-icon
+          name="caret-forward-outline"
+          class="kd_back_button"
+          style="color: #0aa26d"
+          (click)="goNext()"
+        ></ion-icon>
       </ion-col>
 
       <ion-col class="kd_flex kd_end_align" size="4.75">
-        <ion-icon class="icon_style" style="height: 20px; width: 20px;" name="calendar-outline"></ion-icon>
+        <ion-icon
+          class="icon_style"
+          style="height: 20px; width: 20px"
+          name="calendar-outline"
+        ></ion-icon>
         <div>
-          <ion-text style="font-size: 13px; font-weight: bold;">Order will end on</ion-text>
-        <div class="kd_flex" style="padding-top: 5px;">
-          <ion-text style="font-size: 13px;">24 June Friday</ion-text>
-        </div>
+          <ion-text style="font-size: 13px; font-weight: bold"
+            >Order will end on</ion-text
+          >
+          <div class="kd_flex" style="padding-top: 5px">
+            <ion-text style="font-size: 13px">24 June Friday</ion-text>
+          </div>
         </div>
       </ion-col>
     </ion-row>
   </div>
 </ion-content>
-<ion-footer style="bottom: 0px; position: absolute;">
-  <ion-card style="margin: 0px; border-radius: 0px; padding: 10px;">
+<ion-footer style="bottom: 0px; position: absolute">
+  <ion-card style="margin: 0px; border-radius: 0px; padding: 10px">
     <ion-row>
-      <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent" (click)="navigateToOrders()">
+      <ion-col
+        class="kd_flex kd_flex_col_center ion-activatable ripple-parent"
+        (click)="navigateToOrders()"
+      >
         <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
-        <ion-icon name="bag-handle-outline" class="footer_icon_styles"></ion-icon>
+        <ion-icon
+          name="bag-handle-outline"
+          class="footer_icon_styles"
+        ></ion-icon>
         <ion-text class="icon-text_styles">Orders</ion-text>
       </ion-col>
 
       <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent">
         <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
-        <ion-icon name="list-circle-outline" class="footer_icon_styles"></ion-icon>
+        <ion-icon
+          name="list-circle-outline"
+          class="footer_icon_styles"
+        ></ion-icon>
         <ion-text class="icon-text_styles">Listings</ion-text>
       </ion-col>
 
-      <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent" (click)="navigateToDashboard()">
+      <ion-col
+        class="kd_flex kd_flex_col_center ion-activatable ripple-parent"
+        (click)="navigateToDashboard()"
+      >
         <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
-        <ion-icon name="person-circle-outline" class="footer_icon_styles"></ion-icon>
+        <ion-icon
+          name="person-circle-outline"
+          class="footer_icon_styles"
+        ></ion-icon>
         <ion-text class="icon-text_styles">Profile</ion-text>
       </ion-col>
-
     </ion-row>
   </ion-card>
 </ion-footer>

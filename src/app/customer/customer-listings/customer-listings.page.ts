@@ -9,41 +9,44 @@ import { AdminService } from 'src/app/services/admin.service';
   styleUrls: ['./customer-listings.page.scss'],
 })
 export class CustomerListingsPage implements OnInit {
-
   @ViewChild('swiper')
   swiperRef: ElementRef | undefined;
   swiper?: Swiper;
 
   selectedSegment: string = 'All';
+  listings: any;
 
-  constructor(
-    private router: Router,
-    private adminService: AdminService
-  ) { }
+  constructor(private router: Router, private adminService: AdminService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  ngAfterViewInit() {
-    this.adminService.getAllListingsForCustomer({}).subscribe((res: any) => {
-      console.log(res);
-    }, (err: any) => {
-      console.log(err);
-    })
+  ionViewWillEnter() {
+    // this.adminService.getAllListingsForCustomer({}).subscribe((res: any) => {
+    //   console.log(res);
+    //   this.listings = res.list
+    // }, (err: any) => {
+    //   console.log(err);
+    // })
+    // this.swiperReady();
+
+    this.adminService.getAllListingsForCustomer({}).subscribe(
+      (res: any) => {
+        this.listings = res.list || [];
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
     this.swiperReady();
   }
 
-  navigateToSearch() {
-  }
+  navigateToSearch() {}
 
-  navigateToOrders() {
-  }
+  navigateToOrders() {}
 
-  navigateToDashboard() {
-  }
+  navigateToDashboard() {}
 
-  navigateToListingOverview() {
-  }
+  navigateToListingOverview() {}
 
   swiperSlideChanged(e: any) {
     console.log('changed: ', e);
@@ -73,5 +76,4 @@ export class CustomerListingsPage implements OnInit {
       this.swiper.slidePrev();
     }
   }
-
 }
