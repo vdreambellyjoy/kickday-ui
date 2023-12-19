@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-all-users',
@@ -11,7 +12,11 @@ export class AllUsersPage implements OnInit {
   selectedSegment: string = 'all';
   usersList: any = [];
 
-  constructor(private router: Router, private adminService: AdminService) { }
+  constructor(
+    private router: Router, 
+    private navCtrl: NavController,
+    private adminService: AdminService
+    ) { }
   ngOnInit() { }
 
   ionViewWillEnter() {
@@ -43,8 +48,14 @@ export class AllUsersPage implements OnInit {
     this.router.navigate(['/profile']);
   }
 
-  navigateBackToAdminDashboard() {
+  goToBack() {
     this.router.navigate(['/adminDashboard']);
   }
+
+  handleRefresh(event:any) {
+    this.ionViewWillEnter();
+    event.target.complete();
+  }
+   
 
 }

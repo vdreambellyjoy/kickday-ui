@@ -10,6 +10,9 @@ import { AdminService } from '../../services/admin.service';
   styleUrls: ['./customer-order-details.page.scss'],
 })
 export class CustomerOrderDetailsPage implements OnInit {
+  _id: any = '';
+  userData: any = {};
+  orderData: any = {};
 
   constructor(
     private router: Router,
@@ -18,6 +21,13 @@ export class CustomerOrderDetailsPage implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this._id = this.router.url.split('/')[2];
+    let data: any = localStorage.getItem('userData');
+    this.userData = JSON.parse(data);
+    console.log(this._id)
   }
 
   goToBack() {

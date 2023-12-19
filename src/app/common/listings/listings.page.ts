@@ -39,14 +39,16 @@ export class ListingsPage implements OnInit {
   }
 
   goToBack() {
-    this.navCtrl.back(); // Or perform your desired action
+    this.router.navigate(['/adminDashboard']);
   }
 
   navigateToDashboard() {
-    this.router.navigateByUrl('/makerDashboard');
+    this.router.navigate(['/makerDashboard']);
   }
 
   navigateToCreateListing() {
-    this.router.navigateByUrl('/createLlisting');
+    this.router.navigate(['/createListing']);
   }
+
+  
 }

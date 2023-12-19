@@ -58,61 +58,22 @@ export class ProfilePage implements OnInit {
     })
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   ionViewWillEnter() {
     this.bankDetailsForm.reset();
     this.userDataForm.reset();
     this.mediaImages = [];
+    this.selectedSegment = 'profile';
+    this.segment.value = 'profile';
     this._id = this.router.url.split('/')[2];
     if (this._id) {
       this.adminService.getUserBasedOnId({ _id: this._id }).subscribe(
         async (res: any) => {
           if (res.success) {
-            let logoFile = await this.authService.getLogoImageById({ fileId: res.data.profileId });
-            let image: any = '';
-            let imageName = logoFile?.data?.name
-            if (!logoFile.success) image = '';
-            if (logoFile.data.mimetype == "svg+xml") {
-              image = await this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/svg+xml;base64,${logoFile.data.data}`);
-            }
-            image = `data:image/jpg;base64,${logoFile.data.data}`;
             this.userData = res.data || {};
-            this.userData.image = image;
-            this.userData.imageName = imageName;
-            let media = [];
-            this.userData.kitchenImages?.map(async (e: any) => {
-              let localLogo = await this.authService.getLogoImageById({ fileId: e });
-              let localimageName = localLogo?.data?.name
-              let localimage: any = '';
-              if (!localLogo.success) localimage = '';
-              if (localLogo.data.mimetype == "svg+xml") {
-                localimage = await this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/svg+xml;base64,${localLogo.data.data}`);
-              }
-              localimage = `data:image/jpg;base64,${localLogo.data.data}`;
-              this.mediaImages.push({ image: localimage, imageName: localimageName, imageId: e });
-            })
-            this.userDataForm.patchValue({
-              userName: this.userData.userName,
-              email: this.userData.email,
-              mobile: this.userData.mobileNumber,
-              city: this.userData.address,
-              bio: this.userData.bio,
-              image: image,
-              imageName: imageName,
-              imageId: this.userData.profileId,
-            });
-            this.bankDetailsForm = this.fb.group({
-              commission: this.userData.commission,
-              accountName: this.userData.accountName,
-              accountNumber: this.userData.accountNumber,
-              accountType: this.userData.accountType,
-              bankName: this.userData.bankName,
-              branch: this.userData.branch,
-              ifscCode: this.userData.ifscCode,
-            })
+            this._id = this.userData._id;
+            this.updateMakerForms('');
           } else {
             this.router.navigate(['/adminDashboard']);
           }
@@ -129,35 +90,12 @@ export class ProfilePage implements OnInit {
   }
 
   saveProfile() {
-    const formData = this.userDataForm.value;
     if (this.userDataForm.valid) {
       this.adminService.createMaker({ ...this.userDataForm.value, _id: this._id }).subscribe(async (res: any) => {
         if (res.success) {
           this.userData = res.data || {};
-          let logoFile = await this.authService.getLogoImageById({ fileId: res.data.profileId });
-          let image: any = '';
-          let imageName = logoFile?.data?.name
-          if (!logoFile.success) image = '';
-          if (logoFile.data.mimetype == "svg+xml") {
-            image = await this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/svg+xml;base64,${logoFile.data.data}`);
-          }
-          image = `data:image/jpg;base64,${logoFile.data.data}`;
-          this.userData = res.data || {};
           this._id = this.userData._id;
-          this.userData.image = image;
-          this.userData.imageName = imageName;
-          this.userDataForm.patchValue({
-            userName: this.userData.userName,
-            email: this.userData.email,
-            mobile: this.userData.mobileNumber,
-            city: this.userData.address,
-            bio: this.userData.bio,
-            image: image,
-            imageName: imageName,
-            imageId: this.userData.profileId,
-          });
-          this.selectedSegment = 'media';
-          this.segment.value = 'media';
+          this.updateMakerForms('media');
         }
       }, (err: any) => {
         console.log(err);
@@ -167,8 +105,11 @@ export class ProfilePage implements OnInit {
 
   saveMedia() {
     this.adminService.updateKitchenImages({ mobileNumber: this.userDataForm.value.mobile, image: this.mediaImages, _id: this._id }).subscribe((res: any) => {
-      this.selectedSegment = 'bank';
-      this.segment.value = 'bank';
+      if (res.success) {
+        this.userData = res.data || {};
+        this._id = this.userData._id;
+        this.updateMakerForms('bank');
+      }
     }, (err: any) => {
       console.log(err);
     })
@@ -224,17 +165,66 @@ export class ProfilePage implements OnInit {
       let bankData = { ...this.bankDetailsForm.value, ...this.userDataForm.value, _id: this.userData._id };
       this.adminService.updateBankDetails(bankData).subscribe((res: any) => {
         if (res.success) {
-          if (this.userData.role == 'admin') this.router.navigate(['/allUsers']);
+          let data: any = localStorage.getItem('userData');
+          let localUserData = JSON.parse(data);
+          if (localUserData.role == 'admin') this.router.navigate(['/allUsers']);
           else {
             localStorage.setItem('userData', JSON.stringify(res.userData));
             this.router.navigate(['/makerDashboard']);
           }
-
-
         }
       }, (err: any) => {
         console.log(err);
       })
+    }
+  }
+
+  async updateMakerForms(segment: any = '') {
+    let logoFile = await this.authService.getLogoImageById({ fileId: this.userData.profileId });
+    let image: any = '';
+    let imageName = logoFile?.data?.name
+    if (!logoFile.success) image = '';
+    if (logoFile.data.mimetype == "svg+xml") {
+      image = await this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/svg+xml;base64,${logoFile.data.data}`);
+    }
+    image = `data:image/jpg;base64,${logoFile.data.data}`;
+    this.userData.image = image;
+    this.userData.imageName = imageName;
+    this.mediaImages = [];
+    this.userData.kitchenImages?.map(async (e: any) => {
+      let localLogo = await this.authService.getLogoImageById({ fileId: e });
+      let localimageName = localLogo?.data?.name
+      let localimage: any = '';
+      if (!localLogo.success) localimage = '';
+      if (localLogo.data.mimetype == "svg+xml") {
+        localimage = await this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/svg+xml;base64,${localLogo.data.data}`);
+      }
+      localimage = `data:image/jpg;base64,${localLogo.data.data}`;
+      this.mediaImages.push({ image: localimage, imageName: localimageName, imageId: e });
+    })
+    this.userDataForm.patchValue({
+      userName: this.userData.userName,
+      email: this.userData.email,
+      mobile: this.userData.mobileNumber,
+      city: this.userData.address,
+      bio: this.userData.bio,
+      image: image,
+      imageName: imageName,
+      imageId: this.userData.profileId,
+    });
+    this.bankDetailsForm.patchValue({
+      commission: this.userData.commission,
+      accountName: this.userData.accountName,
+      accountNumber: this.userData.accountNumber,
+      accountType: this.userData.accountType,
+      bankName: this.userData.bankName,
+      branch: this.userData.branch,
+      ifscCode: this.userData.ifscCode,
+    });
+
+    if (segment) {
+      this.selectedSegment = segment;
+      this.segment.value = segment;
     }
   }
 

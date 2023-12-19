@@ -24,6 +24,10 @@ export class AdminService {
     return this.http.post(environment.baseUrl + "/admin/getAllListings", data);
   }
 
+  getListingBasedOnId(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/admin/getListingBasedOnId", data);
+  }
+
   getAllUsersList(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/admin/getAllUsersList", data);
   }
@@ -32,9 +36,6 @@ export class AdminService {
     return this.http.post(environment.baseUrl + "/admin/getUserBasedOnId", data);
   }
 
-  activeDeActiveUser(data: any): Observable<any> {
-    return this.http.post(environment.baseUrl + "/admin/activeDeActiveUser", data);
-  }
 
   createMaker(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/admin/createMaker", data);
@@ -47,6 +48,14 @@ export class AdminService {
   updateBankDetails(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/admin/updateBankDetails", data);
   }
+
+  getUserOverView(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/admin/getUserOverView", data);
+  }
+  
+  activeDeActiveUser(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/admin/activeDeActiveUser", data);
+  }
   // admin page API END
 
 
@@ -58,14 +67,6 @@ export class AdminService {
 
   addListing(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/maker/addListing", data);
-  }
-
-  getMakerListings(data: any): Observable<any> {
-    return this.http.post(environment.baseUrl + "/maker/getMakerListings", data);
-  }
-
-  getListingBasedOnId(data: any): Observable<any> {
-    return this.http.post(environment.baseUrl + "/maker/getListingBasedOnId", data);
   }
 
   deleteListing(data: any): Observable<any> {

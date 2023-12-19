@@ -59,19 +59,14 @@ const routes: Routes = [
     loadChildren: () => import('./makers/maker-dashboard/maker-dashboard.module').then(m => m.MakerDashboardPageModule)
   },
   {
-    path: 'createLlisting',
+    path: 'createListing',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./makers/create-listing/create-listing.module').then(m => m.CreateListingPageModule)
   },
   {
-    path: 'editLlisting/:id',
+    path: 'editListing/:id',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./makers/create-listing/create-listing.module').then(m => m.CreateListingPageModule)
-  },
-  {
-    path: 'makerOrderOverview',
-    canActivate: [AuthGuardService],
-    loadChildren: () => import('./makers/maker-order-overview/maker-order-overview.module').then(m => m.MakerOrderOverviewPageModule)
   },
 
 

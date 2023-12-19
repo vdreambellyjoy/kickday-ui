@@ -1,6 +1,9 @@
 <ion-header [translucent]="true" style="box-shadow: none">
   <ion-toolbar>
     <ion-row style="padding: 5px 10px 0px 10px">
+      <ion-col size="2" style="display: flex; justify-content: start; align-items: center;" *ngIf="userData.role == 'admin'">
+        <ion-icon name="arrow-back-outline" class="kd_back_button" (click)="goToBack()"></ion-icon>
+      </ion-col>
       <ion-col class="kd_center_align_items">
         <ion-icon name="bag-handle-outline" class="kd_svg_size"></ion-icon>
         <ion-text style="padding-left: 10px; font-size: 18px">Listings</ion-text>
@@ -15,8 +18,9 @@
       <ion-card class="kd_orders_card" *ngFor="let item of listings" (click)="openListing(item)">
         <ion-row>
           <ion-col>
-            <ion-text>Created on {{ item.startDateTime | date:'d MMMM EEE
-              h:mma'}}</ion-text>
+            <ion-text>
+              Created on {{ item.startDateTime | date:'d MMMM EEE h:mma'}}
+            </ion-text>
           </ion-col>
         </ion-row>
 
@@ -26,7 +30,7 @@
           </ion-col>
 
           <ion-col>
-            <ion-text>1123</ion-text>
+            <ion-text>{{item.ID}}</ion-text>
           </ion-col>
 
           <ion-col>
@@ -34,7 +38,7 @@
           </ion-col>
 
           <ion-col>
-            <ion-text>{{item.listingOrders.length}} Orders</ion-text>
+            <ion-text>{{item.customerOrdersCount}} Orders</ion-text>
           </ion-col>
         </ion-row>
 
@@ -79,7 +83,7 @@
   </ion-content>
 </ion-content>
 
-<ion-footer style="bottom: 0px; position: absolute">
+<ion-footer style="bottom: 0px; position: absolute" *ngIf="userData.role == 'maker'">
   <ion-card style="margin: 0px; border-radius: 0px; padding: 10px">
     <ion-row>
       <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent">

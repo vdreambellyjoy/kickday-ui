@@ -1,9 +1,8 @@
 <ion-header [translucent]="true" style="box-shadow: none;">
   <ion-toolbar>
     <ion-row style="margin: 10px;">
-      <ion-col size="2" style="display: flex; justify-content: start; align-items: center;"
-        (click)="navigateBackToAdminDashboard()">
-        <ion-icon name="arrow-back-outline" class="kd_back_button"></ion-icon>
+      <ion-col size="2" style="display: flex; justify-content: start; align-items: center;">
+        <ion-icon name="arrow-back-outline" class="kd_back_button" (click)="goToBack()"></ion-icon>
       </ion-col>
       <ion-col size="8" class="kd_flex kd_flex_row_center" style="display: grid;" (click)="naviageteToProfile()">
         <ion-row>
@@ -25,6 +24,9 @@
 
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-toolbar
     style="padding: 0px; --background: white; box-shadow: none; background-color: #dfd9f1; --box-shadow: none">
     <ion-segment (ionChange)="changeSegment($event)" [(ngModel)]="selectedSegment">

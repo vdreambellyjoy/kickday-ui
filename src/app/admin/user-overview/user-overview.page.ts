@@ -23,7 +23,7 @@ export class UserOverviewPage implements OnInit {
 
   ionViewWillEnter() {
     this._id = this.router.url.split('/')[2];
-    this.adminService.getUserBasedOnId({ _id: this._id }).subscribe((res: any) => {
+    this.adminService.getUserOverView({ _id: this._id }).subscribe((res: any) => {
       if (res.success) {
         this.userData = res.data || {};
         this.isToggleChecked = !this.userData.activeUser;

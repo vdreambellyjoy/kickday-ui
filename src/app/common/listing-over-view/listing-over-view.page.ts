@@ -14,6 +14,7 @@ export class ListingOverViewPage implements OnInit {
   userData: any = {};
   listingData: any = {};
   selectedSegment: string = 'All';
+  isToggleChecked: any = false;
 
   constructor(
     private router: Router,
@@ -27,8 +28,11 @@ export class ListingOverViewPage implements OnInit {
     this._id = this.router.url.split('/')[2];
     let data: any = localStorage.getItem('userData');
     this.userData = JSON.parse(data);
-    this.adminService.getListingBasedOnId({_id:this._id}).subscribe((res: any) => {
-      if (res.success && res.data) this.listingData = res.data;
+    this.adminService.getUserOverView({ _id: this._id }).subscribe((res: any) => {
+      if (res.success && res.data) {
+        this.listingData = res.data || {};
+        this.isToggleChecked = !this.listingData.makerData?.activeUser;
+      }
       else this.goToBack();
     }, (err) => {
       this.goToBack();
@@ -36,16 +40,37 @@ export class ListingOverViewPage implements OnInit {
   }
 
   goToBack() {
-    this.navCtrl.back(); // Or perform your desired action
+    this.router.navigate(['/listings']);
   }
 
   openOrderDetails(order: any) {
     this.router.navigateByUrl('/customerOrderDetails/' + order._id)
   }
 
-  goToCustomerOrderDetails() {
-    console.log("Customer Order Details");
-    
+  editListing() {
+    if (!this.listingData) return;
+    this.router.navigateByUrl('/editListing/' + this.listingData._id)
   }
 
+  toggleChanged() {
+    this.adminService.activeDeActiveUser({ _id: this.listingData.refMakerId, value: this.isToggleChecked }).subscribe((res: any) => {
+      if (res.success) {
+        this.userData = res.data || {};
+      } else {
+        this.router.navigate(['/adminDashboard']);
+      }
+    }, (err: any) => {
+      console.log(err);
+    })
+  }
+
+  deleteListing() {
+    if (!this.listingData.customerOrders?.length) {
+      this.adminService.deleteListing({ _id: this.listingData._id }).subscribe((res: any) => {
+        this.navCtrl.back();
+      }, (err: any) => {
+        console.log(err);
+      })
+    }
+  }
 }

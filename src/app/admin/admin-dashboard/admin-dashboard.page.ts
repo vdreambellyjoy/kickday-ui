@@ -10,7 +10,7 @@ import { AuthServiceService } from '../../services/auth-service.service';
 })
 export class AdminDashboardPage implements OnInit {
 
-  userData: any;
+  userData: any = {};
   userCount: any = 0;
   ordersCount: any = 0;
 
@@ -26,6 +26,8 @@ export class AdminDashboardPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    let data: any = localStorage.getItem('userData');
+    this.userData = JSON.parse(data);
     this.adminService.getListingsCount({}).subscribe((res: any) => {
       if (res.success) {
         this.ordersCount = res.data || 0;
@@ -50,7 +52,7 @@ export class AdminDashboardPage implements OnInit {
   navigateToListings() {
     this.router.navigate(['/listings']);
   }
-  
+
   logOut() {
     this.authService.logOut({}).subscribe((res: any) => {
       localStorage.clear();
@@ -59,5 +61,13 @@ export class AdminDashboardPage implements OnInit {
       console.log(err);
     })
   }
+
+  handleRefresh(event: any) {
+    this.ionViewWillEnter();
+    setTimeout(() => {
+      event.target.complete();
+    }, 500);
+  }
+
 
 }

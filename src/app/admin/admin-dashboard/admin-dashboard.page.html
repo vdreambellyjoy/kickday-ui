@@ -12,6 +12,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-row style="border-bottom: none !important; width: 100%;" class="kd_center_align">
     <div class="kd_round round_new kd_center_align">
       <img *ngIf="userData?.iconId" [src]="userData?.iconId" alt="LOGO">

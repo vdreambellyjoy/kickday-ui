@@ -44,7 +44,7 @@ export class MakerDashboardPage implements OnInit {
   }
 
   navigateToCreateListing() {
-    this.router.navigate(['/createLlisting'])
+    this.router.navigate(['/createListing'])
   }
 
   editMaker() {
