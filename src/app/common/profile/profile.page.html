@@ -6,7 +6,7 @@
 
     <ion-col size="9" style="padding: 0px;">
       <ion-toolbar style="padding: 0px; --background: white; background-color: white;">
-        <ion-segment [(ngModel)]="selectedSegment" #segment>
+        <ion-segment [(ngModel)]="selectedSegment" #segment mode="md">
           <ion-segment-button value="profile">
             <ion-label>Profile</ion-label>
           </ion-segment-button>
@@ -62,7 +62,7 @@
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Mobile*</ion-label>
-              <ion-input formControlName="mobile" aria-label="Mobile" placeholder="Enter Mobile"></ion-input>
+              <ion-input formControlName="mobile" aria-label="Mobile" placeholder="Enter Mobile" [disabled]="userData?.role == 'maker'"></ion-input>
             </ion-item>
           </ion-card>
     

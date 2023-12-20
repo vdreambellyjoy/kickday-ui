@@ -29,7 +29,7 @@
   </ion-refresher>
   <ion-toolbar
     style="padding: 0px; --background: white; box-shadow: none; background-color: #dfd9f1; --box-shadow: none">
-    <ion-segment (ionChange)="changeSegment($event)" [(ngModel)]="selectedSegment">
+    <ion-segment (ionChange)="changeSegment($event)" [(ngModel)]="selectedSegment" mode="md">
       <ion-segment-button value="all">
         <ion-label>All</ion-label>
       </ion-segment-button>
@@ -49,7 +49,8 @@
   </ion-toolbar>
 
   <div style="padding: 15px;">
-    <div style="margin: 15px 0px;" *ngFor="let maker of usersList; index as i" (click)="navigateToUserOverview(maker)">
+    <ion-searchbar class="searchbar-custom" (keypress)="onSearch($event)" placeholder="Search by name"></ion-searchbar>
+    <div style="margin: 15px 0px;" *ngFor="let maker of filteredUsersList; index as i" (click)="navigateToUserOverview(maker)">
       <ion-row>
         <ion-col size="5">
           <ion-text>user ID: {{maker?.ID}}</ion-text>

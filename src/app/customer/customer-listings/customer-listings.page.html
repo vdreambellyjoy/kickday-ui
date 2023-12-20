@@ -31,7 +31,7 @@
       --box-shadow: none;
     "
   >
-    <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment [(ngModel)]="selectedSegment" mode="md">
       <ion-segment-button value="All">
         <ion-label>All</ion-label>
       </ion-segment-button>
@@ -44,7 +44,7 @@
       <ion-segment-button value="snacks">
         <ion-label>Snacks</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="search" (click)="navigateToSearch()">
+      <ion-segment-button value="search" (click)="searchItem()">
         <ion-icon name="search-outline" class="kd_svg_size"></ion-icon>
       </ion-segment-button>
     </ion-segment>
@@ -61,7 +61,7 @@
       (slidechange)="swiperSlideChanged($event)"
       [loop]="true"
       [pagination]="true"
-      (click)="navigateToListingOverview()"
+      (click)="goToListingOverview(listing)"
     >
       <swiper-slide *ngFor="let image of listing.imageArray">
         <img [src]="image | getLogo | async" />
@@ -118,7 +118,7 @@
     <ion-row>
       <ion-col
         class="kd_flex kd_flex_col_center ion-activatable ripple-parent"
-        (click)="navigateToOrders()"
+        (click)="goToOrders()"
       >
         <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
         <ion-icon
@@ -139,7 +139,7 @@
 
       <ion-col
         class="kd_flex kd_flex_col_center ion-activatable ripple-parent"
-        (click)="navigateToDashboard()"
+        (click)=" goToDashboard()"
       >
         <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
         <ion-icon

@@ -13,7 +13,8 @@ export class AuthServiceService {
   constructor(private http: HttpClient, private route: Router) { }
 
   checkToken() {
-    if (localStorage.getItem('userData')) return true;
+    let user = localStorage.getItem('userData');
+    if (user && (user != undefined || user != 'undefined')) return true;
     else return false;
   }
 
@@ -28,13 +29,13 @@ export class AuthServiceService {
   logOut(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/auth/logOut", data);
   }
-  
+
   localLogOut() {
     localStorage.clear();
     this.route.navigateByUrl('/login');
   }
 
-  getLogoImageById(fileId:any): Promise<any> {
+  getLogoImageById(fileId: any): Promise<any> {
     return this.http.post(environment.baseUrl + "/auth/getlogofile", fileId).toPromise();
   };
 }

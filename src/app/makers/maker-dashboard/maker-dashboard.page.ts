@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { AdminService } from '../../services/admin.service';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-maker-dashboard',
@@ -17,22 +18,28 @@ export class MakerDashboardPage implements OnInit {
 
   constructor(
     private router: Router,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private authService: AuthServiceService
   ) { }
 
   ngOnInit() { }
 
   ionViewWillEnter() {
     let data: any = localStorage.getItem('userData');
-    this.userData = JSON.parse(data);
-    this.adminService.getMakerDashboardData({}).subscribe((res: any) => {
-      if (res.success) {
-        this.moneyEarned = res.moneyEarned;
-        this.listingsCount = res.listingsCount;
-      }
-    }, (err: any) => {
-      console.log(err);
-    })
+    if (!data || data == 'undefined' || data == 'undefined') {
+      this.authService.localLogOut();
+    }
+    else {
+      this.userData = JSON.parse(data);
+      this.adminService.getMakerDashboardData({}).subscribe((res: any) => {
+        if (res.success) {
+          this.moneyEarned = res.moneyEarned;
+          this.listingsCount = res.listingsCount;
+        }
+      }, (err: any) => {
+        console.log(err);
+      })
+    }
   }
 
   toggleChanged() {

@@ -28,7 +28,7 @@ export class ListingOverViewPage implements OnInit {
     this._id = this.router.url.split('/')[2];
     let data: any = localStorage.getItem('userData');
     this.userData = JSON.parse(data);
-    this.adminService.getUserOverView({ _id: this._id }).subscribe((res: any) => {
+    this.adminService.getListingBasedOnId({ _id: this._id }).subscribe((res: any) => {
       if (res.success && res.data) {
         this.listingData = res.data || {};
         this.isToggleChecked = !this.listingData.makerData?.activeUser;

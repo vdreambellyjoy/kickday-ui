@@ -33,40 +33,33 @@ export class CustomerListingsPage implements OnInit {
     this.swiperReady();
   }
 
-  navigateToSearch() {}
-
-  navigateToOrders() {}
-
-  navigateToDashboard() {}
-
-  navigateToListingOverview() {}
-
   swiperSlideChanged(e: any) {
     console.log('changed: ', e);
   }
 
   swiperReady() {
     this.swiper = this.swiperRef?.nativeElement.swiper;
-    console.log('Swiper ready:', this.swiper);
   }
 
   goNext() {
-    if (!this.swiper || this.swiper.destroyed) {
-      this.swiperReady();
-    }
-
-    if (this.swiper && !this.swiper.destroyed) {
-      this.swiper.slideNext();
-    }
+    if (!this.swiper || this.swiper.destroyed) this.swiperReady();
+    if (this.swiper && !this.swiper.destroyed) this.swiper.slideNext();
   }
 
   goPrev() {
-    if (!this.swiper || this.swiper.destroyed) {
-      this.swiperReady();
-    }
-
-    if (this.swiper && !this.swiper.destroyed) {
-      this.swiper.slidePrev();
-    }
+    if (!this.swiper || this.swiper.destroyed) this.swiperReady();
+    if (this.swiper && !this.swiper.destroyed) this.swiper.slidePrev();
   }
+
+  goToListingOverview(listing:any) {
+    this.router.navigateByUrl('/customerListings/' + listing._id);
+  }
+
+  goToOrders() {}
+
+  goToDashboard() {
+    this.router.navigate(['/customerProfile']);
+  }
+
+  searchItem() {}
 }

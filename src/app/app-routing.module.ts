@@ -80,7 +80,7 @@ const routes: Routes = [
     loadChildren: () => import('./customer/customer-listings/customer-listings.module').then(m => m.CustomerListingsPageModule)
   },
   {
-    path: 'customer-listing-overview',
+    path: 'customerListings/:id',
     loadChildren: () => import('./customer/customer-listing-overview/customer-listing-overview.module').then(m => m.CustomerListingOverviewPageModule)
   },
   {

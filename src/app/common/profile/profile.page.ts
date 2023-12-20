@@ -169,7 +169,7 @@ export class ProfilePage implements OnInit {
           let localUserData = JSON.parse(data);
           if (localUserData.role == 'admin') this.router.navigate(['/allUsers']);
           else {
-            localStorage.setItem('userData', JSON.stringify(res.userData));
+            localStorage.setItem('userData', JSON.stringify(res.data));
             this.router.navigate(['/makerDashboard']);
           }
         }

@@ -83,6 +83,18 @@ export class AdminService {
   getAllListingsForCustomer(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/customer/getAllListingsForCustomer", data);
   }
+
+  setFavItem(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/setFavItem", data);
+  }
+
+  setUnFavItem(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/setUnFavItem", data);
+  }
+
+  getListingForUser(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/getListingForUser", data);
+  }
   // customer page API END
 
 }

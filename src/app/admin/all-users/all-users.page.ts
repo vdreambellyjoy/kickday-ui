@@ -11,6 +11,7 @@ import { NavController } from '@ionic/angular';
 export class AllUsersPage implements OnInit {
   selectedSegment: string = 'all';
   usersList: any = [];
+  filteredUsersList: any = [];
 
   constructor(
     private router: Router, 
@@ -23,6 +24,7 @@ export class AllUsersPage implements OnInit {
     this.adminService.getAllUsersList({ selectedTab: this.selectedSegment }).subscribe((res: any) => {
       if (res.success) {
         this.usersList = res.data || [];
+        this.filteredUsersList = [...this.usersList];
       }
     }, (err: any) => {
       console.log(err);
@@ -34,6 +36,7 @@ export class AllUsersPage implements OnInit {
     this.adminService.getAllUsersList({ selectedTab: this.selectedSegment }).subscribe((res: any) => {
       if (res.success) {
         this.usersList = res.data || [];
+        this.filteredUsersList = [...this.usersList];
       }
     }, (err: any) => {
       console.log(err);
@@ -56,6 +59,21 @@ export class AllUsersPage implements OnInit {
     this.ionViewWillEnter();
     event.target.complete();
   }
-   
 
+  onSearch(event: any) {
+    const searchTerm = event.target.value.trim().toLowerCase();
+    console.log(searchTerm, "4578343", searchTerm.length < 1);
+  
+    if (!searchTerm || searchTerm.length < 1) {
+      this.filteredUsersList = [...this.usersList];
+      return;
+    }
+  
+    this.filteredUsersList = this.usersList.filter((user: any) => {
+      const userName = user.userName.toLowerCase();
+      console.log(userName, "searchhhh");
+      return userName.includes(searchTerm);
+    });
+  }
+  
 }

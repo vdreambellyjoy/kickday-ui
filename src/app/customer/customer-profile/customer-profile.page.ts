@@ -1,7 +1,9 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from '../../services/admin.service'
+import { AuthServiceService } from '../../services/auth-service.service'
 
 
 @Component({
@@ -12,10 +14,14 @@ import { AdminService } from '../../services/admin.service'
 export class CustomerProfilePage implements OnInit {
 
   userDataForm: FormGroup;
+  userData: any;
+  edit: any = false;
   constructor(
-    private route: Router,
+    private router: Router,
     private fb: FormBuilder,
-    private adminService: AdminService
+    private sanitizer: DomSanitizer,
+    private adminService: AdminService,
+    private authService: AuthServiceService
   ) {
     this.userDataForm = this.fb.group({
       userName: ['', Validators.required],
@@ -31,11 +37,30 @@ export class CustomerProfilePage implements OnInit {
 
   ngOnInit() { }
 
-  ionViewWillEnter() {
-    this.userDataForm.reset();
-    let userData: any = localStorage.getItem('userData');
-    userData = JSON.parse(userData);
-    this.userDataForm.get('mobile')?.setValue(userData.mobileNumber);
+  async ionViewWillEnter() {
+    let userDataCopy: any = localStorage.getItem('userData');
+    this.userData = JSON.parse(userDataCopy) || {};
+    if (this.userData.profileId) {
+      this.edit = true;
+      let localLogo = await this.authService.getLogoImageById({ fileId: this.userData.profileId });
+      let localimageName = localLogo?.data?.name
+      let localimage: any = '';
+      if (!localLogo.success) localimage = '';
+      if (localLogo.data.mimetype == "svg+xml") {
+        localimage = await this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/svg+xml;base64,${localLogo.data.data}`);
+      }
+      localimage = `data:image/jpg;base64,${localLogo.data.data}`;
+      this.userDataForm.patchValue({
+        userName: this.userData.userName,
+        email: this.userData.email,
+        mobile: this.userData.mobileNumber,
+        city: this.userData.address,
+        bio: this.userData.bio,
+        image: localimage,
+        imageName: localimageName,
+        imageId: this.userData.profileId,
+      });
+    }
   }
 
   onFileSelected(event: any) {
@@ -65,10 +90,21 @@ export class CustomerProfilePage implements OnInit {
   saveProfile() {
     const formData = this.userDataForm.value;
     this.adminService.updateCustomerDetails(formData).subscribe((res: any) => {
-      this.route.navigate(['/customerListings']);
+      if (res.success && res.data) {
+        localStorage.setItem('userData', JSON.stringify(res.data));
+        this.router.navigate(['/customerListings']);
+      }
     }, (err: any) => {
       console.log('userNot found , show error')
     })
+  }
+
+  goToOrders() {
+    console.log('goto page')
+  }
+
+  goToDashboard() {
+    this.router.navigate(['/customerListings']);
   }
 
 }
