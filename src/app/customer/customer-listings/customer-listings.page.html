@@ -3,26 +3,25 @@
     <ion-row style="margin: 10px">
       <ion-col
         size="3"
-        style="display: flex; justify-content: start; align-items: center"
-      >
+        style="display: flex; justify-content: start; align-items: center">
         <ion-icon name="logo-google" class="kd_svg_size"></ion-icon>
       </ion-col>
       <ion-col size="5" class="kd_flex kd_flex_row_center">
-        <ion-icon name="location-outline" class="kd_back_button"></ion-icon>
-        <ion-text style="margin-left: 10px">Hyderabad</ion-text>
+        <!-- <ion-icon name="location-outline" class="kd_back_button"></ion-icon>
+        <ion-text style="margin-left: 10px">Hyderabad</ion-text> -->
+      </ion-col>
+      <ion-col size="2" class="kd_flex kd_end_align">
+        <!-- <ion-icon name="menu-outline" class="kd_svg_size"></ion-icon> -->
       </ion-col>
       <ion-col size="2" class="kd_flex kd_end_align">
         <ion-icon name="bag-handle-outline" class="kd_svg_size"></ion-icon>
-      </ion-col>
-      <ion-col size="2" class="kd_flex kd_end_align">
-        <ion-icon name="menu-outline" class="kd_svg_size"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-toolbar
+  <!-- <ion-toolbar
     style="
       padding: 0px;
       --background: white;
@@ -48,11 +47,16 @@
         <ion-icon name="search-outline" class="kd_svg_size"></ion-icon>
       </ion-segment-button>
     </ion-segment>
-  </ion-toolbar>
+  </ion-toolbar> -->
+
+  <div style="display: flex; align-items: center;">
+    <ion-searchbar class="searchbar-custom" style="padding: 20px;" (keypress)="onSearch($event)" placeholder="Search by Category"></ion-searchbar>
+    <ion-icon name="search-outline" class="kd_svg_size" style="padding-right: 20px;"></ion-icon>
+  </div>
 
   <div
     style="border: solid 1px lightgray; border-radius: 14px; margin: 20px"
-    *ngFor="let listing of listings"
+    *ngFor="let listing of filteredItems"
   >
     <swiper-container
       style="height: 240px"
@@ -71,12 +75,12 @@
     <ion-row style="padding: 10px">
       <ion-col class="kd_flex" size="4.75">
         <div class="first_letter_styles">
-          <ion-text style="font-weight: bold">R</ion-text>
+          <ion-text style="font-weight: bold">{{listing.makerData.userName.charAt(0).toUpperCase()}}</ion-text>
         </div>
         <ion-text style="padding-left: 20px; font-size: 13px"
-          ><span style="font-weight: bold">Maker 1121</span> <br />
-          <span>Raj Kumar</span> <br />
-          <span>Kphb, Hyderabad</span></ion-text
+          ><span style="font-weight: bold">Maker {{listing.ID}}</span> <br />
+          <span>{{listing.makerData.userName}}</span> <br />
+          <span>{{listing.makerData.address}}</span></ion-text
         >
       </ion-col>
 
@@ -106,12 +110,14 @@
             >Order will end on</ion-text
           >
           <div class="kd_flex" style="padding-top: 5px">
-            <ion-text style="font-size: 13px">24 June Friday</ion-text>
+            <ion-text style="font-size: 13px">{{listing.endDateTime | date:'d MMMM EEE h:mm a'}}</ion-text>
           </div>
         </div>
       </ion-col>
     </ion-row>
   </div>
+
+  <div style="height: 100px;"></div>
 </ion-content>
 <ion-footer style="bottom: 0px; position: absolute">
   <ion-card style="margin: 0px; border-radius: 0px; padding: 10px">

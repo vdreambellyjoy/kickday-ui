@@ -15,6 +15,7 @@ export class CustomerListingsPage implements OnInit {
 
   selectedSegment: string = 'All';
   listings: any;
+  filteredItems: any[] = [];
 
   constructor(private router: Router, private adminService: AdminService) {}
 
@@ -25,6 +26,7 @@ export class CustomerListingsPage implements OnInit {
       (res: any) => {
         console.log(res);
         this.listings = res.list || [];
+        this.filteredItems = this.listings
       },
       (err: any) => {
         console.log(err);
@@ -61,5 +63,12 @@ export class CustomerListingsPage implements OnInit {
     this.router.navigate(['/customerProfile']);
   }
 
-  searchItem() {}
+  onSearch(event: any) {
+    const searchTerm = event.target.value.toLowerCase();
+
+    // Filter items based on the 'category' property
+    this.filteredItems = this.listings.filter((item: { category: string; }) =>
+      item.category.toLowerCase().includes(searchTerm)
+    );
+  }
 }

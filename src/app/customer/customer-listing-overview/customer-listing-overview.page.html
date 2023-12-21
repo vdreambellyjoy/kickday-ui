@@ -26,17 +26,8 @@
         (slidechange)="swiperSlideChanged($event)"
         [loop]="true"
         [pagination]="true">
-        <swiper-slide>
-          <img src="../../assets/b4rb8qdp19f.webp" alt="">
-        </swiper-slide>
-        <swiper-slide>
-          <img src="../../assets/sample_food_img.webp" alt="">
-        </swiper-slide>
-        <swiper-slide>
-          <img src="../../assets/samosa-chaat.jpg" alt="">
-        </swiper-slide>
-        <swiper-slide>
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/7Y5q41D8_hs" frameborder="0" allowfullscreen></iframe>
+        <swiper-slide *ngFor="let image of listingData.imageArray">
+          <img [src]="image | getLogo | async" />
         </swiper-slide>
       </swiper-container>
     </div>
@@ -44,7 +35,7 @@
       <ion-row>
         <ion-col class="kd_center_align_items" size="5">
           <ion-icon class="icon_style" style="padding-bottom: 6px;" name="bag-handle-outline"></ion-icon>
-          <ion-text>Biryani <span>+2</span></ion-text>
+          <ion-text>{{listingData.category}} <span>+{{listingData.listingOrders?.length}}</span></ion-text>
         </ion-col>
 
         <ion-col class="kd_center_align_items" size="7">
@@ -58,7 +49,7 @@
           <ion-text>Order Delivered On</ion-text>
           <div style="margin-top: 3px;">
             <ion-icon class="icon_style" name="calendar-outline"></ion-icon>
-            <ion-text>25 May Friday</ion-text>
+            <ion-text>{{listingData.startDateTime | date:'d MMMM EEE h:mm a'}}</ion-text>
           </div>
         </ion-col>
 
@@ -66,14 +57,24 @@
           <div class="first_letter_styles">
             <ion-text style="font-weight: bold;">R</ion-text>
           </div>
-          <ion-text style="padding-left: 20px; font-size: 13px;"><span style="font-weight: bold;">Maker 1121</span> <br> <span>Raj Kumar</span> <br> 
-          <span>Kphb, Hyderabad</span></ion-text>
+          <ion-text style="padding-left: 20px; font-size: 13px;">
+            <span style="font-weight: bold;">Maker {{listingData.ID}}</span> <br>
+            
+            <ng-container *ngIf="listingData.makerData">
+              <span>{{listingData.makerData.userName}}</span> <br>
+            </ng-container>
+
+            <ng-container *ngIf="listingData.makerData">
+              <span>{{listingData.makerData.address}}</span>
+            </ng-container>
+          
+          </ion-text>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col>
-          <ion-text style="font-size: 22px; font-weight: 600;">Mutton Biryani preparation on weekend do not miss it.</ion-text>
+          <ion-text style="font-size: 22px; font-weight: 600;">{{listingData.label}}</ion-text>
         </ion-col>
       </ion-row>
 
@@ -82,21 +83,20 @@
           <ion-text>Order Ends On</ion-text>
           <div style="margin-top: 3px;">
             <ion-icon class="icon_style" name="calendar-outline"></ion-icon>
-            <ion-text>25 June Friday 3:30PM</ion-text>
+            <ion-text>{{listingData.endDateTime | date:'d MMMM EEE h:mm a'}}</ion-text>
           </div>
         </ion-col>
       </ion-row>
 
-      <ion-row style="padding-top: 15px;">
+      <ion-row style="padding-top: 15px;" *ngFor="let order of listingData.listingOrders">
         <ion-col size="7">
-          <ion-text>Mutton Biryani Boneless</ion-text> <br>
+          <ion-text>{{order.name}}</ion-text> <br>
           <div style="padding-top: 5px;">
-            <ion-text style="padding-right: 15px;">500g</ion-text>
-            <ion-text>12 Left</ion-text>
+            <ion-text>{{order.quantity}} Left</ion-text>
           </div>
         </ion-col>
         <ion-col size="2" class="kd_flex kd_center_align">
-          <ion-text>$ 350</ion-text>
+          <ion-text>$ {{order.price}}</ion-text>
         </ion-col>
         <ion-col size="3" class="kd_end_align kd_center_align">
           <ion-button class="count_button">
@@ -123,7 +123,7 @@
         <ion-col size="11" class="kd_flex">
           <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
           <ion-text class="kd_flex kd_center_align">Delivery from: <span class="kd_flex kd_center_align"><ion-icon class="icon_style" name="location-outline"></ion-icon> 
-            Miyapur, Hyderabad </span></ion-text>
+            {{listingData.address}} </span></ion-text>
         </ion-col>
         <ion-col size="1" class="kd_flex kd_end_align">
           <ion-icon class="icon_style kd_no_padding" name="chevron-forward-outline"></ion-icon>

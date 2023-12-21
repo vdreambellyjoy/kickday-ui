@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { CustomerListingOverviewPageRoutingModule } from './customer-listing-overview-routing.module';
 
 import { CustomerListingOverviewPage } from './customer-listing-overview.page';
+import { SharedModule } from 'src/app/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    SharedModule,
     CustomerListingOverviewPageRoutingModule
   ],
   declarations: [CustomerListingOverviewPage],
