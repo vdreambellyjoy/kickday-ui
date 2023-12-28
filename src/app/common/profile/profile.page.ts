@@ -38,6 +38,7 @@ export class ProfilePage implements OnInit {
       userName: ['', Validators.required],
       email: ['', Validators.required],
       mobile: ['', Validators.required],
+      pin: ['', Validators.required],
       city: ['', Validators.required],
       bio: '',
       image: ['', Validators.required],
@@ -58,7 +59,7 @@ export class ProfilePage implements OnInit {
     })
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewWillEnter() {
     this.bankDetailsForm.reset();
@@ -206,6 +207,7 @@ export class ProfilePage implements OnInit {
       userName: this.userData.userName,
       email: this.userData.email,
       mobile: this.userData.mobileNumber,
+      pin: this.userData.pin,
       city: this.userData.address,
       bio: this.userData.bio,
       image: image,

@@ -62,21 +62,32 @@
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Mobile*</ion-label>
-              <ion-input formControlName="mobile" aria-label="Mobile" placeholder="Enter Mobile" [disabled]="userData?.role == 'maker'"></ion-input>
+              <ion-input formControlName="mobile" aria-label="Mobile" placeholder="Enter Mobile"
+                [disabled]="userData?.role == 'maker'"></ion-input>
             </ion-item>
           </ion-card>
-    
+
+          <ion-card style="display: grid; align-items: center;" class="input_selection">
+            <ion-item>
+              <ion-label position="stacked">PIN*</ion-label>
+              <ion-input formControlName="pin" aria-label="pin" placeholder="Enter PIN"
+                [disabled]="userData?.role == 'maker'"></ion-input>
+            </ion-item>
+          </ion-card>
+
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Location*</ion-label>
               <ion-input formControlName="city" aria-label="Location" placeholder="Enter Location"></ion-input>
             </ion-item>
           </ion-card>
-    
-          <ion-card style="display: grid; align-items: center; height: 112px; padding-top: 0px;" class="input_selection">
+
+          <ion-card style="display: grid; align-items: center; height: 112px; padding-top: 0px;"
+            class="input_selection">
             <ion-item>
               <ion-label position="stacked">Bio*</ion-label>
-              <ion-textarea formControlName="bio" aria-label="Bio" maxlength="200" style="font-size: 18px;"></ion-textarea>
+              <ion-textarea formControlName="bio" aria-label="Bio" maxlength="200"
+                style="font-size: 18px;"></ion-textarea>
             </ion-item>
           </ion-card>
         </div>
@@ -107,20 +118,23 @@
     <div *ngIf="selectedSegment === 'media'">
       <ion-row>
         <ion-col style="padding: 0px;">
-    
+
           <div class="add_img_div ion-activatable ripple-parent" (click)="fileInput.click()">
-            <input #fileInput type="file" accept="image/*" (change)="addMediaImages($event)" multiple style="display: none;">
+            <input #fileInput type="file" accept="image/*" (change)="addMediaImages($event)" multiple
+              style="display: none;">
             <ion-ripple-effect style="color: #dfd9f1;"></ion-ripple-effect>
             <ion-icon style="height: 58px; width: 58px;" name="camera-outline"></ion-icon>
             <ion-text style="font-size: 16px;">Add Image</ion-text>
           </div>
 
-          <div class="selected-images" style="max-height: 350px; overflow-y: auto; display: flex; flex-wrap: wrap; gap: 10px; border: solid 1px black;padding: 10px; margin-bottom: 20px;">
+          <div class="selected-images"
+            style="max-height: 350px; overflow-y: auto; display: flex; flex-wrap: wrap; gap: 10px; border: solid 1px black;padding: 10px; margin-bottom: 20px;">
             <ng-container *ngFor="let image of mediaImages; let i = index">
-              <img [src]="image.image" alt="Selected image {{ i + 1 }}" style="flex: 0 0 calc(30% - 10px); max-height: 30%;">
+              <img [src]="image.image" alt="Selected image {{ i + 1 }}"
+                style="flex: 0 0 calc(30% - 10px); max-height: 30%;">
             </ng-container>
           </div>
-    
+
         </ion-col>
       </ion-row>
       <ion-button class="kd_save_button" (click)="saveMedia()">Save</ion-button>
@@ -144,19 +158,22 @@
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Account Number*</ion-label>
-              <ion-input formControlName="accountNumber" aria-label="Account Number" placeholder="Enter Account Number"></ion-input>
+              <ion-input formControlName="accountNumber" aria-label="Account Number"
+                placeholder="Enter Account Number"></ion-input>
             </ion-item>
           </ion-card>
 
           <ion-row>
             <ion-col>
-              <ion-button [ngClass]="this.bankDetailsForm.get('accountType')?.value == 'savings'? 'selected': ''" (click)="setAccountType('savings')">Savings</ion-button>
+              <ion-button [ngClass]="this.bankDetailsForm.get('accountType')?.value == 'savings'? 'selected': ''"
+                (click)="setAccountType('savings')">Savings</ion-button>
             </ion-col>
             <ion-col>
-              <ion-button [ngClass]="this.bankDetailsForm.get('accountType')?.value == 'current'? 'selected': ''" (click)="setAccountType('current')">Current</ion-button>
+              <ion-button [ngClass]="this.bankDetailsForm.get('accountType')?.value == 'current'? 'selected': ''"
+                (click)="setAccountType('current')">Current</ion-button>
             </ion-col>
           </ion-row>
-    
+
           <ion-card style="display: grid; align-items: center;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Bank Name*</ion-label>
@@ -177,7 +194,7 @@
               <ion-input formControlName="ifscCode" aria-label="IFSC Code" placeholder="Enter IFSC"></ion-input>
             </ion-item>
           </ion-card>
-    
+
         </div>
       </form>
       <ion-button class="kd_save_button" (click)="submitProfile()">Submit</ion-button>

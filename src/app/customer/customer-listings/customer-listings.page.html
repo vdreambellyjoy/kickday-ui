@@ -1,9 +1,7 @@
 <ion-header [translucent]="true" style="box-shadow: none">
   <ion-toolbar>
     <ion-row style="margin: 10px">
-      <ion-col
-        size="3"
-        style="display: flex; justify-content: start; align-items: center">
+      <ion-col size="3" style="display: flex; justify-content: start; align-items: center">
         <ion-icon name="logo-google" class="kd_svg_size"></ion-icon>
       </ion-col>
       <ion-col size="5" class="kd_flex kd_flex_row_center">
@@ -50,23 +48,15 @@
   </ion-toolbar> -->
 
   <div style="display: flex; align-items: center;">
-    <ion-searchbar class="searchbar-custom" style="padding: 20px;" (keypress)="onSearch($event)" placeholder="Search by Category"></ion-searchbar>
+    <ion-searchbar class="searchbar-custom" style="padding: 20px;" (keyup)="onSearch($event)"
+      placeholder="Search by Category"></ion-searchbar>
     <ion-icon name="search-outline" class="kd_svg_size" style="padding-right: 20px;"></ion-icon>
   </div>
 
-  <div
-    style="border: solid 1px lightgray; border-radius: 14px; margin: 20px"
-    *ngFor="let listing of filteredItems"
-  >
-    <swiper-container
-      style="height: 240px"
-      #swiper
-      (afterinit)="swiperReady()"
-      (slidechange)="swiperSlideChanged($event)"
-      [loop]="true"
-      [pagination]="true"
-      (click)="goToListingOverview(listing)"
-    >
+  <div style="border: solid 1px lightgray; border-radius: 14px; margin: 20px" *ngFor="let listing of filteredItems">
+    <swiper-container style="height: 240px" #swiper (afterinit)="swiperReady()"
+      (slidechange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true"
+      (click)="goToListingOverview(listing)">
       <swiper-slide *ngFor="let image of listing.imageArray">
         <img [src]="image | getLogo | async" />
       </swiper-slide>
@@ -75,40 +65,25 @@
     <ion-row style="padding: 10px">
       <ion-col class="kd_flex" size="4.75">
         <div class="first_letter_styles">
-          <ion-text style="font-weight: bold">{{listing.makerData.userName.charAt(0).toUpperCase()}}</ion-text>
+          <ion-text style="font-weight: bold">B</ion-text>
         </div>
-        <ion-text style="padding-left: 20px; font-size: 13px"
-          ><span style="font-weight: bold">Maker {{listing.ID}}</span> <br />
+        <ion-text style="padding-left: 20px; font-size: 13px"><span style="font-weight: bold">Maker
+            {{listing.ID}}</span> <br />
           <span>{{listing.makerData.userName}}</span> <br />
-          <span>{{listing.makerData.address}}</span></ion-text
-        >
+          <span>{{listing.makerData.address}}</span></ion-text>
       </ion-col>
 
       <ion-col style="display: flex; justify-content: center" size="2.5">
-        <ion-icon
-          name="caret-back-outline"
-          style="padding-right: 10px; color: #0aa26d"
-          class="kd_back_button"
-          (click)="goPrev()"
-        ></ion-icon>
-        <ion-icon
-          name="caret-forward-outline"
-          class="kd_back_button"
-          style="color: #0aa26d"
-          (click)="goNext()"
-        ></ion-icon>
+        <ion-icon name="caret-back-outline" style="padding-right: 10px; color: #0aa26d" class="kd_back_button"
+          (click)="goPrev()"></ion-icon>
+        <ion-icon name="caret-forward-outline" class="kd_back_button" style="color: #0aa26d"
+          (click)="goNext()"></ion-icon>
       </ion-col>
 
       <ion-col class="kd_flex kd_end_align" size="4.75">
-        <ion-icon
-          class="icon_style"
-          style="height: 20px; width: 20px"
-          name="calendar-outline"
-        ></ion-icon>
+        <ion-icon class="icon_style" style="height: 20px; width: 20px" name="calendar-outline"></ion-icon>
         <div>
-          <ion-text style="font-size: 13px; font-weight: bold"
-            >Order will end on</ion-text
-          >
+          <ion-text style="font-size: 13px; font-weight: bold">Order will end on</ion-text>
           <div class="kd_flex" style="padding-top: 5px">
             <ion-text style="font-size: 13px">{{listing.endDateTime | date:'d MMMM EEE h:mm a'}}</ion-text>
           </div>
@@ -122,36 +97,21 @@
 <ion-footer style="bottom: 0px; position: absolute">
   <ion-card style="margin: 0px; border-radius: 0px; padding: 10px">
     <ion-row>
-      <ion-col
-        class="kd_flex kd_flex_col_center ion-activatable ripple-parent"
-        (click)="goToOrders()"
-      >
+      <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent" (click)="goToOrders()">
         <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
-        <ion-icon
-          name="bag-handle-outline"
-          class="footer_icon_styles"
-        ></ion-icon>
+        <ion-icon name="bag-handle-outline" class="footer_icon_styles"></ion-icon>
         <ion-text class="icon-text_styles">Orders</ion-text>
       </ion-col>
 
       <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent">
         <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
-        <ion-icon
-          name="list-circle-outline"
-          class="footer_icon_styles"
-        ></ion-icon>
+        <ion-icon name="list-circle-outline" class="footer_icon_styles"></ion-icon>
         <ion-text class="icon-text_styles">Listings</ion-text>
       </ion-col>
 
-      <ion-col
-        class="kd_flex kd_flex_col_center ion-activatable ripple-parent"
-        (click)=" goToDashboard()"
-      >
+      <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent" (click)=" goToDashboard()">
         <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
-        <ion-icon
-          name="person-circle-outline"
-          class="footer_icon_styles"
-        ></ion-icon>
+        <ion-icon name="person-circle-outline" class="footer_icon_styles"></ion-icon>
         <ion-text class="icon-text_styles">Profile</ion-text>
       </ion-col>
     </ion-row>

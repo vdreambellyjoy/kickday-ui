@@ -17,9 +17,9 @@ export class CustomerListingsPage implements OnInit {
   listings: any;
   filteredItems: any[] = [];
 
-  constructor(private router: Router, private adminService: AdminService) {}
+  constructor(private router: Router, private adminService: AdminService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterViewInit() {
     this.adminService.getAllListingsForCustomer({}).subscribe(
@@ -53,18 +53,18 @@ export class CustomerListingsPage implements OnInit {
     if (this.swiper && !this.swiper.destroyed) this.swiper.slidePrev();
   }
 
-  goToListingOverview(listing:any) {
+  goToListingOverview(listing: any) {
     this.router.navigateByUrl('/customerListings/' + listing._id);
   }
 
-  goToOrders() {}
+  goToOrders() { }
 
   goToDashboard() {
     this.router.navigate(['/customerProfile']);
   }
 
   onSearch(event: any) {
-    const searchTerm = event.target.value.toLowerCase();
+    const searchTerm = event.target.value;
 
     // Filter items based on the 'category' property
     this.filteredItems = this.listings.filter((item: { category: string; }) =>

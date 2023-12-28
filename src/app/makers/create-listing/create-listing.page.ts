@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { AdminService } from '../../services/admin.service';
 import { LoadingController, NavController } from '@ionic/angular';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare var google: any;
 @Component({
@@ -25,6 +27,7 @@ export class CreateListingPage implements OnInit {
   predictions: any;
   mediaImages: any = [];
   bindingData: any;
+  youTubeUrl: any;
   addCategoryData = [
     'Biryani',
     'Sweets',
@@ -59,8 +62,7 @@ export class CreateListingPage implements OnInit {
       text: 'OK',
       role: 'confirm',
       handler: (data: any) => {
-        // 'data' parameter contains the entered text
-        console.log('Entered text:', data.enteredText);
+        this.youTubeUrl = data.enteredText
       },
     },
   ];
@@ -78,6 +80,8 @@ export class CreateListingPage implements OnInit {
     private navCtrl: NavController,
     private adminService: AdminService,
     public loadingCtrl: LoadingController,
+    private authService: AuthServiceService,
+    private sanitizer: DomSanitizer,
   ) {
     this.autocompleteService = new google.maps.places.AutocompleteService();
   }
@@ -91,8 +95,26 @@ export class CreateListingPage implements OnInit {
         if (res.success) {
           this.bindingData = res.data
           this.orderEndDateTime = this.bindingData.endDateTime;
+          this.deliveryItems = this.bindingData.deliveryOptions;
+          this.items = this.bindingData.listingOrders.map((e: any) => {
+            return { name: e.name, price: e.price, quantity: e.quantity }
+          })
+          this.youTubeUrl = this.bindingData.youtubeUrl;
+
           this.orderDeliveredDateTime = this.bindingData.startDateTime;
           console.log(res)
+          this.mediaImages = [];
+          this.bindingData.imageArray?.map(async (e: any) => {
+            let localLogo = await this.authService.getLogoImageById({ fileId: e });
+            let localimageName = localLogo?.data?.name
+            let localimage: any = '';
+            if (!localLogo.success) localimage = '';
+            if (localLogo.data.mimetype == "svg+xml") {
+              localimage = await this.sanitizer.bypassSecurityTrustResourceUrl(`data:image/svg+xml;base64,${localLogo.data.data}`);
+            }
+            localimage = `data:image/jpg;base64,${localLogo.data.data}`;
+            this.mediaImages.push({ image: localimage, imageName: localimageName, imageId: e });
+          })
         }
       }, (err: any) => {
         console.log(err);
@@ -143,11 +165,9 @@ export class CreateListingPage implements OnInit {
   }
 
   addDeliveryItem() {
-    if (this.deliveryType && this.deliveryPrice) {
-      this.deliveryItems = [];
+    if (this.deliveryType && (this.deliveryPrice || this.deliveryPrice == 0)) {
       this.deliveryItems.push({ type: this.deliveryType, price: this.deliveryPrice });
-      this.deliveryType = '';
-      // this.deliveryPrice = 0;
+      this.deliveryPrice = 0;
     }
   }
 
@@ -157,7 +177,7 @@ export class CreateListingPage implements OnInit {
 
   addListing() {
     let obj = {
-      address:this.selectedPrediction.formatted_address,
+      address: this.selectedPrediction.formatted_address,
       lat: this.selectedPrediction.lat,
       lng: this.selectedPrediction.lng,
       label: this.label,
@@ -166,7 +186,7 @@ export class CreateListingPage implements OnInit {
       endDateTime: new Date(this.orderEndDateTime),
       orders: this.items,
       deliveryOptions: this.deliveryItems,
-      youtubeUrl: '',
+      youtubeUrl: this.youTubeUrl,
       image: this.mediaImages,
     }
     this.adminService.addListing(obj).subscribe((res: any) => {
@@ -220,14 +240,15 @@ export class CreateListingPage implements OnInit {
     placeService.getDetails({ placeId: prediction.place_id }, (placeResult: any, status: any) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         this.selectedPrediction = placeResult;
-        this.selectedPrediction.lat =  placeResult.geometry.location.lat();
-        this.selectedPrediction.lng =  placeResult.geometry.location.lng();
+        this.selectedPrediction.lat = placeResult.geometry.location.lat();
+        this.selectedPrediction.lng = placeResult.geometry.location.lng();
       }
     });
     this.predictions = []
   }
 
   toggleFreeDelivery() {
+    this.deliveryPrice = 0;
     this.isFreeDelivery = !this.isFreeDelivery;
   }
 
@@ -238,12 +259,12 @@ export class CreateListingPage implements OnInit {
       this.addMultipleMediaImages(files);
     }
   }
-  
+
   addMultipleMediaImages(files: FileList) {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const reader = new FileReader();
-  
+
       reader.onload = (e: any) => {
         const imageData = e.target.result as string;
         const imageName = file.name;

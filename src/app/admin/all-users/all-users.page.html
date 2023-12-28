@@ -49,8 +49,9 @@
   </ion-toolbar>
 
   <div style="padding: 15px;">
-    <ion-searchbar class="searchbar-custom" (keypress)="onSearch($event)" placeholder="Search by name"></ion-searchbar>
-    <div style="margin: 15px 0px;" *ngFor="let maker of filteredUsersList; index as i" (click)="navigateToUserOverview(maker)">
+    <ion-searchbar class="searchbar-custom" (keyup)="onSearch($event)" placeholder="Search by name"></ion-searchbar>
+    <div style="margin: 15px 0px;" *ngFor="let maker of filteredUsersList; index as i"
+      (click)="navigateToUserOverview(maker)">
       <ion-row>
         <ion-col size="5">
           <ion-text>user ID: {{maker?.ID}}</ion-text>
@@ -68,7 +69,8 @@
       <ion-row style="margin-top: 5px;">
         <ion-col class="kd_flex" size="10">
           <div class="first_letter_styles">
-            <ion-text style="font-weight: bold;" *ngIf="!maker?.profileId">{{maker.userName.charAt(0).toUpperCase()}}</ion-text>
+            <ion-text style="font-weight: bold;"
+              *ngIf="!maker?.profileId">{{maker.userName.charAt(0).toUpperCase()}}</ion-text>
             <ion-text style="font-weight: bold;" *ngIf="maker?.profileId">
               <img [src]="maker?.profileId | getLogo | async">
             </ion-text>
