@@ -17,6 +17,7 @@ export class CustomerListingOverviewPage {
   count: number = 0;
   _id: any = '';
   listingData: any = {};
+  totalCost: number = 0;
 
   constructor(
     private router: Router,
@@ -33,12 +34,26 @@ export class CustomerListingOverviewPage {
       if (res.success && res.data) {
         this.listingData = res.data || {};
         this.swiperReady();
+
+        if (Array.isArray(this.listingData.listingOrders)) {
+          this.listingData.listingOrders.forEach((order: any) => {
+            order.count = order.quantity !== undefined ? 0 : order.quantity;
+            order.individualItemCost = order.price * order.count || 0;
+          });
+
+          this.calculateTotalCost();
+        } else {
+          console.warn('Listing orders array is missing or invalid.');
+        }
+      } else {
+        this.navigateToListings();
       }
-      else this.navigateToListings();
     }, (err) => {
       this.navigateToListings();
-    })
+    });
   }
+
+
 
   navigateToDeliveryOptions() {
     this.router.navigateByUrl('/delivery-options')
@@ -78,14 +93,32 @@ export class CustomerListingOverviewPage {
     })
   }
 
-  incrementCount() {
-    this.count++;
+  incrementCount(order: any) {
+    if (order && 'count' in order && 'quantity' in order) {
+      console.log(order.count, 325782577348, order.quantity, 37588574398);
+
+      if (order.count < order.quantity) {
+        order.count = (order.count || 0) + 1;
+        order.individualItemCost = order.price * order.count || 0;
+        this.calculateTotalCost();
+      }
+    } else {
+      console.warn('Order object or its properties are undefined or missing.');
+    }
   }
 
-  decrementCount() {
-    if (this.count > 0) {
-      this.count--;
+  decrementCount(order: any) {
+    if (order.count && order.count > 0) {
+      order.count--;
+      order.individualItemCost = order.price * order.count || 0;
+      this.calculateTotalCost();
     }
+  }
+
+  calculateTotalCost() {
+    this.totalCost = this.listingData.listingOrders.reduce((sum: number, order: any) => {
+      return sum + order.individualItemCost || 0;
+    }, 0);
   }
 
   navigatetoTab3() {
