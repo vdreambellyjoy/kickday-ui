@@ -152,7 +152,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row (click)="openAddressList()">
+    <ion-row>
       <ion-col size="11" class="kd_flex">
         <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
         <ion-text class="kd_flex kd_center_align">Delivery from: <span class="kd_flex kd_center_align"><ion-icon
@@ -164,18 +164,41 @@
       </ion-col>
     </ion-row>
 
-    <ion-row (click)="openAddressList()">
-      <ion-col>
-        <div fill="outline" class="location_type_div ion-activatable ripple-parent">
-          <ion-ripple-effect style="color: #1aa3ff;"></ion-ripple-effect>
-          <span style="font-size: 14px;">Pickup</span> <br> You can pickup on <br> 24 June2:30PM - 5:00PM
-        </div>
+    <ion-row>
+      <ion-col size="5">
+        <ion-item style="border: solid 1px black; border-radius: 14px; padding-left: 10px;">
+          <ion-select label="Delivery Options" [(ngModel)]="selectedDeliveryType" style="min-height: 48px;">
+            <ion-select-option *ngFor="let option of listingData.deliveryOptions"
+              [value]=option.type>{{option.type}}</ion-select-option>
+          </ion-select>
+        </ion-item>
       </ion-col>
-      <ion-col>
-        <div fill="outline" class="location_type_div ion-activatable ripple-parent">
-          <ion-ripple-effect style="color: #1aa3ff;"></ion-ripple-effect>
-          <span style="font-size: 14px;">Delivery Options</span> <br> Neighbourhood <br> Town limits <br> PAN India
-        </div>
+      <ion-col (click)="openAddressList()">
+        <ion-button>Select Address</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="11" class="kd_flex">
+        <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
+        <ion-text class="kd_flex kd_center_align">Delivery Options: <span class="kd_flex kd_center_align">
+            <ion-icon class="icon_style" name="location-outline"></ion-icon>
+            {{selectedDeliveryType}} </span></ion-text>
+      </ion-col>
+      <ion-col size="1" class="kd_flex kd_end_align">
+        <ion-icon class="icon_style kd_no_padding" name="chevron-forward-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="11" class="kd_flex">
+        <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
+        <ion-text class="kd_flex kd_center_align">Selected Address: <span class="kd_flex kd_center_align">
+            <ion-icon class="icon_style" name="location-outline"></ion-icon>
+            {{selectedAddress}} </span></ion-text>
+      </ion-col>
+      <ion-col size="1" class="kd_flex kd_end_align">
+        <ion-icon class="icon_style kd_no_padding" name="chevron-forward-outline"></ion-icon>
       </ion-col>
     </ion-row>
 

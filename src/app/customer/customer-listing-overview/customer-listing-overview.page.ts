@@ -19,6 +19,8 @@ export class CustomerListingOverviewPage {
   _id: any = '';
   listingData: any = {};
   totalCost: number = 0;
+  selectedDeliveryType: any;
+  selectedAddress: any;
 
   constructor(
     private router: Router,
@@ -61,6 +63,10 @@ export class CustomerListingOverviewPage {
     modal.present();
 
     const { data, role } = await modal.onWillDismiss();
+
+    if (data && role === 'ok') {
+      this.selectedAddress = data.selectedAddress;
+    }
   }
 
   swiperSlideChanged(e: any) {
