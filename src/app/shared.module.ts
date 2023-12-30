@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { GetLogoPipe } from './pipes/get-logo.pipe';
 
@@ -8,17 +8,19 @@ import { GetLogoPipe } from './pipes/get-logo.pipe';
     imports: [
         CommonModule,
         IonicModule,
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ],
     declarations: [
         GetLogoPipe
     ],
     providers: [],
     exports: [
+        GetLogoPipe,
         CommonModule,
         IonicModule,
         FormsModule,
-        GetLogoPipe,
+        ReactiveFormsModule
     ]
 })
 export class SharedModule { }

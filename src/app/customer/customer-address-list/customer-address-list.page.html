@@ -1,0 +1,85 @@
+<ion-header *ngIf="!showAddressForm">
+  <ion-toolbar>
+    <ion-title>My Addresses</ion-title>
+    <ion-icon name='close-circle-outline' (click)='dismiss()' style='float: right;height: 25px;width: 25px;'></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="!showAddressForm">
+  <ion-list>
+    <ion-item (click)="showAddressForm = true;">
+      <ion-label>
+        <ion-icon name="add"></ion-icon>
+        Add Addresss
+      </ion-label>
+    </ion-item>
+    <ion-item *ngFor="let address of addressList">
+      <ion-avatar slot="start">
+        <ion-icon name="location-outline" style="color:blue;height: 30px; width: 30px;" *ngIf="address.default"></ion-icon>
+        <ion-icon name="location-outline" style="color:grey;height: 30px; width: 30px;" *ngIf="!address.default"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h2>Peter</h2>
+        <p>Hi! JavaTpoint is a best Tutorial WebSite.</p>
+        <a *ngIf="!address.default" (click)='makeDefaultAddresses(address._id)'>set as Default</a>
+      </ion-label>
+      <ion-icon name='trash-outline' (click)='deleteAddress(address._id)'
+        style='float: right;height: 25px;width: 25px;color: red;' *ngIf="!address.default"></ion-icon>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
+
+<ion-header *ngIf="showAddressForm">
+  <ion-toolbar>
+    <ion-title>Add Address</ion-title>
+    <ion-icon name='close-circle-outline' (click)='showAddressForm = false'
+      style='float: right;height: 25px;width: 25px;'></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="showAddressForm">
+  <form [formGroup]="deliveryDataForm">
+    <div>
+      <ion-card style="display: grid; align-items: center;" class="input_selection">
+        <ion-item>
+          <ion-label position="stacked">Name*</ion-label>
+          <ion-input formControlName="name" aria-label="Name" placeholder="Enter Name"></ion-input>
+        </ion-item>
+      </ion-card>
+      <ion-card style="display: grid; align-items: center;" class="input_selection">
+        <ion-item>
+          <ion-label position="stacked">Email*</ion-label>
+          <ion-input formControlName="email" aria-label="Email" placeholder="Enter Email"></ion-input>
+        </ion-item>
+      </ion-card>
+      <ion-card style="display: grid; align-items: center;" class="input_selection">
+        <ion-item>
+          <ion-label position="stacked">Mobile*</ion-label>
+          <ion-input formControlName="mobile" aria-label="Mobile" placeholder="Enter Mobile"></ion-input>
+        </ion-item>
+      </ion-card>
+
+      <ion-card style="display: grid; align-items: center; height: 90px;" class="input_selection">
+        <ion-item>
+          <ion-label position="stacked">Address*</ion-label>
+          <ion-input formControlName="address" aria-label="Location" placeholder="Enter Address"></ion-input>
+        </ion-item>
+      </ion-card>
+
+      <ion-card style="display: grid; align-items: center;" class="input_selection">
+        <ion-item>
+          <ion-label position="stacked">Googgle Location URL*</ion-label>
+          <ion-input formControlName="LocationUrl" aria-label="Location" placeholder="Location URL"></ion-input>
+        </ion-item>
+      </ion-card>
+    </div>
+  </form>
+
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="saveDetails()">SAVE</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-content>

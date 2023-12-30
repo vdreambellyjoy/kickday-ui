@@ -176,7 +176,7 @@ export class CreateListingPage implements OnInit {
   }
 
   addListing() {
-    let obj = {
+    let obj: any = {
       address: this.selectedPrediction.formatted_address,
       lat: this.selectedPrediction.lat,
       lng: this.selectedPrediction.lng,
@@ -189,7 +189,8 @@ export class CreateListingPage implements OnInit {
       youtubeUrl: this.youTubeUrl,
       image: this.mediaImages,
     }
-    this.adminService.addListing(obj).subscribe((res: any) => {
+    if (this._id) obj._id = this._id
+    this.adminService.addEditListing(obj).subscribe((res: any) => {
       if (res.success) {
         this.router.navigate(['/listings']);
       }

@@ -1,9 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
-import { AdminService } from 'src/app/services/admin.service';
 import { Swiper } from 'swiper';
+import { Router } from '@angular/router';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AlertController, ModalController } from '@ionic/angular';
 
+import { AdminService } from 'src/app/services/admin.service';
+import { CustomerAddressListPage } from 'src/app/customer/customer-address-list/customer-address-list.page';
 @Component({
   selector: 'app-customer-listing-overview',
   templateUrl: './customer-listing-overview.page.html',
@@ -21,7 +22,9 @@ export class CustomerListingOverviewPage {
 
   constructor(
     private router: Router,
-    private adminService: AdminService
+    private model: ModalController,
+    private alert: AlertController,
+    private adminService: AdminService,
   ) { }
 
   ngOnInIt() {
@@ -45,18 +48,19 @@ export class CustomerListingOverviewPage {
         } else {
           console.warn('Listing orders array is missing or invalid.');
         }
-      } else {
-        this.navigateToListings();
-      }
+      } else this.navigateToListings();
     }, (err) => {
       this.navigateToListings();
-    });
+    })
   }
 
+  async openAddressList() {
+    const modal = await this.model.create({
+      component: CustomerAddressListPage,
+    });
+    modal.present();
 
-
-  navigateToDeliveryOptions() {
-    this.router.navigateByUrl('/delivery-options')
+    const { data, role } = await modal.onWillDismiss();
   }
 
   swiperSlideChanged(e: any) {
@@ -79,7 +83,9 @@ export class CustomerListingOverviewPage {
 
   favItem() {
     this.adminService.setFavItem({ _id: this._id }).subscribe((res: any) => {
-      console.log(res);
+      if (res.success) {
+        this.listingData.favourite = true;
+      }
     }, (err: any) => {
       console.log(err);
     })
@@ -87,7 +93,9 @@ export class CustomerListingOverviewPage {
 
   unFavItem() {
     this.adminService.setUnFavItem({ _id: this._id }).subscribe((res: any) => {
-      console.log(res);
+      if (res.success) {
+        this.listingData.favourite = false;
+      }
     }, (err: any) => {
       console.log(err);
     })
@@ -95,8 +103,6 @@ export class CustomerListingOverviewPage {
 
   incrementCount(order: any) {
     if (order && 'count' in order && 'quantity' in order) {
-      console.log(order.count, 325782577348, order.quantity, 37588574398);
-
       if (order.count < order.quantity) {
         order.count = (order.count || 0) + 1;
         order.individualItemCost = order.price * order.count || 0;
@@ -121,11 +127,28 @@ export class CustomerListingOverviewPage {
     }, 0);
   }
 
-  navigatetoTab3() {
-    this.router.navigate(['/final-payment']);
+  addToCart() {
+    console.log('pk')
+    // this.adminService.addToCart(this.deliveryDataForm.value).subscribe((res: any) => {
+    //   if (res.success) this.router.navigate(['/finalPayment']);
+    //   else this.openAlert('ERROR', 'something went wrong please try again', ['close']);
+    // }, (err) => {
+    //   this.openAlert('ERROR', 'something went wrong please try again', ['close']);
+    // })
   }
 
   navigateToListings() {
     this.router.navigate(['/customerListings']);
+  }
+
+  async openAlert(header: any, message: any, buttons: any) {
+    const alert = await this.alert.create({
+      header: header,
+      message: message,
+      buttons: buttons,
+      mode: 'ios',
+    });
+
+    await alert.present();
   }
 }

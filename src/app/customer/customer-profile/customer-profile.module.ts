@@ -1,19 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
-
+import { SharedModule } from 'src/app/shared.module';
+import { CustomerProfilePage } from './customer-profile.page';
 import { CustomerProfilePageRoutingModule } from './customer-profile-routing.module';
 
-import { CustomerProfilePage } from './customer-profile.page';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonicModule,
+    SharedModule,
     CustomerProfilePageRoutingModule
   ],
   declarations: [CustomerProfilePage]

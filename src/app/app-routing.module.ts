@@ -84,11 +84,15 @@ const routes: Routes = [
     loadChildren: () => import('./customer/customer-listing-overview/customer-listing-overview.module').then(m => m.CustomerListingOverviewPageModule)
   },
   {
-    path: 'delivery-options',
+    path: 'AddressList',
+    loadChildren: () => import('./customer/customer-address-list/customer-address-list.module').then(m => m.CustomerAddressListPageModule)
+  },
+  {
+    path: 'deliveryOptions/:id',
     loadChildren: () => import('./customer/delivery-options/delivery-options.module').then(m => m.DeliveryOptionsPageModule)
   },
   {
-    path: 'final-payment',
+    path: 'finalPayment',
     loadChildren: () => import('./customer/final-payment/final-payment.module').then(m => m.FinalPaymentPageModule)
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },

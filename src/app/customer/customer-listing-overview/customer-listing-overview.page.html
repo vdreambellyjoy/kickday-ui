@@ -5,7 +5,9 @@
         <ion-icon name="arrow-back-outline" class="kd_svg_size" (click)="navigateToListings()"></ion-icon>
       </ion-col>
       <ion-col style="display: flex; justify-content: center; align-items: center;">
-        <ion-icon name="star-outline" class="kd_svg_size" (click)="favItem()"></ion-icon>
+        <ion-icon *ngIf="!listingData.favourite" name="star-outline" class="kd_svg_size" (click)="favItem()"></ion-icon>
+        <ion-icon *ngIf="listingData.favourite" name="star" class="kd_svg_size" style="color:blue"
+          (click)="unFavItem()"></ion-icon>
       </ion-col>
       <ion-col style="display: flex; justify-content: center; align-items: center;">
         <ion-icon name="share-social-outline" class="kd_svg_size"></ion-icon>
@@ -87,34 +89,29 @@
     </ion-row>
 
     <!-- <ion-row style="padding-top: 15px;" *ngFor="let order of listingData.listingOrders">
-      <ion-col size="7">
-        <ion-text>{{order.name}}</ion-text> <br>
-        <div style="padding-top: 5px;">
-          <ion-text>{{order.quantity}} Left</ion-text>
-        </div>
-      </ion-col>
-      <ion-col size="2" class="kd_flex kd_center_align">
-        <ion-text>$ {{order.price}}</ion-text>
-      </ion-col>
-      <ion-col size="3" class="kd_end_align kd_center_align">
-        <ion-button class="count_button">
-          <ion-button class="count_button"
-            style="--border-radius: 0px; --background: white; --background-activated: #bcc4e8;"
-            (click)="decrementCount()">
-            <ion-icon name="remove-outline"></ion-icon>
+        <ion-col size="7">
+          <ion-text>{{order.name}}</ion-text> <br>
+          <div style="padding-top: 5px;">
+            <ion-text>{{order.quantity}} Left</ion-text>
+          </div>
+        </ion-col>
+        <ion-col size="2" class="kd_flex kd_center_align">
+          <ion-text>$ {{order.price}}</ion-text>
+        </ion-col>
+        <ion-col size="3" class="kd_end_align kd_center_align">
+          <ion-button class="count_button">
+            <ion-button class="count_button" style="--border-radius: 0px; --background: white; --background-activated: #bcc4e8;" (click)="decrementCount()">
+              <ion-icon name="remove-outline"></ion-icon>
+            </ion-button>
+            
+            <span class="count" style="padding: 0px 8px;">{{ count }}</span>
+            
+            <ion-button class="count_button" style="--border-radius: 0px; --background: white; --background-activated: #bcc4e8;" (click)="incrementCount()">
+              <ion-icon name="add-outline"></ion-icon>
+            </ion-button>
           </ion-button>
-
-          <span class="count" style="padding: 0px 8px;">{{ count }}</span>
-
-          <ion-button class="count_button"
-            style="--border-radius: 0px; --background: white; --background-activated: #bcc4e8;"
-            (click)="incrementCount()">
-            <ion-icon name="add-outline"></ion-icon>
-          </ion-button>
-        </ion-button>
-      </ion-col>
-    </ion-row> -->
-
+        </ion-col>
+      </ion-row> -->
 
     <ion-row style="padding-top: 15px;" *ngFor="let order of listingData.listingOrders">
       <ion-col size="7">
@@ -149,9 +146,13 @@
       </ion-col>
     </ion-row>
 
+    <ion-row>
+      <ion-col style="padding-top: 15px;">
+        <ion-textarea class="custom-textarea" placeholder="Note"></ion-textarea>
+      </ion-col>
+    </ion-row>
 
-
-    <ion-row (click)="navigateToDeliveryOptions()">
+    <ion-row (click)="openAddressList()">
       <ion-col size="11" class="kd_flex">
         <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
         <ion-text class="kd_flex kd_center_align">Delivery from: <span class="kd_flex kd_center_align"><ion-icon
@@ -163,7 +164,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row (click)="navigateToDeliveryOptions()">
+    <ion-row (click)="openAddressList()">
       <ion-col>
         <div fill="outline" class="location_type_div ion-activatable ripple-parent">
           <ion-ripple-effect style="color: #1aa3ff;"></ion-ripple-effect>
@@ -180,7 +181,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-button (click)="navigatetoTab3()">ADD TO CART</ion-button>
+        <ion-button (click)="addToCart()">ADD TO CART</ion-button>
       </ion-col>
     </ion-row>
 

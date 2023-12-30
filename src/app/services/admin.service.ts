@@ -65,8 +65,8 @@ export class AdminService {
     return this.http.post(environment.baseUrl + "/maker/getMakerDashboardData", data);
   }
 
-  addListing(data: any): Observable<any> {
-    return this.http.post(environment.baseUrl + "/maker/addListing", data);
+  addEditListing(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/maker/addEditListing", data);
   }
 
   deleteListing(data: any): Observable<any> {
@@ -94,6 +94,26 @@ export class AdminService {
 
   getListingForUser(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/customer/getListingForUser", data);
+  }
+
+  getCustomerAddress(data:any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/getCustomerAddress", data);
+  }
+
+  addCustomerAddress(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/addCustomerAddress", data);
+  }
+
+  setDefaultAddress(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/setDefaultAddress", data);
+  }
+
+  deleteAddress(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/deleteAddress", data);
+  }
+
+  addToCart(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/addToCart", data);
   }
   // customer page API END
 

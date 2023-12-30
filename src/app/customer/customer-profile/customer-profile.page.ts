@@ -107,4 +107,13 @@ export class CustomerProfilePage implements OnInit {
     this.router.navigate(['/customerListings']);
   }
 
+  logOut(){
+    this.authService.logOut({}).subscribe((res: any) => {
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    }, (err: any) => {
+      console.log(err);
+    }) 
+  }
+
 }
