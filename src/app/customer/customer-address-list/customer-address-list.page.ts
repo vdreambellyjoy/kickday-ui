@@ -80,7 +80,7 @@ export class CustomerAddressListPage implements OnInit {
   }
 
   makeDefaultAddresses(_id: any) {
-    this.adminService.setDefaultAddress({_id:_id}).subscribe((res: any) => {
+    this.adminService.setDefaultAddress({ _id: _id }).subscribe((res: any) => {
       if (res.success) {
         this.addressList = res.data || []
       }
@@ -91,7 +91,7 @@ export class CustomerAddressListPage implements OnInit {
   }
 
   deleteAddress(_id: any) {
-    this.adminService.deleteAddress({_id:_id}).subscribe((res: any) => {
+    this.adminService.deleteAddress({ _id: _id }).subscribe((res: any) => {
       if (res.success) {
         this.addressList = res.data || []
       }
@@ -99,6 +99,11 @@ export class CustomerAddressListPage implements OnInit {
     }, (err) => {
       this.openAlert('ERROR', 'something went wrong please try again', ['close']);
     })
+  }
+
+  selectAddress(address: any) {
+    console.log(address)
+    this.modalCtrl.dismiss(address);
   }
 
 

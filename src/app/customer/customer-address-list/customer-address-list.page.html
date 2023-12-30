@@ -13,7 +13,7 @@
         Add Addresss
       </ion-label>
     </ion-item>
-    <ion-item *ngFor="let address of addressList">
+    <ion-item *ngFor="let address of addressList" (click)='selectAddress(address);'>
       <ion-avatar slot="start">
         <ion-icon name="location-outline" style="color:blue;height: 30px; width: 30px;"
           *ngIf="address.default"></ion-icon>
@@ -26,9 +26,9 @@
         <p>{{address.LocationUrl}}</p>
         <p>{{address.email}}</p>
         <p>{{address.mobile}}</p>
-        <a *ngIf="!address.default" (click)='makeDefaultAddresses(address._id)'>set as Default</a>
+        <a *ngIf="!address.default" (click)='makeDefaultAddresses(address._id);$event.stopPropagation()'>set as Default</a>
       </ion-label>
-      <ion-icon name='trash-outline' (click)='deleteAddress(address._id)'
+      <ion-icon name='trash-outline' (click)='deleteAddress(address._id);;$event.stopPropagation()'
         style='float: right;height: 25px;width: 25px;color: red;' *ngIf="!address.default"></ion-icon>
     </ion-item>
   </ion-list>

@@ -38,6 +38,7 @@ export class CustomerListingOverviewPage {
     this.adminService.getListingForUser({ _id: this._id }).subscribe((res: any) => {
       if (res.success && res.data) {
         this.listingData = res.data || {};
+        this.selectedAddress = this.listingData?.customerAddress || {}
         this.swiperReady();
 
         if (Array.isArray(this.listingData.listingOrders)) {
@@ -63,9 +64,8 @@ export class CustomerListingOverviewPage {
     modal.present();
 
     const { data, role } = await modal.onWillDismiss();
-
-    if (data && role === 'ok') {
-      this.selectedAddress = data.selectedAddress;
+    if (data && data._id) {
+      this.selectedAddress = data;
     }
   }
 
@@ -134,6 +134,11 @@ export class CustomerListingOverviewPage {
   }
 
   addToCart() {
+    if (this.selectedAddress?._id && this.totalCost && this.selectedDeliveryType) {
+      console.log(this.selectedAddress, this.totalCost, this.selectedDeliveryType)
+    } else {
+      console.log("Please select")
+    }
     console.log('pk')
     // this.adminService.addToCart(this.deliveryDataForm.value).subscribe((res: any) => {
     //   if (res.success) this.router.navigate(['/finalPayment']);

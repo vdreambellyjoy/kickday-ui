@@ -190,12 +190,16 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row (click)="openAddressList()">
       <ion-col size="11" class="kd_flex">
         <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
         <ion-text class="kd_flex kd_center_align">Selected Address: <span class="kd_flex kd_center_align">
             <ion-icon class="icon_style" name="location-outline"></ion-icon>
-            {{selectedAddress}} </span></ion-text>
+            {{selectedAddress?.name}}<br>
+            {{selectedAddress?.address}}<br>
+            {{selectedAddress?.mobile}}
+          </span>
+        </ion-text>
       </ion-col>
       <ion-col size="1" class="kd_flex kd_end_align">
         <ion-icon class="icon_style kd_no_padding" name="chevron-forward-outline"></ion-icon>
