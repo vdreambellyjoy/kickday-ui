@@ -52,7 +52,7 @@ export class AdminService {
   getUserOverView(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/admin/getUserOverView", data);
   }
-  
+
   activeDeActiveUser(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/admin/activeDeActiveUser", data);
   }
@@ -80,6 +80,10 @@ export class AdminService {
     return this.http.post(environment.baseUrl + "/customer/updateCustomerDetails", data);
   }
 
+  getCustomerOrders(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/getCustomerOrders", data);
+  }
+
   getAllListingsForCustomer(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/customer/getAllListingsForCustomer", data);
   }
@@ -96,7 +100,7 @@ export class AdminService {
     return this.http.post(environment.baseUrl + "/customer/getListingForUser", data);
   }
 
-  getCustomerAddress(data:any): Observable<any> {
+  getCustomerAddress(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/customer/getCustomerAddress", data);
   }
 
@@ -114,6 +118,14 @@ export class AdminService {
 
   addToCart(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/customer/addToCart", data);
+  }
+
+  getCustomerOrderSummary(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/getCustomerOrderSummary", data);
+  }
+
+  placeOrder(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/placeOrder", data);
   }
   // customer page API END
 

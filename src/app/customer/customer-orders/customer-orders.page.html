@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>customerOrders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">customerOrders</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content>
+
+
+<ion-footer style="bottom: 0px; position: absolute">
+  <ion-card style="margin: 0px; border-radius: 0px; padding: 10px">
+    <ion-row>
+      <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent">
+        <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
+        <ion-icon name="bag-handle-outline" class="footer_icon_styles"></ion-icon>
+        <ion-text class="icon-text_styles">Orders</ion-text>
+      </ion-col>
+
+      <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent" (click)=" goToDashboard()">
+        <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
+        <ion-icon name="list-circle-outline" class="footer_icon_styles"></ion-icon>
+        <ion-text class="icon-text_styles">Listings</ion-text>
+      </ion-col>
+
+      <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent" (click)="goToProfile()">
+        <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
+        <ion-icon name="person-circle-outline" class="footer_icon_styles"></ion-icon>
+        <ion-text class="icon-text_styles">Profile</ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-footer>

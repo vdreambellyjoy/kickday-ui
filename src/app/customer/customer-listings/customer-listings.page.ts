@@ -25,7 +25,7 @@ export class CustomerListingsPage implements OnInit {
     this.adminService.getAllListingsForCustomer({}).subscribe(
       (res: any) => {
         console.log(res);
-        this.listings = res.list || [];
+        this.listings = res.data || [];
         this.filteredItems = this.listings
       },
       (err: any) => {
@@ -57,9 +57,11 @@ export class CustomerListingsPage implements OnInit {
     this.router.navigateByUrl('/customerListings/' + listing._id);
   }
 
-  goToOrders() { }
+  goToOrders() { 
+    this.router.navigate(['/orders']);
+  }
 
-  goToDashboard() {
+  goToProfile() {
     this.router.navigate(['/customerProfile']);
   }
 

@@ -15,12 +15,12 @@ export class CustomerListingOverviewPage {
   @ViewChild('swiper')
   swiperRef: ElementRef | undefined;
   swiper?: Swiper;
-  count: number = 0;
   _id: any = '';
   listingData: any = {};
   totalCost: number = 0;
   selectedDeliveryType: any;
   selectedAddress: any;
+  note: any = '';
 
   constructor(
     private router: Router,
@@ -40,17 +40,11 @@ export class CustomerListingOverviewPage {
         this.listingData = res.data || {};
         this.selectedAddress = this.listingData?.customerAddress || {}
         this.swiperReady();
-
-        if (Array.isArray(this.listingData.listingOrders)) {
-          this.listingData.listingOrders.forEach((order: any) => {
-            order.count = order.quantity !== undefined ? 0 : order.quantity;
-            order.individualItemCost = order.price * order.count || 0;
-          });
-
-          this.calculateTotalCost();
-        } else {
-          console.warn('Listing orders array is missing or invalid.');
-        }
+        this.listingData.listingOrders.forEach((order: any) => {
+          order.count = order.quantity !== undefined ? 0 : order.quantity;
+          order.individualItemCost = order.price * order.count || 0;
+        });
+        this.calculateTotalCost();
       } else this.navigateToListings();
     }, (err) => {
       this.navigateToListings();
@@ -58,15 +52,10 @@ export class CustomerListingOverviewPage {
   }
 
   async openAddressList() {
-    const modal = await this.model.create({
-      component: CustomerAddressListPage,
-    });
+    const modal = await this.model.create({ component: CustomerAddressListPage });
     modal.present();
-
     const { data, role } = await modal.onWillDismiss();
-    if (data && data._id) {
-      this.selectedAddress = data;
-    }
+    if (data && data._id) this.selectedAddress = data;
   }
 
   swiperSlideChanged(e: any) {
@@ -134,18 +123,29 @@ export class CustomerListingOverviewPage {
   }
 
   addToCart() {
+    let orderedItems = this.listingData.listingOrders.filter((e: any) => e.count);
+    let deliveryOption = this.listingData.deliveryOptions.find((e: any) => e.type == this.selectedDeliveryType);
+    let obj = {
+      refListingId: this.listingData._id,
+      refMakerId: this.listingData.refMakerId,
+      deliveryAddress: this.selectedAddress,
+      deliveryOption: deliveryOption,
+      note: this.note,
+      finalCostWithOutDeliveryOption: this.totalCost,
+      orderedItems: orderedItems
+    }
     if (this.selectedAddress?._id && this.totalCost && this.selectedDeliveryType) {
-      console.log(this.selectedAddress, this.totalCost, this.selectedDeliveryType)
+      this.adminService.addToCart(obj).subscribe((res: any) => {
+        if (res.success && res._id) {
+          this.router.navigateByUrl('/orderSummary/' + res._id);
+        }
+        else this.openAlert('ERROR', 'something went wrong please try again later', ['close']);
+      }, (err) => {
+        this.openAlert('ERROR', 'something went wrong please try again later', ['close']);
+      })
     } else {
       console.log("Please select")
     }
-    console.log('pk')
-    // this.adminService.addToCart(this.deliveryDataForm.value).subscribe((res: any) => {
-    //   if (res.success) this.router.navigate(['/finalPayment']);
-    //   else this.openAlert('ERROR', 'something went wrong please try again', ['close']);
-    // }, (err) => {
-    //   this.openAlert('ERROR', 'something went wrong please try again', ['close']);
-    // })
   }
 
   navigateToListings() {

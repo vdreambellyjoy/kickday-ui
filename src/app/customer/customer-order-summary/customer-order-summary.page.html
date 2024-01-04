@@ -4,17 +4,17 @@
       <ion-col>
         <ion-icon name="bag-handle-outline" class="kd_svg_size"></ion-icon>
       </ion-col>
-      <ion-col class="kd_flex kd_end_align" (click)="navigateToListings()">
+      <ion-col class="kd_flex kd_end_align" (click)="goBack()">
         <ion-icon name="close-outline" class="kd_svg_size"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="orderData">
  <div style="margin: 15px;">
   <ion-row>
-    <ion-col class="kd_flex kd_end_align" (click)="navigateToOrders()">
+    <ion-col class="kd_flex kd_end_align">
       <ion-icon class="icon_style" style="height: 25px; width: 25px; padding-right: 0px;" name="trash-outline"></ion-icon>
     </ion-col>
   </ion-row>
@@ -147,8 +147,14 @@
   </ion-col>
 </ion-row>
 
-<ion-button style="width: 100%;">PAY NOW</ion-button>
+<ion-button style="width: 100%;" (click)="placeOrder()">PAY NOW</ion-button>
   
 
  </div>
+</ion-content>
+
+
+
+<ion-content [fullscreen]="true" *ngIf="orderData == false">
+  data not found
 </ion-content>

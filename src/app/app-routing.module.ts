@@ -88,14 +88,15 @@ const routes: Routes = [
     loadChildren: () => import('./customer/customer-address-list/customer-address-list.module').then(m => m.CustomerAddressListPageModule)
   },
   {
-    path: 'deliveryOptions/:id',
-    loadChildren: () => import('./customer/delivery-options/delivery-options.module').then(m => m.DeliveryOptionsPageModule)
+    path: 'orderSummary/:id',
+    loadChildren: () => import('./customer/customer-order-summary/customer-order-summary.module').then( m => m.CustomerOrderSummaryPageModule)
   },
   {
-    path: 'finalPayment',
-    loadChildren: () => import('./customer/final-payment/final-payment.module').then(m => m.FinalPaymentPageModule)
+    path: 'orders',
+    loadChildren: () => import('./customer/customer-orders/customer-orders.module').then( m => m.CustomerOrdersPageModule)
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
+
 ];
 
 @NgModule({

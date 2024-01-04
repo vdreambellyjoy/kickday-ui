@@ -148,7 +148,7 @@
 
     <ion-row>
       <ion-col style="padding-top: 15px;">
-        <ion-textarea class="custom-textarea" placeholder="Note"></ion-textarea>
+        <ion-textarea class="custom-textarea" placeholder="Note" [(ngModel)]="note"></ion-textarea>
       </ion-col>
     </ion-row>
 
@@ -173,8 +173,8 @@
           </ion-select>
         </ion-item>
       </ion-col>
-      <ion-col (click)="openAddressList()">
-        <ion-button>Select Address</ion-button>
+      <ion-col>
+        <ion-button (click)="openAddressList()">Select Address</ion-button>
       </ion-col>
     </ion-row>
 

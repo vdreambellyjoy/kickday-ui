@@ -100,7 +100,7 @@ export class CustomerProfilePage implements OnInit {
   }
 
   goToOrders() {
-    console.log('goto page')
+    this.router.navigate(['/orders']);
   }
 
   goToDashboard() {
