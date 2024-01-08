@@ -1,13 +1,62 @@
+.address-card {
+  border: 2px solid #ddd;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
 .input_selection {
-    border: solid 2px black;
-    border-radius: 14px;
-    height: 70px;
-    margin: 20px 0px;
-    padding: 10px;
-    box-shadow: none;
-    padding-top: 15px;
-  }
+  border: solid 2px black;
+  border-radius: 8px;
+  height: 70px;
+  margin: 25px 0px;
+  padding: 10px;
+  box-shadow: none;
+}
 
 ion-label {
   font-size: 16px !important;
+}
+
+ion-item {
+  --border-style: none;
+}
+
+.address-card ion-label {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.address-card p {
+  margin: 5px 0;
+}
+
+.address-card a {
+  color: #3880ff;
+  cursor: pointer;
+}
+
+.address-card ion-icon {
+  height: 40px;
+  width: 40px;
+}
+
+.delete-icon {
+  color: red;
+  padding-left: 10px;
+}
+
+.add-address-icon {
+  color: #3880ff;
+}
+
+ion-button {
+  margin: 20px;
+  width: 180px;
+  color: #3880ff;
+  --background: seashell;
 }

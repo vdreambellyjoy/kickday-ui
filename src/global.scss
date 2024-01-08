@@ -30,7 +30,7 @@
     align-items: center;
 }
 
-.kd_svg_size{
+.kd_svg_size {
     height: 40px;
     width: 40px;
 }
@@ -53,7 +53,7 @@
 
 ion-button {
     --background: #ededed;
-    --background-activated: rgb(187, 53, 53); 
+    --background-activated: rgb(187, 53, 53);
     --color: black;
     --border-radius: 5px;
     --border-color: black;
@@ -95,7 +95,7 @@ ion-text {
     font-size: 16px !important;
 }
 
-.kd_flex{
+.kd_flex {
     display: flex;
 }
 
@@ -193,12 +193,12 @@ ion-textarea.custom {
     max-width: 125px;
     height: 125px;
     width: 100%;
-    background-color: rgb(50,50,50,0.6);
+    background-color: rgb(50, 50, 50, 0.6);
     border-radius: 50%;
     line-height: 1.21;
     color: white;
     font-size: 34px;
-    margin:20px;
+    margin: 20px;
     float: left;
 }
 
@@ -263,7 +263,7 @@ swiper-container {
     width: 100%;
     height: 100%;
 }
-   
+
 swiper-slide {
     width: 100%;
     height: 100%;
@@ -326,4 +326,17 @@ swiper-slide img {
 
 .searchbar-custom ion-input {
     padding: 8px;
+}
+
+.ion-valid.sc-ion-input-md-h {
+    --highlight-color: none !important;
+}
+
+.ion-touched.ion-invalid.sc-ion-input-md-h {
+    --highlight-color: none !important;
+    --border-color: none !important;
+}
+
+.item-inner {
+    padding-right: 0px !important;
 }

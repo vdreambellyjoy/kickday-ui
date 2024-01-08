@@ -1,57 +1,59 @@
-<div>
+<div class="login-container">
+
   <ion-row>
-    <ion-col>
-      <img src="../../assets/sample_food_img.webp" alt="">
+    <ion-col class="kd_center_align">
+      <img src="../../assets/sample_food_img.webp" alt="Food Image" class="login-image">
     </ion-col>
   </ion-row>
 
   <ion-row>
     <ion-col>
-      <ion-text style="font-size: 18px; font-weight: bold;">Mobile Number</ion-text>
+      <ion-text class="login-heading">Mobile Number</ion-text>
     </ion-col>
   </ion-row>
 
   <ion-row>
     <ion-col class="kd_margin_bott_10">
       <ion-input type="tel" class="input_selection" pattern="[0-9]*" minlength="10" maxlength="10"
-        [(ngModel)]="mobileNumber" style="margin-top: 0px;" placeholder="Enter Mobile"></ion-input>
+        [(ngModel)]="mobileNumber" placeholder="Enter Mobile"></ion-input>
     </ion-col>
   </ion-row>
 
   <ion-row>
     <ion-col>
-      <ion-text type="tel" style="font-size: 18px; font-weight: bold;">Pin Setup</ion-text>
+      <ion-text class="login-heading">Pin Setup</ion-text>
     </ion-col>
   </ion-row>
 
   <ion-row>
     <ion-col class="kd_margin_bott_10">
-      <ion-input class="input_selection" type="tel" pattern="[0-9]*" minlength="6" maxlength="6"
-        style="margin-top: 0px;" placeholder="Enter Pin" [(ngModel)]="pin"></ion-input>
+      <ion-input class="input_selection" type="tel" pattern="[0-9]*" minlength="6" maxlength="6" [(ngModel)]="pin"
+        placeholder="Enter Pin"></ion-input>
     </ion-col>
   </ion-row>
 
   <ion-row *ngIf="profileType === 'customer'">
     <ion-col class="kd_margin_bott_10">
-      <ion-input class="input_selection" pattern="[0-9]*" minlength="6" maxlength="6" style="margin-top: 0px;"
-        [(ngModel)]="confirmPin" placeholder="Confirm Pin" *ngIf="showConfirmPin"></ion-input>
+      <ion-input class="input_selection" pattern="[0-9]*" minlength="6" maxlength="6" [(ngModel)]="confirmPin"
+        placeholder="Confirm Pin" *ngIf="showConfirmPin"></ion-input>
     </ion-col>
   </ion-row>
 
   <ion-row>
     <ion-col>
-      <ion-button *ngIf="!showConfirmPin" (click)="login()">Login</ion-button>
-      <ion-button *ngIf="showConfirmPin" (click)="createCustomer()">create</ion-button>
+      <ion-button expand="full" shape="round" color="primary" *ngIf="!showConfirmPin"
+        (click)="login()">Login</ion-button>
+      <ion-button expand="full" shape="round" color="primary" *ngIf="showConfirmPin"
+        (click)="createCustomer()">Create</ion-button>
     </ion-col>
   </ion-row>
-
 
   <ion-row>
     <ion-col class="kd_center_align">
-      <ion-text *ngIf="!showConfirmPin" class="line" (click)="createAccount()">Create
-        Account</ion-text>
-      <ion-text *ngIf="showConfirmPin" class="line" (click)="goBackToLogin()">Go To
-        Login</ion-text>
+      <ion-text class="line" (click)="!showConfirmPin ? createAccount() : goBackToLogin()">
+        {{ !showConfirmPin ? 'Create Account' : 'Go To Login' }}
+      </ion-text>
     </ion-col>
   </ion-row>
+
 </div>

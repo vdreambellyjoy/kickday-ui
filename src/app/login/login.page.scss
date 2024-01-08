@@ -1,15 +1,32 @@
-.input_selection {
-    border: solid 1px black;
-    border-radius: 14px;
-    min-height: 48px;
-    box-shadow: none;
-    --padding-start: 10px;
-    margin-top: 8px;
-  }
+.login-container {
+  min-width: 390px;
+  margin: auto;
+  padding: 15px;
+}
 
-  .line{
-    font-size: 20px !important;
-     font-weight: bold; 
-     color: blue;
-     text-align: end;
-  }
+.login-image {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.login-heading {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.input_selection {
+  border: solid 1px black;
+  border-radius: 7px;
+  min-height: 48px;
+  box-shadow: none;
+  --padding-start: 10px;
+  margin-top: 8px;
+}
+
+.line {
+  font-size: 20px !important;
+  font-weight: bold;
+  color: blue;
+  text-align: end;
+}
