@@ -30,3 +30,8 @@ swiper-container {
     --swiper-pagination-bullet-inactive-color: var(--ion-color-step-500, white);
     --swiper-theme-color: #0aa26d;
 }
+
+.selected-button {
+    background-color: lightblue;
+    color: darkblue;
+}

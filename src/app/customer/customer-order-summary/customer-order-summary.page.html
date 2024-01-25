@@ -14,13 +14,6 @@
 <ion-content [fullscreen]="true" *ngIf="orderData">
   <div style="margin: 15px;">
     <ion-row>
-      <ion-col class="kd_flex kd_end_align">
-        <ion-icon class="icon_style" style="height: 25px; width: 25px; padding-right: 0px;"
-          name="trash-outline"></ion-icon>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
       <ion-col class="kd_flex">
         <div class="first_letter_styles">
           <ion-text style="font-weight: bold;">R</ion-text>
@@ -91,66 +84,41 @@
       </ion-col>
     </ion-row>
 
-
-    <ion-row>
-      <ion-col>
-        <ion-text style="font-weight: bold; font-size: 20px;">Delivery Details</ion-text>
-      </ion-col>
-    </ion-row>
-
-    <ion-row style="margin-top: 10px;">
-      <ion-col>
-        <div class="kd_flex">
-          <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
-          <ion-text style="font-weight: bold; font-size: 18px;">Delivery</ion-text>
-        </div>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col>
-        <ion-text style="font-size: 14px;">
-          {{orderData.deliveryOption.type}} - $ {{orderData.deliveryOption.price}} <br>
-          Will be delivered on 24th May Friday <br>
-          Between 2:00 PM - 3:00 PM
-        </ion-text>
-      </ion-col>
-    </ion-row>
-
-    <ion-row style="margin-top: 15px;">
+    <ion-row style="margin-top: 15px; display: flex; align-items: center;">
       <ion-col>
         <div class="kd_flex">
           <ion-icon class="icon_style" name="home-outline"></ion-icon>
-          <ion-text style="font-weight: bold; font-size: 18px;">Delivery Address</ion-text>
+          <ion-text style="font-weight: bold; font-size: 18px;"
+            *ngIf="orderData.deliveryOption.type != 'Pickup Available'">Delivery Location</ion-text>
+          <ion-text style="font-weight: bold; font-size: 18px;"
+            *ngIf="orderData.deliveryOption.type == 'Pickup Available'">Pickup Location</ion-text>
         </div>
+      </ion-col>
+      <ion-col class="ion-no-padding">
+        <ion-button style="margin: 0px;">Change Address</ion-button>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col>
-        <ion-text style="font-size: 14px;">
-          {{orderData.deliveryAddress.name}} <br>
-          {{orderData.deliveryAddress.email}} <br>
-          {{orderData.deliveryAddress.mobile}} <br>
-          {{orderData.deliveryAddress.address}}
+        <ion-text style="font-size: 14px;" [innerHTML]="getSanitizedLocationUrl()">
         </ion-text>
       </ion-col>
     </ion-row>
 
-    <ion-row style="margin: 15px 0px;">
-      <ion-col>
-        <div class="kd_flex" style="padding-bottom: 5px;">
-          <ion-icon class="icon_style" name="location-outline"></ion-icon>
-          <ion-text style="font-size: 18px; font-weight: bold;">Delivery Location / Pickup Location</ion-text>
+    <ion-row style="margin: 20px 0px;">
+      <ion-col class="kd_center_align_items">
+        <div (click)="copyLocationUrl()" class="kd_center_align_items">
+          <ion-icon name="copy-outline" style="height: 30px; width: 30px;"></ion-icon>
+          <ion-text style="margin-left: 5px;">Copy</ion-text>
         </div>
-        <ion-text>
-          <a href="{{orderData.deliveryAddress.LocationUrl}}"
-            style="color: #007bff; text-decoration: none;">{{orderData.deliveryAddress.LocationUrl}}</a>
-        </ion-text>
+
+        <ion-button (click)="redirectToGoogleMaps()" style="margin-left: 35px; width: fit-content;">Get
+          Directions</ion-button>
       </ion-col>
     </ion-row>
 
-    <ion-button style="width: 100%;" (click)="placeOrder()">PAY NOW</ion-button>
+    <ion-button style="width: 100%; margin-top: 10%;" (click)="placeOrder()">PAY NOW</ion-button>
 
 
   </div>

@@ -45,7 +45,9 @@ export class CustomerListingOverviewPage {
     private model: ModalController,
     private alert: AlertController,
     private adminService: AdminService,
-  ) { }
+  ) {
+    this.selectedDeliveryType = null;
+  }
 
   ngOnInIt() {
 
@@ -67,6 +69,11 @@ export class CustomerListingOverviewPage {
     }, (err) => {
       this.navigateToListings();
     })
+  }
+
+
+  selectDeliveryType(type: any) {
+    this.selectedDeliveryType = type;
   }
 
   async openAddressList() {

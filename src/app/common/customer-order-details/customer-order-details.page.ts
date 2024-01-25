@@ -14,6 +14,11 @@ export class CustomerOrderDetailsPage implements OnInit {
   userData: any = {};
   orderData: any = {};
 
+  confirmedDisabled: boolean = false;
+  dispatchedDisabled: boolean = false;
+  deliveredDisabled: boolean = false;
+  cancelledDisabled: boolean = false;
+
   constructor(
     private router: Router,
     private navCtrl: NavController,
@@ -35,7 +40,19 @@ export class CustomerOrderDetailsPage implements OnInit {
   }
 
   changeStatus(status: any) {
-    console.log(status)
+    console.log(status);
+    if (status === 'Dispatched') {
+      this.confirmedDisabled = true;
+    } else if (status === 'Delivered') {
+      this.confirmedDisabled = true;
+      this.dispatchedDisabled = true;
+      this.cancelledDisabled = true;
+    } else if (status === 'Cancelled') {
+      this.confirmedDisabled = true;
+      this.dispatchedDisabled = true;
+      this.deliveredDisabled = true;
+    }
+
     this.adminService.changeOrderStatus({ status: status, _id: this._id }).subscribe((res: any) => {
 
     }, (err: any) => {

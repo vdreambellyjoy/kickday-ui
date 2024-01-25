@@ -17,3 +17,20 @@ ion-textarea.custom-textarea {
     border-style: solid;
     border-width: 1px;
 }
+
+.scroll_width ::-webkit-scrollbar {
+    width: 0px;
+}
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+button[disabled] {
+    cursor: no-drop;
+}
+
+button {
+    background-color: white;
+}

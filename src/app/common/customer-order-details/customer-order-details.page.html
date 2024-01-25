@@ -16,9 +16,10 @@
 
 <ion-content [fullscreen]="true">
   <div style="margin: 15px;">
-    <ion-row style="margin-bottom: 10px;">
-      <ion-col class="kd_flex_row_center ion-no-padding" size="4" style="padding-right: 5px;">
-        <div style="border: solid 2px; border-radius: 14px; padding: 10px 0px;" (click)="changeStatus('confirmed')">
+    <ion-toolbar class="scroll_width">
+      <div style="overflow-x: auto; white-space: nowrap; display: flex; margin: 5px;">
+        <button style="border: solid 2px; border-radius: 14px; padding: 10px 0px; margin-right: 15px;"
+          (click)="changeStatus('confirmed')" [disabled]="confirmedDisabled">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
               <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>
@@ -27,14 +28,13 @@
           </ion-row>
           <ion-row>
             <ion-col style="text-align: center;">
-              <ion-text class="kd_font_size_12">Dispatched on <br> 24th May 2:30PM</ion-text>
+              <ion-text class="kd_font_size_12">Confirmed on <br> 24th May 2:30PM</ion-text>
             </ion-col>
           </ion-row>
-        </div>
-      </ion-col>
+        </button>
 
-      <ion-col class="kd_flex_row_center ion-no-padding" size="4" style="padding-right: 5px;">
-        <div style="border: solid 2px; border-radius: 14px; padding: 10px 0px;" (click)="changeStatus('Dispatched')">
+        <button style="border: solid 2px; border-radius: 14px; padding: 10px 0px; margin-right: 15px;"
+          (click)="changeStatus('Dispatched')" [disabled]="dispatchedDisabled">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
               <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>
@@ -46,11 +46,10 @@
               <ion-text class="kd_font_size_12">Dispatched on <br> 24th May 2:30PM</ion-text>
             </ion-col>
           </ion-row>
-        </div>
-      </ion-col>
-      
-      <ion-col class="kd_flex_row_center ion-no-padding" size="4" style="padding-right: 5px;">
-        <div style="border: solid 2px; border-radius: 14px; padding: 10px 0px;" (click)="changeStatus('Delivered')">
+        </button>
+
+        <button style="border: solid 2px; border-radius: 14px; padding: 10px 0px; margin-right: 15px;"
+          (click)="changeStatus('Delivered')" [disabled]="deliveredDisabled">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
               <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>
@@ -62,11 +61,10 @@
               <ion-text class="kd_font_size_12">Delivered on <br> 29th May 2:30PM</ion-text>
             </ion-col>
           </ion-row>
-        </div>
-      </ion-col>
-  
-      <ion-col class="kd_flex_row_center ion-no-padding" size="4">
-        <div style="border: solid 2px; border-radius: 14px; padding: 10px 0px;" (click)="changeStatus('Cancelled')">
+        </button>
+
+        <button style="border: solid 2px; border-radius: 14px; padding: 10px 0px" (click)="changeStatus('Cancelled')"
+          [disabled]="cancelledDisabled">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
               <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>
@@ -78,23 +76,24 @@
               <ion-text class="kd_font_size_12">Cancelled on <br> 30th May 2:30PM</ion-text>
             </ion-col>
           </ion-row>
-        </div>
-      </ion-col>
-    </ion-row>
+        </button>
+
+      </div>
+    </ion-toolbar>
 
     <ion-row>
       <ion-col>
         <ion-input class="input_selection" placeholder="Tracking link with tracking ID paste here"></ion-input>
       </ion-col>
     </ion-row>
-    
+
     <ion-row style="margin-top: 10px;">
       <ion-col class="kd_flex" size="8">
         <div class="first_letter_styles">
           <ion-text style="font-weight: bold;">R</ion-text>
         </div>
-        <ion-text style="padding-left: 20px;"><span>Raj Kumar</span> <br> 
-        <span>Kphb, Hyderabad</span></ion-text>
+        <ion-text style="padding-left: 20px;"><span>Raj Kumar</span> <br>
+          <span>Kphb, Hyderabad</span></ion-text>
       </ion-col>
       <ion-col size="2" class="kd_flex kd_center_align">
         <ion-icon name="call-outline" class="kd_svg_size"></ion-icon>
@@ -113,51 +112,52 @@
     <ion-row>
       <ion-col class="kd_flex_row_center" style="margin: 5px 0px;">
         <div style="border: solid 2px; border-radius: 14px; padding: 10px; background-color: #f7f7f7;">
-    
+
           <ion-row class="kd_flex kd_center_align">
             <ion-col size="8">
               <ion-text style="font-size: 16px; font-weight: bold;">Mutton Biryani Boneless</ion-text>
             </ion-col>
-    
+
             <ion-col size="4" class="kd_flex kd_end_align">
-              <ion-text class="kd_flex" style="font-size: 14px; color: black; font-weight: bold;">$ 350 
-                <ion-icon style="padding-right: 5px; padding-left: 5px;" class="icon_style" name="close-outline"></ion-icon> 1</ion-text>
+              <ion-text class="kd_flex" style="font-size: 14px; color: black; font-weight: bold;">$ 350
+                <ion-icon style="padding-right: 5px; padding-left: 5px;" class="icon_style"
+                  name="close-outline"></ion-icon> 1</ion-text>
             </ion-col>
             <ion-col class="kd_flex kd_end_align ion-no-padding" style="padding-right: 5px;">
               <ion-text style="font-weight: bold; font-size: 14px;"> = $350</ion-text>
             </ion-col>
           </ion-row>
-    
+
           <ion-row class="kd_flex kd_center_align">
             <ion-col size="8">
               <ion-text style="font-size: 14px; color: #777;">Delivery (Neighborhood)</ion-text>
             </ion-col>
-    
+
             <ion-col size="4" class="kd_flex kd_end_align">
               <ion-text style="font-size: 14px; color: #555;">Free Delivery</ion-text>
             </ion-col>
           </ion-row>
-  
+
           <ion-row class="kd_flex kd_center_align">
             <ion-col size="8">
               <ion-text style="font-size: 14px; color: #777;">GST</ion-text>
             </ion-col>
-    
+
             <ion-col size="4" class="kd_flex kd_end_align">
               <ion-text style="font-size: 14px; color: #555;">$40</ion-text>
             </ion-col>
           </ion-row>
-  
+
           <ion-row class="kd_flex kd_center_align">
             <ion-col size="8">
               <ion-text style="font-size: 16px; font-weight: bold;;">Total</ion-text>
             </ion-col>
-    
+
             <ion-col size="4" class="kd_flex kd_end_align">
               <ion-text style="font-size: 16px; font-weight: bold;">$4000</ion-text>
             </ion-col>
           </ion-row>
-    
+
         </div>
       </ion-col>
     </ion-row>

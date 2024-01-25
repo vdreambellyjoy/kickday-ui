@@ -81,10 +81,6 @@ export class CustomerListingsPage implements OnInit {
     });
   }
 
-  openItemsList() {
-
-  }
-
   navigateToSearch() {
     this.router.navigate(['/search']);
   }

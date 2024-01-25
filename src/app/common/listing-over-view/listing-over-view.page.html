@@ -101,7 +101,7 @@
   </ion-toolbar>
 
   <div style="margin: 15px;">
-    <ion-card class="kd_orders_card" *ngFor="let order of listingData?.customerOrders"
+    <ion-card class="kd_orders_card" style="margin-bottom: 15px;" *ngFor="let order of listingData?.customerOrders"
       (click)="openOrderDetails(order)">
       <ion-row>
         <ion-col size="6">

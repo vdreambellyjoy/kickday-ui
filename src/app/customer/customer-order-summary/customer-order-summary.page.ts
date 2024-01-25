@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 
 import { AdminService } from 'src/app/services/admin.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-customer-order-summary',
@@ -17,6 +18,8 @@ export class CustomerOrderSummaryPage implements OnInit {
     private model: ModalController,
     private alert: AlertController,
     private adminService: AdminService,
+    private sanitizer: DomSanitizer,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -69,6 +72,36 @@ export class CustomerOrderSummaryPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  getSanitizedLocationUrl(): SafeHtml {
+    const locationUrl = this.orderData.deliveryAddress?.LocationUrl || '';
+    return this.sanitizer.bypassSecurityTrustHtml(locationUrl.replace(/,/g, ',<br>'));
+  }
+
+  async copyLocationUrl() {
+    const locationUrl = this.orderData.deliveryAddress?.LocationUrl;
+    if (locationUrl) {
+      const tempInput = document.createElement('input');
+      tempInput.value = locationUrl;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      const alert = await this.alertController.create({
+        header: 'Copied!',
+        message: 'Location URL copied successfully',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+  }
+
+  redirectToGoogleMaps() {
+    if (this.orderData.deliveryAddress?.LocationUrl) {
+      window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(this.orderData.deliveryAddress.LocationUrl)}`, '_blank');
+    }
   }
 
 }
