@@ -18,7 +18,23 @@
   <div style="margin: 15px;">
     <ion-row style="margin-bottom: 10px;">
       <ion-col class="kd_flex_row_center ion-no-padding" size="4" style="padding-right: 5px;">
-        <div style="border: solid 2px; border-radius: 14px; padding: 10px 0px;">
+        <div style="border: solid 2px; border-radius: 14px; padding: 10px 0px;" (click)="changeStatus('confirmed')">
+          <ion-row>
+            <ion-col class="kd_flex kd_center_align">
+              <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>
+              <ion-text style="font-size: 12px; font-weight: bold;">Order confirmed</ion-text>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col style="text-align: center;">
+              <ion-text class="kd_font_size_12">Dispatched on <br> 24th May 2:30PM</ion-text>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+
+      <ion-col class="kd_flex_row_center ion-no-padding" size="4" style="padding-right: 5px;">
+        <div style="border: solid 2px; border-radius: 14px; padding: 10px 0px;" (click)="changeStatus('Dispatched')">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
               <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>
@@ -32,9 +48,9 @@
           </ion-row>
         </div>
       </ion-col>
-  
+      
       <ion-col class="kd_flex_row_center ion-no-padding" size="4" style="padding-right: 5px;">
-        <div style="border: solid 2px; border-radius: 14px; padding: 10px 0px;">
+        <div style="border: solid 2px; border-radius: 14px; padding: 10px 0px;" (click)="changeStatus('Delivered')">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
               <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>
@@ -50,7 +66,7 @@
       </ion-col>
   
       <ion-col class="kd_flex_row_center ion-no-padding" size="4">
-        <div style="border: solid 2px; border-radius: 14px; padding: 10px 0px;">
+        <div style="border: solid 2px; border-radius: 14px; padding: 10px 0px;" (click)="changeStatus('Cancelled')">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
               <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>

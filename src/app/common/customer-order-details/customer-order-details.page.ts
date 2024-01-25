@@ -33,4 +33,13 @@ export class CustomerOrderDetailsPage implements OnInit {
   goToBack() {
     this.navCtrl.back();
   }
+
+  changeStatus(status: any) {
+    console.log(status)
+    this.adminService.changeOrderStatus({ status: status, _id: this._id }).subscribe((res: any) => {
+
+    }, (err: any) => {
+      console.log((err))
+    })
+  }
 }
