@@ -63,24 +63,23 @@
     </swiper-container>
 
     <ion-row style="padding: 10px">
-      <ion-col class="kd_flex" size="4.75">
+      <ion-col class="kd_flex">
         <div class="first_letter_styles">
           <ion-text style="font-weight: bold">B</ion-text>
         </div>
-        <ion-text style="padding-left: 20px; font-size: 13px"><span style="font-weight: bold">Maker
-            {{listing.ID}}</span> <br />
+        <ion-text style="padding-left: 20px; font-size: 13px"><span style="font-weight: bold">Maker</span> <br />
           <span>{{listing.makerData.userName}}</span> <br />
           <span>{{listing.makerData.address}}</span></ion-text>
       </ion-col>
 
-      <ion-col style="display: flex; justify-content: center" size="2.5">
+      <!-- <ion-col style="display: flex; justify-content: center" size="2.5">
         <ion-icon name="caret-back-outline" style="padding-right: 10px; color: #0aa26d" class="kd_back_button"
           (click)="goPrev()"></ion-icon>
         <ion-icon name="caret-forward-outline" class="kd_back_button" style="color: #0aa26d"
           (click)="goNext()"></ion-icon>
-      </ion-col>
+      </ion-col> -->
 
-      <ion-col class="kd_flex kd_end_align" size="4.75">
+      <ion-col class="kd_flex kd_end_align">
         <ion-icon class="icon_style" style="height: 20px; width: 20px" name="calendar-outline"></ion-icon>
         <div>
           <ion-text style="font-size: 13px; font-weight: bold">Order will end on</ion-text>

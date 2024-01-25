@@ -57,7 +57,7 @@ export class CustomerListingsPage implements OnInit {
     this.router.navigateByUrl('/customerListings/' + listing._id);
   }
 
-  goToOrders() { 
+  goToOrders() {
     this.router.navigate(['/orders']);
   }
 
@@ -65,12 +65,20 @@ export class CustomerListingsPage implements OnInit {
     this.router.navigate(['/customerProfile']);
   }
 
-  onSearch(event: any) {
-    const searchTerm = event.target.value;
 
-    // Filter items based on the 'category' property
-    this.filteredItems = this.listings.filter((item: { category: string; }) =>
-      item.category.toLowerCase().includes(searchTerm)
-    );
+  onSearch(event: any) {
+    const searchTerm = event.target.value.trim().toLowerCase();
+
+    if (!searchTerm || searchTerm.length < 1) {
+      this.filteredItems = [...this.listings];
+      return;
+    }
+
+    this.filteredItems = this.listings.filter((user: any) => {
+      const category = (user && user.category) ? user.category.toLowerCase() : '';
+      console.log(category, "searchhhh");
+      return category.includes(searchTerm);
+    });
   }
+
 }
