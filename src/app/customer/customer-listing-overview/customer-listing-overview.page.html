@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-row style="margin: 10px;">
       <ion-col style="display: flex; justify-content: start; align-items: center;">
-        <ion-icon name="arrow-back-outline" class="kd_svg_size" (click)="navigateToListings()"></ion-icon>
+        <ion-icon name="arrow-back-outline" class="kd_svg_size" id="openCancelPopup"></ion-icon>
       </ion-col>
       <ion-col style="display: flex; justify-content: center; align-items: center;">
         <ion-icon *ngIf="!listingData.favourite" name="star-outline" class="kd_svg_size" (click)="favItem()"></ion-icon>
@@ -33,7 +33,7 @@
     <ion-row>
       <ion-col class="kd_center_align_items" size="5">
         <ion-icon class="icon_style" style="padding-bottom: 6px;" name="bag-handle-outline"></ion-icon>
-        <ion-text>{{listingData.category}} <span>+{{listingData.listingOrders?.length}}</span></ion-text>
+        <ion-text>{{listingData.category}}</ion-text>
       </ion-col>
 
       <ion-col class="kd_center_align_items" size="7">
@@ -58,7 +58,7 @@
           <ion-text style="font-weight: bold;">R</ion-text>
         </div>
         <ion-text style="padding-left: 20px; font-size: 13px;">
-          <span style="font-weight: bold;">Maker {{listingData.ID}}</span> <br>
+          <span style="font-weight: bold;">Maker ({{listingData.ID}})</span> <br>
 
           <ng-container *ngIf="listingData.makerData">
             <span>{{listingData.makerData.userName}}</span> <br>
@@ -87,31 +87,6 @@
         </div>
       </ion-col>
     </ion-row>
-
-    <!-- <ion-row style="padding-top: 15px;" *ngFor="let order of listingData.listingOrders">
-        <ion-col size="7">
-          <ion-text>{{order.name}}</ion-text> <br>
-          <div style="padding-top: 5px;">
-            <ion-text>{{order.quantity}} Left</ion-text>
-          </div>
-        </ion-col>
-        <ion-col size="2" class="kd_flex kd_center_align">
-          <ion-text>$ {{order.price}}</ion-text>
-        </ion-col>
-        <ion-col size="3" class="kd_end_align kd_center_align">
-          <ion-button class="count_button">
-            <ion-button class="count_button" style="--border-radius: 0px; --background: white; --background-activated: #bcc4e8;" (click)="decrementCount()">
-              <ion-icon name="remove-outline"></ion-icon>
-            </ion-button>
-            
-            <span class="count" style="padding: 0px 8px;">{{ count }}</span>
-            
-            <ion-button class="count_button" style="--border-radius: 0px; --background: white; --background-activated: #bcc4e8;" (click)="incrementCount()">
-              <ion-icon name="add-outline"></ion-icon>
-            </ion-button>
-          </ion-button>
-        </ion-col>
-      </ion-row> -->
 
     <ion-row style="padding-top: 15px;" *ngFor="let order of listingData.listingOrders">
       <ion-col size="7">
@@ -152,7 +127,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col size="11" class="kd_flex">
         <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
         <ion-text class="kd_flex kd_center_align">Delivery from: <span class="kd_flex kd_center_align"><ion-icon
@@ -162,10 +137,10 @@
       <ion-col size="1" class="kd_flex kd_end_align">
         <ion-icon class="icon_style kd_no_padding" name="chevron-forward-outline"></ion-icon>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <ion-row>
-      <ion-col size="5">
+      <ion-col>
         <ion-item style="border: solid 1px black; border-radius: 14px; padding-left: 10px;">
           <ion-select label="Delivery Options" [(ngModel)]="selectedDeliveryType" style="min-height: 48px;">
             <ion-select-option *ngFor="let option of listingData.deliveryOptions"
@@ -173,12 +148,12 @@
           </ion-select>
         </ion-item>
       </ion-col>
-      <ion-col>
+      <!-- <ion-col>
         <ion-button (click)="openAddressList()">Select Address</ion-button>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col size="11" class="kd_flex">
         <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
         <ion-text class="kd_flex kd_center_align">Delivery Options: <span class="kd_flex kd_center_align">
@@ -188,9 +163,9 @@
       <ion-col size="1" class="kd_flex kd_end_align">
         <ion-icon class="icon_style kd_no_padding" name="chevron-forward-outline"></ion-icon>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
-    <ion-row (click)="openAddressList()">
+    <!-- <ion-row (click)="openAddressList()">
       <ion-col size="11" class="kd_flex">
         <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
         <ion-text class="kd_flex kd_center_align">Selected Address: <span class="kd_flex kd_center_align">
@@ -204,13 +179,16 @@
       <ion-col size="1" class="kd_flex kd_end_align">
         <ion-icon class="icon_style kd_no_padding" name="chevron-forward-outline"></ion-icon>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
     <ion-row>
       <ion-col>
         <ion-button (click)="addToCart()">ADD TO CART</ion-button>
       </ion-col>
     </ion-row>
+
+    <ion-alert trigger="openCancelPopup" header="Sure you want to cancel the order?" [buttons]="alertButtons"
+      (didDismiss)="confirmationToCancel($event)"></ion-alert>
 
   </div>
 

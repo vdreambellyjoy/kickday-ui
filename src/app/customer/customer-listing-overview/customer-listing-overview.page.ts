@@ -22,6 +22,24 @@ export class CustomerListingOverviewPage {
   selectedAddress: any;
   note: any = '';
 
+  public alertButtons = [
+    {
+      text: 'NO',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'YES',
+      role: 'confirm',
+      handler: () => {
+        console.log('Alert confirmed');
+        this.router.navigate(['/customerListings']);
+      },
+    },
+  ];
+
   constructor(
     private router: Router,
     private model: ModalController,
@@ -150,6 +168,10 @@ export class CustomerListingOverviewPage {
 
   navigateToListings() {
     this.router.navigate(['/customerListings']);
+  }
+
+  confirmationToCancel(ev: any) {
+    console.log(`Dismissed with role: ${ev.detail.role}`);
   }
 
   async openAlert(header: any, message: any, buttons: any) {

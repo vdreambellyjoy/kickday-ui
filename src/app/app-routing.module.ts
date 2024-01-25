@@ -89,11 +89,15 @@ const routes: Routes = [
   },
   {
     path: 'orderSummary/:id',
-    loadChildren: () => import('./customer/customer-order-summary/customer-order-summary.module').then( m => m.CustomerOrderSummaryPageModule)
+    loadChildren: () => import('./customer/customer-order-summary/customer-order-summary.module').then(m => m.CustomerOrderSummaryPageModule)
   },
   {
     path: 'orders',
-    loadChildren: () => import('./customer/customer-orders/customer-orders.module').then( m => m.CustomerOrdersPageModule)
+    loadChildren: () => import('./customer/customer-orders/customer-orders.module').then(m => m.CustomerOrdersPageModule)
+  },
+  {
+    path: 'search',
+    loadChildren: () => import('./customer/search/search.module').then(m => m.SearchPageModule)
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 

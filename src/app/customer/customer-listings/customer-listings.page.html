@@ -5,11 +5,8 @@
         <ion-icon name="logo-google" class="kd_svg_size"></ion-icon>
       </ion-col>
       <ion-col size="5" class="kd_flex kd_flex_row_center">
-        <!-- <ion-icon name="location-outline" class="kd_back_button"></ion-icon>
-        <ion-text style="margin-left: 10px">Hyderabad</ion-text> -->
       </ion-col>
       <ion-col size="2" class="kd_flex kd_end_align">
-        <!-- <ion-icon name="menu-outline" class="kd_svg_size"></ion-icon> -->
       </ion-col>
       <ion-col size="2" class="kd_flex kd_end_align">
         <ion-icon name="bag-handle-outline" class="kd_svg_size"></ion-icon>
@@ -19,38 +16,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-toolbar
-    style="
-      padding: 0px;
-      --background: white;
-      box-shadow: none;
-      background-color: #dfd9f1;
-      --box-shadow: none;
-    "
-  >
-    <ion-segment [(ngModel)]="selectedSegment" mode="md">
-      <ion-segment-button value="All">
-        <ion-label>All</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="cakes">
-        <ion-label>Cakes</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="biryani">
-        <ion-label>Biryani</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="snacks">
-        <ion-label>Snacks</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="search" (click)="searchItem()">
-        <ion-icon name="search-outline" class="kd_svg_size"></ion-icon>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar> -->
 
   <div style="display: flex; align-items: center;">
     <ion-searchbar class="searchbar-custom" style="padding: 20px;" (keyup)="onSearch($event)"
       placeholder="Search by Category"></ion-searchbar>
-    <ion-icon name="search-outline" class="kd_svg_size" style="padding-right: 20px;"></ion-icon>
+    <ion-icon name="search-outline" class="kd_svg_size" style="padding-right: 20px;"
+      (click)="navigateToSearch()"></ion-icon>
   </div>
 
   <div style="border: solid 1px lightgray; border-radius: 14px; margin: 20px" *ngFor="let listing of filteredItems">
@@ -71,19 +42,16 @@
           <span>{{listing.makerData.userName}}</span> <br />
           <span>{{listing.makerData.address}}</span></ion-text>
       </ion-col>
-
-      <!-- <ion-col style="display: flex; justify-content: center" size="2.5">
-        <ion-icon name="caret-back-outline" style="padding-right: 10px; color: #0aa26d" class="kd_back_button"
-          (click)="goPrev()"></ion-icon>
-        <ion-icon name="caret-forward-outline" class="kd_back_button" style="color: #0aa26d"
-          (click)="goNext()"></ion-icon>
-      </ion-col> -->
-
       <ion-col class="kd_flex kd_end_align">
-        <ion-icon class="icon_style" style="height: 20px; width: 20px" name="calendar-outline"></ion-icon>
         <div>
+          <div class="kd_flex">
+            <ion-icon class="icon_style" style="padding-bottom: 6px;" name="bag-handle-outline"></ion-icon>
+            <ion-text>{{listing.category}} <span
+                (click)="openItemsList()">+{{listing.listingOrders?.length}}</span></ion-text>
+          </div>
           <ion-text style="font-size: 13px; font-weight: bold">Order will end on</ion-text>
           <div class="kd_flex" style="padding-top: 5px">
+            <ion-icon class="icon_style" style="height: 20px; width: 20px" name="calendar-outline"></ion-icon>
             <ion-text style="font-size: 13px">{{listing.endDateTime | date:'d MMMM EEE h:mm a'}}</ion-text>
           </div>
         </div>
