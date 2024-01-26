@@ -94,7 +94,7 @@
             *ngIf="orderData.deliveryOption.type == 'Pickup Available'">Pickup Location</ion-text>
         </div>
       </ion-col>
-      <ion-col class="ion-no-padding">
+      <ion-col class="ion-no-padding" (click)="openAddressList()">
         <ion-button style="margin: 0px;">Change Address</ion-button>
       </ion-col>
     </ion-row>

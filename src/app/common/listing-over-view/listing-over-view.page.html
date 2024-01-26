@@ -4,13 +4,12 @@
       <ion-col size="2" style="display: flex; justify-content: start; align-items: center;" (click)="goToBack()">
         <ion-icon name="arrow-back-outline" class="kd_back_button"></ion-icon>
       </ion-col>
-      <ion-col size="8" class="kd_flex kd_flex_row_center" style="justify-content: space-evenly;">
+      <ion-col size="8" class="kd_center_align_items">
         <div>
-          <ion-text>Listing ID</ion-text> <br>
-          <ion-text>{{listingData.ID}}</ion-text>
+          <ion-text class="kd_bold_font">Listing ID: {{listingData.ID}}</ion-text>
         </div>
 
-        <ion-text style="margin-left: 15px;">Active</ion-text>
+        <!-- <ion-text style="margin-left: 15px;">Active</ion-text> -->
       </ion-col>
       <ion-col size="2" class="kd_flex kd_end_align">
         <ion-icon name="trash-outline" class="kd_back_button" (click)="deleteListing()"></ion-icon>
@@ -28,9 +27,9 @@
           (ionChange)="toggleChanged()"></ion-toggle>
       </ion-col>
 
-      <ion-col class="text_center" style="margin-top: 0px; display: flex; align-items: center;">
-        <ion-text class="kd_font_size_12" style="margin-right: 10px;">Edit Listing</ion-text>
-        <ion-icon name="alert-circle-outline" class="kd_back_button" (click)="editListing()"></ion-icon>
+      <ion-col class="text_center" style="margin-top: 0px; display: flex; align-items: center;" (click)="editListing()">
+        <img src="../../../assets/edit-text.png" alt="" class="kd_back_button">
+        <ion-text class="kd_font_size_12" style="margin-left: 10px;">Edit Listing</ion-text>
       </ion-col>
     </ion-row>
 
@@ -86,13 +85,13 @@
         <ion-label>All</ion-label>
       </ion-segment-button>
       <ion-segment-button value="orderTaken">
-        <ion-label>Order Taken</ion-label>
+        <ion-label>Confirmed</ion-label>
       </ion-segment-button>
       <ion-segment-button value="dispached">
         <ion-label>Dispached</ion-label>
       </ion-segment-button>
       <ion-segment-button value="pickupDelivered">
-        <ion-label>Pickup Delivered</ion-label>
+        <ion-label>Delivered</ion-label>
       </ion-segment-button>
       <ion-segment-button value="cancelled">
         <ion-label>Cancelled</ion-label>
@@ -105,16 +104,16 @@
       (click)="openOrderDetails(order)">
       <ion-row>
         <ion-col size="6">
-          <ion-text>Order 1235242</ion-text><br>
+          <ion-text class="kd_bold_font">Order {{order.ID}}</ion-text><br>
           <ion-text>Received on {{listingData.startDateTime | date:'d MMMM EEE h:mma'}}</ion-text>
         </ion-col>
 
-        <ion-col size="4">
-          <ion-text>$ 365</ion-text> <br>
-          <ion-text>Pay through wallet</ion-text>
+        <ion-col size="4.5">
+          <ion-text>$ {{order.finalPrice}}</ion-text> <br>
+          <!-- <ion-text>Pay through wallet</ion-text> -->
         </ion-col>
 
-        <ion-col size="2" class="kd_flex kd_end_align">
+        <ion-col size="1.5" class="kd_flex kd_end_align">
           <ion-icon class="icon_style" style="height: 32px; width: 32px; padding-right: 0px;"
             name="arrow-forward-circle-outline"></ion-icon>
         </ion-col>
@@ -123,10 +122,10 @@
       <ion-row>
         <ion-col class="kd_center_align_items">
           <ion-icon name="home-outline" class="kd_back_button"></ion-icon>
-          <ion-text style="padding-left: 10px;">Neighborhood (Pickup)</ion-text>
+          <ion-text style="padding-left: 10px;">{{order.deliveryOption.type}}</ion-text>
         </ion-col>
         <ion-col>
-          <ion-text>Order Taken</ion-text>
+          <ion-text>{{order.status}}</ion-text>
         </ion-col>
       </ion-row>
     </ion-card>

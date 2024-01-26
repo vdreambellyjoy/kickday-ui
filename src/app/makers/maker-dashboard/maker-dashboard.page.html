@@ -5,7 +5,8 @@
         <ion-icon name="grid-outline" style="height: 30px; width: 30px; padding-right: 10px;"></ion-icon>
         <ion-text>Dashboard</ion-text>
       </ion-col>
-      <ion-col class="kd_flex kd_end_align">
+      <ion-col class="kd_flex kd_end_align" style="align-items: center;">
+        <ion-text style="margin-right: 10px;">Logout</ion-text>
         <ion-icon name="log-out-outline" style="height: 30px; width: 30px;"></ion-icon>
       </ion-col>
     </ion-row>
@@ -18,28 +19,29 @@
   justify-content: space-evenly;
   height: 90%;">
     <div>
-      <ion-row> 
+      <ion-row>
         <ion-col class="text_center" style="margin-top: 0px">
-          <ion-toggle aria-label="Dark toggle" color="dark" [(ngModel)]="isToggleChecked" (ionChange)="toggleChanged()"></ion-toggle> <br>
+          <ion-toggle aria-label="Dark toggle" color="dark" [(ngModel)]="isToggleChecked"
+            (ionChange)="toggleChanged()"></ion-toggle> <br>
           <ion-text *ngIf="isToggleChecked; else customerText">Switch to Maker</ion-text>
           <ng-template #customerText>Switch to Customer</ng-template>
         </ion-col>
       </ion-row>
-  
+
       <ion-row>
-        <ion-col class="text_center">
-          <ion-icon name="alert-circle-outline" style="height: 40px; width: 40px; padding-bottom: 15px;" (click)="editMaker()"></ion-icon> <br>
+        <ion-col class="text_center" (click)="editMaker()">
+          <img src="../../../assets/edit-text.png" alt="" style="height: 40px; width: 40px; margin-bottom: 15px;"> <br>
           <ion-text>Edit Profile</ion-text>
         </ion-col>
       </ion-row>
-  
+
       <ion-row>
         <ion-col class="text_center">
           <ion-text class="kd_main_heading" style="font-size: 45px;">{{listingsCount}}</ion-text><br>
           <ion-text style="top: 5px; position: relative;">Listings</ion-text>
         </ion-col>
       </ion-row>
-  
+
       <ion-row>
         <ion-col class="text_center">
           <ion-text class="kd_main_heading" style="font-size: 45px;">{{moneyEarned}}</ion-text><br>
@@ -56,7 +58,7 @@
       <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent" (click)="navigateToAllListings()">
         <ion-ripple-effect class="ripple_background"></ion-ripple-effect>
         <ion-icon name="bag-handle-outline" class="footer_icon_styles"></ion-icon>
-        <ion-text class="icon-text_styles">Orders</ion-text>
+        <ion-text class="icon-text_styles">Listings</ion-text>
       </ion-col>
 
       <ion-col class="kd_flex kd_flex_col_center ion-activatable ripple-parent" (click)="navigateToCreateListing()">

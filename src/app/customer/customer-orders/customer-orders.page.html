@@ -1,4 +1,4 @@
-<ion-header [translucent]="true" style="box-shadow: none;">
+<ion-header [translucent]="true" style="box-shadow: none; background: white;">
   <ion-row>
     <ion-col class="kd_center_align_items">
       <ion-icon name="bag-handle-outline" class="kd_svg_size padd_left"></ion-icon>
@@ -29,10 +29,10 @@
     <ion-card class="kd_orders_card">
       <ion-row>
         <ion-col>
-          <ion-text>Order 1243423</ion-text>
+          <ion-text>Order {{order.ID}}</ion-text>
         </ion-col>
         <ion-col>
-          <ion-text>Order Taken</ion-text>
+          <ion-text>Order {{order.status}}</ion-text>
         </ion-col>
       </ion-row>
 
@@ -58,18 +58,22 @@
         <ion-col>
           <div class="kd_flex">
             <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
-            <ion-text style="font-weight: 500;">Pickup</ion-text>
+            <ion-text style="font-weight: 500;"
+              *ngIf="order.deliveryOption.type != 'Pickup Available'">{{order.deliveryOption.type}}</ion-text>
+            <ion-text style="font-weight: 500;"
+              *ngIf="order.deliveryOption.type == 'Pickup Available'">Pickup</ion-text>
           </div>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col size="9">
-          <ion-text>Pickup on 24th May Friday <br> between 2:00PM - 3:00PM</ion-text>
+          <ion-text *ngIf="order.deliveryOption.type != 'Pickup Available'">Delivery on 24th May Friday</ion-text>
+          <ion-text *ngIf="order.deliveryOption.type == 'Pickup Available'">Pickup on 24th May Friday</ion-text>
         </ion-col>
 
         <ion-col class="kd_flex kd_end_align" size="3">
-          <ion-text style="font-weight: bold;">$ 362</ion-text>
+          <ion-text style="font-weight: bold;">$ {{order.totalPrice}}</ion-text>
         </ion-col>
       </ion-row>
 

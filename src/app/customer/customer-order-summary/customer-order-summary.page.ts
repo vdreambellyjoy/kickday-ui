@@ -4,6 +4,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 
 import { AdminService } from 'src/app/services/admin.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { CustomerAddressListPage } from 'src/app/customer/customer-address-list/customer-address-list.page';
 
 @Component({
   selector: 'app-customer-order-summary',
@@ -13,6 +14,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class CustomerOrderSummaryPage implements OnInit {
   _id: any = '';
   orderData: any;
+  selectedAddress: any;
   constructor(
     private router: Router,
     private model: ModalController,
@@ -36,6 +38,13 @@ export class CustomerOrderSummaryPage implements OnInit {
       this.orderData = false;
       this.openAlert('ERROR', 'something went wrong please try again later', ['close']);
     })
+  }
+
+  async openAddressList() {
+    const modal = await this.model.create({ component: CustomerAddressListPage });
+    modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data && data._id) this.selectedAddress = data;
   }
 
 
@@ -75,12 +84,14 @@ export class CustomerOrderSummaryPage implements OnInit {
   }
 
   getSanitizedLocationUrl(): SafeHtml {
-    const locationUrl = this.orderData.deliveryAddress?.LocationUrl || '';
+    let locationUrl = this.selectedAddress?.LocationUrl || '';
+    if (!locationUrl && this.orderData && this.orderData.deliveryAddress) {
+      locationUrl = this.orderData.deliveryAddress.LocationUrl || '';
+    }
     return this.sanitizer.bypassSecurityTrustHtml(locationUrl.replace(/,/g, ',<br>'));
   }
-
   async copyLocationUrl() {
-    const locationUrl = this.orderData.deliveryAddress?.LocationUrl;
+    const locationUrl = this.selectedAddress?.LocationUrl;
     if (locationUrl) {
       const tempInput = document.createElement('input');
       tempInput.value = locationUrl;
@@ -99,8 +110,8 @@ export class CustomerOrderSummaryPage implements OnInit {
   }
 
   redirectToGoogleMaps() {
-    if (this.orderData.deliveryAddress?.LocationUrl) {
-      window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(this.orderData.deliveryAddress.LocationUrl)}`, '_blank');
+    if (this.selectedAddress?.LocationUrl) {
+      window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(this.selectedAddress?.LocationUrl)}`, '_blank');
     }
   }
 

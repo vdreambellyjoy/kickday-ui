@@ -91,15 +91,15 @@ export class CustomerListingOverviewPage {
     this.swiper = this.swiperRef?.nativeElement.swiper;
   }
 
-  goNext() {
-    if (!this.swiper || this.swiper.destroyed) this.swiperReady();
-    if (this.swiper && !this.swiper.destroyed) this.swiper.slideNext();
-  }
+  // goNext() {
+  //   if (!this.swiper || this.swiper.destroyed) this.swiperReady();
+  //   if (this.swiper && !this.swiper.destroyed) this.swiper.slideNext();
+  // }
 
-  goPrev() {
-    if (!this.swiper || this.swiper.destroyed) this.swiperReady();
-    if (this.swiper && !this.swiper.destroyed) this.swiper.slidePrev();
-  }
+  // goPrev() {
+  //   if (!this.swiper || this.swiper.destroyed) this.swiperReady();
+  //   if (this.swiper && !this.swiper.destroyed) this.swiper.slidePrev();
+  // }
 
   favItem() {
     this.adminService.setFavItem({ _id: this._id }).subscribe((res: any) => {

@@ -231,7 +231,11 @@ export class ProfilePage implements OnInit {
   }
 
   navigateBackToMakersList() {
-    this.router.navigate(['/allUsers']);
+    if (this.userData.role == 'maker') {
+      this.router.navigate(['/makerDashboard']);
+    } else {
+      this.router.navigate(['/allUsers']);
+    }
   }
 
 }
