@@ -35,4 +35,8 @@ export class CustomerOrdersPage implements OnInit {
     this.router.navigate(['/customerProfile']);
   }
 
+  navigateToOrderOverView(order: any) {
+    this.router.navigateByUrl('/customerOrderOverView/' + order._id)
+  }
+
 }

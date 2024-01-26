@@ -52,6 +52,11 @@ const routes: Routes = [
     loadChildren: () => import('./common/profile/profile.module').then(m => m.ProfilePageModule)
   },
 
+  {
+    path: 'customerOrderOverView/:id',
+    canActivate: [AuthGuardService],
+    loadChildren: () => import('./customer/orders-overview/orders-overview.module').then(m => m.OrdersOverviewPageModule)
+  },
 
   {
     path: 'makerDashboard',
