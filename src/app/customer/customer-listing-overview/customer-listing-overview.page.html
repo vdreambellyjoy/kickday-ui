@@ -22,13 +22,15 @@
 <ion-content [fullscreen]="true">
   <div style="margin: 15px;">
     <div style="border: solid 1px lightgray; border-radius: 14px;">
-      <swiper-container style="height: 240px;" #swiper (afterinit)="swiperReady()"
-        (slidechange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true">
+      <swiper-container [style.height]="swiperHeight" style="overflow: hidden;" #swiper (afterinit)="swiperReady()"
+        (change)="swiperSlideChanged($event)" [loop]="true" [pagination]="true" [slidesPerView]="1"
+        [slidesPerGroup]="1">
         <swiper-slide *ngFor="let image of listingData.imageArray">
           <img [src]="image | getLogo | async" />
         </swiper-slide>
       </swiper-container>
     </div>
+
 
     <ion-row>
       <ion-col class="kd_center_align_items" size="5">

@@ -27,7 +27,7 @@
   <div style="border: solid 1px lightgray; border-radius: 14px; margin: 20px" *ngFor="let listing of filteredItems">
     <swiper-container style="height: 240px" #swiper (afterinit)="swiperReady()"
       (slidechange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true"
-      (click)="goToListingOverview(listing)">
+      (click)="goToListingOverview(listing)" [slidesPerView]="1" [slidesPerGroup]="1">
       <swiper-slide *ngFor="let image of listing.imageArray">
         <img [src]="image | getLogo | async" />
       </swiper-slide>

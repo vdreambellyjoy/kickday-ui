@@ -21,6 +21,7 @@ export class CustomerListingOverviewPage {
   selectedDeliveryType: any;
   selectedAddress: any;
   note: any = '';
+  swiperHeight: string = '240px';
 
   public alertButtons = [
     {
@@ -50,7 +51,10 @@ export class CustomerListingOverviewPage {
   }
 
   ngOnInIt() {
+  }
 
+  swiperReady() {
+    this.swiper = this.swiperRef?.nativeElement.swiper;
   }
 
   ngAfterViewInit() {
@@ -59,7 +63,7 @@ export class CustomerListingOverviewPage {
       if (res.success && res.data) {
         this.listingData = res.data || {};
         this.selectedAddress = this.listingData?.customerAddress || {}
-        this.swiperReady();
+        this.swiperHeight = '241px';
         this.listingData.listingOrders.forEach((order: any) => {
           order.count = order.quantity !== undefined ? 0 : order.quantity;
           order.individualItemCost = order.price * order.count || 0;
@@ -85,10 +89,6 @@ export class CustomerListingOverviewPage {
 
   swiperSlideChanged(e: any) {
     console.log('changed: ', e);
-  }
-
-  swiperReady() {
-    this.swiper = this.swiperRef?.nativeElement.swiper;
   }
 
   // goNext() {
