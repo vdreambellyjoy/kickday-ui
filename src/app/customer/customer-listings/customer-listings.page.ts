@@ -35,6 +35,10 @@ export class CustomerListingsPage implements OnInit {
     this.swiperReady();
   }
 
+  handlePress(event: any) {
+    event.stopPropagation(); // Stop propagation to prevent interfering with swiper
+  }
+
   swiperSlideChanged(e: any) {
     console.log('changed: ', e);
   }

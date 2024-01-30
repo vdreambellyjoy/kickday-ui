@@ -7,15 +7,15 @@
   </ion-row>
   <ion-toolbar
     style="padding: 0px; --background: white; box-shadow: none; background-color: #dfd9f1; --box-shadow: none">
-    <ion-segment>
+    <ion-segment (ionChange)="changeSegment($event)" [(ngModel)]="defaultSegment">
       <ion-segment-button value="Live">
         <ion-label>Live</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="Favourate">
+      <ion-segment-button value="Favourite">
         <ion-label>Favourite</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="Completed">
-        <ion-label>Completed</ion-label>
+      <ion-segment-button value="Delivered">
+        <ion-label>Delivered</ion-label>
       </ion-segment-button>
       <ion-segment-button value="Cancelled">
         <ion-label>Cancelled</ion-label>
@@ -38,14 +38,13 @@
 
       <ion-row>
         <ion-col>
-          <ion-text>Placed on 23 May Thursday 3:00PM</ion-text>
+          <ion-text>Order Ends on {{order.listingData.orderEndsOn | date:'d MMMM EEE h:mma'}}</ion-text>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col size="10">
-          <ion-text style="font-weight: bold;">Mutton Biryani with paya preparation on weekend do not miss
-            it.</ion-text>
+          <ion-text style="font-weight: bold;">{{order.listingData.label}}</ion-text>
         </ion-col>
 
         <ion-col size="2" class="kd_flex kd_end_align">
@@ -68,8 +67,10 @@
 
       <ion-row>
         <ion-col size="9">
-          <ion-text *ngIf="order.deliveryOption.type != 'Pickup Available'">Delivery on 24th May Friday</ion-text>
-          <ion-text *ngIf="order.deliveryOption.type == 'Pickup Available'">Pickup on 24th May Friday</ion-text>
+          <ion-text *ngIf="order.deliveryOption.type != 'Pickup Available'">Delivery on
+            {{order.listingData.orderDeliveredOn | date:'d MMMM EEE h:mma'}}</ion-text>
+          <ion-text *ngIf="order.deliveryOption.type == 'Pickup Available'">Pickup on
+            {{order.listingData.orderDeliveredOn | date:'d MMMM EEE h:mma'}}</ion-text>
         </ion-col>
 
         <ion-col class="kd_flex kd_end_align" size="3">

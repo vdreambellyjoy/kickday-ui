@@ -6,8 +6,8 @@
         <ion-text>Dashboard</ion-text>
       </ion-col>
       <ion-col class="kd_flex kd_end_align" style="align-items: center;">
-        <ion-text style="margin-right: 10px;">Logout</ion-text>
-        <ion-icon name="log-out-outline" style="height: 30px; width: 30px;"></ion-icon>
+        <ion-text style="margin-right: 10px;" (click)="logOut()">Logout</ion-text>
+        <ion-icon name="log-out-outline" style="height: 30px; width: 30px;" (click)="logOut()"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-toolbar>

@@ -40,6 +40,8 @@ export class CustomerProfilePage implements OnInit {
   async ionViewWillEnter() {
     let userDataCopy: any = localStorage.getItem('userData');
     this.userData = JSON.parse(userDataCopy) || {};
+    console.log(this.userData, "userrrrrrr");
+
     if (this.userData.profileId) {
       this.edit = true;
       let localLogo = await this.authService.getLogoImageById({ fileId: this.userData.profileId });
@@ -51,14 +53,18 @@ export class CustomerProfilePage implements OnInit {
       }
       localimage = `data:image/jpg;base64,${localLogo.data.data}`;
       this.userDataForm.patchValue({
+        image: localimage,
+        imageName: localimageName,
+        imageId: this.userData.profileId,
+      })
+    }
+    if (this.userData) {
+      this.userDataForm.patchValue({
         userName: this.userData.userName,
         email: this.userData.email,
         mobile: this.userData.mobileNumber,
         city: this.userData.address,
-        bio: this.userData.bio,
-        image: localimage,
-        imageName: localimageName,
-        imageId: this.userData.profileId,
+        bio: this.userData.bio
       });
     }
   }
@@ -107,13 +113,13 @@ export class CustomerProfilePage implements OnInit {
     this.router.navigate(['/customerListings']);
   }
 
-  logOut(){
+  logOut() {
     this.authService.logOut({}).subscribe((res: any) => {
       localStorage.clear();
       this.router.navigate(['/login']);
     }, (err: any) => {
       console.log(err);
-    }) 
+    })
   }
 
 }

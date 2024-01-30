@@ -53,7 +53,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'customerOrderOverView/:id',
+    path: 'orderOverView/:id',
     canActivate: [AuthGuardService],
     loadChildren: () => import('./customer/orders-overview/orders-overview.module').then(m => m.OrdersOverviewPageModule)
   },

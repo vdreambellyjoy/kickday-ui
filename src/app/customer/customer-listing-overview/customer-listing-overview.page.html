@@ -51,7 +51,7 @@
         <ion-text>Order Delivered On</ion-text>
         <div style="margin-top: 3px;">
           <ion-icon class="icon_style" name="calendar-outline"></ion-icon>
-          <ion-text>{{listingData.startDateTime | date:'d MMMM EEE h:mm a'}}</ion-text>
+          <ion-text>{{listingData.orderEndsOn | date:'d MMMM EEE h:mm a'}}</ion-text>
         </div>
       </ion-col>
 
@@ -85,7 +85,7 @@
         <ion-text>Order Ends On</ion-text>
         <div style="margin-top: 3px;">
           <ion-icon class="icon_style" name="calendar-outline"></ion-icon>
-          <ion-text>{{listingData.endDateTime | date:'d MMMM EEE h:mm a'}}</ion-text>
+          <ion-text>{{listingData.orderDeliveredOn | date:'d MMMM EEE h:mm a'}}</ion-text>
         </div>
       </ion-col>
     </ion-row>

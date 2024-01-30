@@ -53,14 +53,14 @@
       <ion-col class="kd_flex">
         <ion-icon class="icon_style" style="height: 30px; width: 30px;" name="calendar-outline"></ion-icon>
         <div class="kd_flex" style="padding-top: 5px;">
-          <ion-text>{{listingData.endDateTime | date:'d MMMM EEE h:mma'}}</ion-text>
+          <ion-text>{{listingData.orderDeliveredOn | date:'d MMMM EEE h:mma'}}</ion-text>
         </div>
       </ion-col>
 
       <ion-col class="kd_flex">
         <ion-icon class="icon_style" style="height: 30px; width: 30px;" name="calendar-outline"></ion-icon>
         <div class="kd_flex" style="padding-top: 5px;">
-          <ion-text>{{listingData.startDateTime | date:'d MMMM EEE h:mma'}}</ion-text>
+          <ion-text>{{listingData.orderEndsOn | date:'d MMMM EEE h:mma'}}</ion-text>
         </div>
       </ion-col>
     </ion-row>
@@ -105,7 +105,7 @@
       <ion-row>
         <ion-col size="6">
           <ion-text class="kd_bold_font">Order {{order.ID}}</ion-text><br>
-          <ion-text>Received on {{listingData.startDateTime | date:'d MMMM EEE h:mma'}}</ion-text>
+          <ion-text>Received on {{listingData.orderEndsOn | date:'d MMMM EEE h:mma'}}</ion-text>
         </ion-col>
 
         <ion-col size="4.5">

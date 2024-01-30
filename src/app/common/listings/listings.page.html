@@ -19,7 +19,7 @@
       <ion-row>
         <ion-col>
           <ion-text>
-            Created on {{ item.startDateTime | date:'d MMMM EEE h:mma'}}
+            Created on {{ item.orderEndsOn | date:'d MMMM EEE h:mma'}}
           </ion-text>
         </ion-col>
       </ion-row>
@@ -67,14 +67,14 @@
         <ion-col class="kd_flex">
           <ion-icon class="icon_style" style="height: 30px; width: 30px" name="calendar-outline"></ion-icon>
           <div class="kd_flex" style="padding-top: 5px">
-            <ion-text>{{ item.endDateTime | date:'d MMMM EEE h:mma'}}</ion-text>
+            <ion-text>{{ item.orderDeliveredOn | date:'d MMMM EEE h:mma'}}</ion-text>
           </div>
         </ion-col>
 
         <ion-col class="kd_flex">
           <ion-icon class="icon_style" style="height: 30px; width: 30px" name="calendar-outline"></ion-icon>
           <div class="kd_flex" style="padding-top: 5px">
-            <ion-text>{{ item.startDateTime | date:'d MMMM EEE h:mma'}}</ion-text>
+            <ion-text>{{ item.orderEndsOn | date:'d MMMM EEE h:mma'}}</ion-text>
           </div>
         </ion-col>
       </ion-row>

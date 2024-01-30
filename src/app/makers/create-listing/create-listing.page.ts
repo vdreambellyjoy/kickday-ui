@@ -94,14 +94,14 @@ export class CreateListingPage implements OnInit {
       this.adminService.getListingBasedOnId({ _id: this._id }).subscribe((res: any) => {
         if (res.success) {
           this.bindingData = res.data
-          this.orderEndDateTime = this.bindingData.endDateTime;
+          this.orderEndDateTime = this.bindingData.orderDeliveredOn;
           this.deliveryItems = this.bindingData.deliveryOptions;
           this.items = this.bindingData.listingOrders.map((e: any) => {
             return { name: e.name, price: e.price, quantity: e.quantity }
           })
           this.youTubeUrl = this.bindingData.youtubeUrl;
 
-          this.orderDeliveredDateTime = this.bindingData.startDateTime;
+          this.orderDeliveredDateTime = this.bindingData.orderEndsOn;
           console.log(res)
           this.mediaImages = [];
           this.bindingData.imageArray?.map(async (e: any) => {
@@ -182,8 +182,8 @@ export class CreateListingPage implements OnInit {
       lng: this.selectedPrediction.lng,
       label: this.label,
       category: this.selectedItems[0],
-      startDateTime: new Date(this.orderDeliveredDateTime),
-      endDateTime: new Date(this.orderEndDateTime),
+      orderEndsOn: new Date(this.orderDeliveredDateTime),
+      orderDeliveredOn: new Date(this.orderEndDateTime),
       orders: this.items,
       deliveryOptions: this.deliveryItems,
       youtubeUrl: this.youTubeUrl,

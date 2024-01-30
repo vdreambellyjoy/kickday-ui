@@ -9,12 +9,14 @@ import { AdminService } from '../../services/admin.service'
 })
 export class CustomerOrdersPage implements OnInit {
   orders: any = [];
+  defaultSegment = 'Live';
   constructor(
     private router: Router,
     private adminService: AdminService,
   ) { }
 
   ngOnInit() {
+    this.changeSegment({ target: { value: this.defaultSegment } });
   }
 
   ngAfterViewInit() {
@@ -36,7 +38,17 @@ export class CustomerOrdersPage implements OnInit {
   }
 
   navigateToOrderOverView(order: any) {
-    this.router.navigateByUrl('/customerOrderOverView/' + order._id)
+    this.router.navigateByUrl('/orderOverView/' + order._id)
+  }
+
+  changeSegment(event: any) {
+    this.adminService.getCustomerOrders({ value: event.target.value }).subscribe((res: any) => {
+      if (res.success && res.data) {
+        this.orders = res.data;
+      }
+    }, (err) => {
+      console.log(err);
+    })
   }
 
 }

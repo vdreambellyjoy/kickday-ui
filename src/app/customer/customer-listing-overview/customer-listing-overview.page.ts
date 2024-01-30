@@ -4,7 +4,6 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 
 import { AdminService } from 'src/app/services/admin.service';
-import { CustomerAddressListPage } from 'src/app/customer/customer-address-list/customer-address-list.page';
 @Component({
   selector: 'app-customer-listing-overview',
   templateUrl: './customer-listing-overview.page.html',
@@ -19,7 +18,6 @@ export class CustomerListingOverviewPage {
   listingData: any = {};
   totalCost: number = 0;
   selectedDeliveryType: any;
-  selectedAddress: any;
   note: any = '';
   swiperHeight: string = '240px';
 
@@ -62,7 +60,6 @@ export class CustomerListingOverviewPage {
     this.adminService.getListingForUser({ _id: this._id }).subscribe((res: any) => {
       if (res.success && res.data) {
         this.listingData = res.data || {};
-        this.selectedAddress = this.listingData?.customerAddress || {}
         this.swiperHeight = '241px';
         this.listingData.listingOrders.forEach((order: any) => {
           order.count = order.quantity !== undefined ? 0 : order.quantity;
@@ -80,12 +77,7 @@ export class CustomerListingOverviewPage {
     this.selectedDeliveryType = type;
   }
 
-  async openAddressList() {
-    const modal = await this.model.create({ component: CustomerAddressListPage });
-    modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    if (data && data._id) this.selectedAddress = data;
-  }
+
 
   swiperSlideChanged(e: any) {
     console.log('changed: ', e);
@@ -153,13 +145,12 @@ export class CustomerListingOverviewPage {
     let obj = {
       refListingId: this.listingData._id,
       refMakerId: this.listingData.refMakerId,
-      deliveryAddress: this.selectedAddress,
       deliveryOption: deliveryOption,
       note: this.note,
       finalCostWithOutDeliveryOption: this.totalCost,
       orderedItems: orderedItems
     }
-    if (this.selectedAddress?._id && this.totalCost && this.selectedDeliveryType) {
+    if (this.totalCost && this.selectedDeliveryType) {
       this.adminService.addToCart(obj).subscribe((res: any) => {
         if (res.success && res._id) {
           this.router.navigateByUrl('/orderSummary/' + res._id);

@@ -57,4 +57,13 @@ export class MakerDashboardPage implements OnInit {
   editMaker() {
     this.router.navigateByUrl('/editprofile/' + this.userData._id)
   }
+
+  logOut() {
+    this.authService.logOut({}).subscribe((res: any) => {
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    }, (err: any) => {
+      console.log(err);
+    })
+  }
 }
