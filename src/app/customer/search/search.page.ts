@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { AlertController, ModalController } from '@ionic/angular';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-search',
@@ -7,61 +9,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
+  selectedOption: string = '';
+  selectedDeliveryType: string = '';
+  search: any = "";
 
-  // selectedLocation: string = ''
-  selectedItemsText: string = '';
-  selectedItems: string[] = [];
-  addCategoryData = [
-    'Biryani',
-    'Sweets',
-    'Cova',
-    'Fried Rice',
-    'Pizza',
-    'Burger',
-    'Desserts',
-    'Pani Puri',
-    'Cool Drinks',
-    'Mandi',
-  ];
-  results: string[] = [];
+  constructor(
+    private modalCtrl: ModalController,
+    private adminService: AdminService,
+    private alertController: AlertController
+  ) { }
 
-  constructor(private router: Router) { }
+  ngOnInit() { }
 
-  ngOnInit() {
-  }
-
-  // removeselectedLocation() {
-  //   this.selectedLocation = '';
-  // }
-
-  selectItem(item: string) {
-    if (!this.selectedItems.includes(item)) {
-      this.selectedItems.push(item);
-      this.selectedItemsText = '';
-      this.results = [];
-    }
-  }
-
-  removeItem(item: string) {
-    this.selectedItems = this.selectedItems.filter(selectedItem => selectedItem !== item);
-  }
-
-  handleInput(event: any) {
-    const query = event.target.value.toLowerCase();
-
-    if (query.trim() === '') {
-      this.results = [];
+  closePopup() {
+    if (this.search || this.selectedDeliveryType || this.selectedOption) {
+      this.modalCtrl.dismiss({ searchTerm: this.search || '', deliveryType: this.selectedDeliveryType || '', deliveryDate: this.selectedOption || '' });
     } else {
-      this.results = this.addCategoryData.filter((data) => data.toLowerCase().indexOf(query) > -1);
+      this.modalCtrl.dismiss();
     }
   }
 
-  isSelected(item: string): boolean {
-    return this.selectedItems.includes(item);
+
+  selectOption(option: string) {
+    this.selectedOption = option;
   }
 
-  navigateToListings() {
-    this.router.navigate(['/customerListings'])
+  selectDeliveryType(option: string) {
+    this.selectedDeliveryType = option;
   }
-
 }

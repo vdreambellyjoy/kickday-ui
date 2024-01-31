@@ -20,8 +20,13 @@
   <div style="display: flex; align-items: center;">
     <ion-searchbar class="searchbar-custom" style="padding: 20px;" (keyup)="onSearch($event)"
       placeholder="Search by Category"></ion-searchbar>
-    <ion-icon name="search-outline" class="kd_svg_size" style="padding-right: 20px;"
-      (click)="navigateToSearch()"></ion-icon>
+    <ion-icon name="filter-circle-outline" class="kd_svg_size" style="padding-right: 20px;" (click)="openSearchModel()"
+      *ngIf="!filterSearchTerm && !filterDeliveryType && !filterDeliveryDate"></ion-icon>
+    <ion-icon name="filter-circle-outline" class="kd_svg_size" style="padding-right: 20px;color:blue"
+      (click)="openSearchModel()" *ngIf="filterSearchTerm || filterDeliveryType || filterDeliveryDate"></ion-icon>
+
+    <ion-icon name="rocket-outline" *ngIf="filterSearchTerm || filterDeliveryType || filterDeliveryDate"
+      style="padding-right: 20px;color:blue;font-size: 30px;" (click)="clearFilter()"></ion-icon>
   </div>
 
   <div style="border: solid 1px lightgray; border-radius: 14px; margin: 20px" *ngFor="let listing of filteredItems">

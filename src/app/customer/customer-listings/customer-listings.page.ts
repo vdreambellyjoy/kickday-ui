@@ -1,8 +1,11 @@
 import { Swiper } from 'swiper';
 import { Router } from '@angular/router';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { AdminService } from 'src/app/services/admin.service';
+import { SearchPage } from 'src/app/customer/search/search.page';
+
 @Component({
   selector: 'app-customer-listings',
   templateUrl: './customer-listings.page.html',
@@ -17,14 +20,25 @@ export class CustomerListingsPage implements OnInit {
   listings: any;
   filteredItems: any[] = [];
 
-  constructor(private router: Router, private adminService: AdminService) { }
+  filterSearchTerm: string = '';
+  filterDeliveryType: string = '';
+  filterDeliveryDate: string = '';
+
+  constructor(
+    private router: Router,
+    private model: ModalController,
+    private alert: AlertController,
+    private adminService: AdminService
+  ) { }
 
   ngOnInit() { }
 
   ngAfterViewInit() {
+    this.filterSearchTerm = '';
+    this.filterDeliveryType = '';
+    this.filterDeliveryDate = '';
     this.adminService.getAllListingsForCustomer({}).subscribe(
       (res: any) => {
-        console.log(res);
         this.listings = res.data || [];
         this.filteredItems = this.listings
       },
@@ -72,12 +86,10 @@ export class CustomerListingsPage implements OnInit {
 
   onSearch(event: any) {
     const searchTerm = event.target.value.trim().toLowerCase();
-
     if (!searchTerm || searchTerm.length < 1) {
       this.filteredItems = [...this.listings];
       return;
     }
-
     this.filteredItems = this.listings.filter((user: any) => {
       const category = (user && user.category) ? user.category.toLowerCase() : '';
       console.log(category, "searchhhh");
@@ -85,8 +97,44 @@ export class CustomerListingsPage implements OnInit {
     });
   }
 
-  navigateToSearch() {
-    this.router.navigate(['/search']);
+  async openSearchModel() {
+    let obj = {
+      search: this.filterSearchTerm || '',
+      selectedDeliveryType: this.filterDeliveryType || '',
+      selectedOption: this.filterDeliveryDate || ''
+    }
+    const modal = await this.model.create({ component: SearchPage, componentProps: obj });
+    modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (data) {
+      this.filterSearchTerm = data.searchTerm;
+      this.filterDeliveryType = data.deliveryType;
+      this.filterDeliveryDate = data.deliveryDate;
+      this.adminService.getAllListingsForCustomer({ search: this.filterSearchTerm || '', deliveryType: this.filterDeliveryType || '', deliveryDate: this.filterDeliveryDate || '' }).subscribe(
+        (res: any) => {
+          this.listings = res.data || [];
+          this.filteredItems = this.listings
+        },
+        (err: any) => {
+          console.log(err);
+        }
+      );
+    }
+  }
+
+  clearFilter() {
+    this.filterSearchTerm = "";
+    this.filterDeliveryType = "";
+    this.filterDeliveryDate = "";
+    this.adminService.getAllListingsForCustomer({}).subscribe(
+      (res: any) => {
+        this.listings = res.data || [];
+        this.filteredItems = this.listings
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
   }
 
 }

@@ -40,7 +40,6 @@ export class CustomerProfilePage implements OnInit {
   async ionViewWillEnter() {
     let userDataCopy: any = localStorage.getItem('userData');
     this.userData = JSON.parse(userDataCopy) || {};
-    console.log(this.userData, "userrrrrrr");
 
     if (this.userData.profileId) {
       this.edit = true;

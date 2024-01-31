@@ -1,10 +1,10 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
+import { DomSanitizer } from '@angular/platform-browser';
 import { AdminService } from '../../services/admin.service';
 import { LoadingController, NavController } from '@ionic/angular';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
-import { DomSanitizer } from '@angular/platform-browser';
 
 declare var google: any;
 @Component({
@@ -139,12 +139,8 @@ export class CreateListingPage implements OnInit {
   }
 
   selectItem(item: string) {
-    if (!this.selectedItems.includes(item)) {
-      this.selectedItems = [];
-      this.selectedItems.push(item);
-      this.selectedItemsText = '';
-      this.results = [];
-    }
+    this.newItemName = item;
+    this.results = [];
   }
 
   isSelected(item: string): boolean {
