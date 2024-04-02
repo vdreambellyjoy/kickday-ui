@@ -28,7 +28,6 @@ export class CustomerProfilePage implements OnInit {
       email: ['', Validators.required],
       mobile: [''],
       city: ['', Validators.required],
-      bio: '',
       image: ['', Validators.required],
       imageName: [''],
       imageId: ''
@@ -63,7 +62,6 @@ export class CustomerProfilePage implements OnInit {
         email: this.userData.email,
         mobile: this.userData.mobileNumber,
         city: this.userData.address,
-        bio: this.userData.bio
       });
     }
   }

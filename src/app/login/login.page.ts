@@ -13,25 +13,35 @@ export class LoginPage implements OnInit {
   mobileNumber: any = '';
   pin: any = '';
   confirmPin: any = '';
+  resCode: any = 0;
 
   constructor(
     private route: Router,
     private auth: AuthServiceService
-  ) { }
+  ) {
+
+  }
   ngOnInit() {
 
   }
 
+  eventHandler(key: any) {
+    this.resCode = 0;
+  }
 
   login() {
     this.auth.login({ mobile: this.mobileNumber, pin: this.pin }).subscribe((res: any) => {
-      if (res.success) {
+      this.resCode = res.status;
+      if (res.userData?.role == "admin") res.userData.activeUser = true;
+      if (!res.userData?.activeUser) this.resCode = 403;
+      if (res.success && res.userData?.activeUser) {
         localStorage.setItem('token', JSON.stringify(res.token));
         localStorage.setItem('userData', JSON.stringify(res.userData));
         this.navigatePages();
       }
     }, (err: any) => {
-      console.log('userNot found , show error')
+      this.resCode = err.status;
+      console.log(err)
     })
   }
 
@@ -46,12 +56,15 @@ export class LoginPage implements OnInit {
   createCustomer() {
     if (this.pin == this.confirmPin) {
       this.auth.createCustomer({ mobile: this.mobileNumber, pin: this.pin, role: this.profileType }).subscribe((res: any) => {
+        this.resCode = res.status;
         if (res.success) {
+          this.showConfirmPin = false;
           localStorage.setItem('token', JSON.stringify(res.token));
           localStorage.setItem('userData', JSON.stringify(res.userData));
           this.navigatePages();
         }
       }, (err: any) => {
+        this.resCode = err.status;
         console.log(err);
       })
     } else {

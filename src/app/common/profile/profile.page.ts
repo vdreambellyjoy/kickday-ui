@@ -180,6 +180,10 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  removeImage(index: number) {
+    this.mediaImages.splice(index, 1);
+  }
+
   async updateMakerForms(segment: any = '') {
     let logoFile = await this.authService.getLogoImageById({ fileId: this.userData.profileId });
     let image: any = '';
@@ -230,8 +234,10 @@ export class ProfilePage implements OnInit {
     }
   }
 
-  navigateBackToMakersList() {
-    if (this.userData.role == 'maker') {
+ async navigateBackToMakersList() {
+    let userData: any = await localStorage.getItem('userData');
+    userData = JSON.parse(userData);
+    if (userData.role == 'maker') {
       this.router.navigate(['/makerDashboard']);
     } else {
       this.router.navigate(['/allUsers']);

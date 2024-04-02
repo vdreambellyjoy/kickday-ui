@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://kickday.com/api',
+  // baseUrl: 'https://kickday.com/api',
+  baseUrl: 'http://localhost:3800/kickDay',
 };
 
 /*

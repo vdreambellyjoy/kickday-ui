@@ -33,7 +33,7 @@ export class CustomerListingsPage implements OnInit {
 
   ngOnInit() { }
 
-  ngAfterViewInit() {
+  ionViewWillEnter() {
     this.filterSearchTerm = '';
     this.filterDeliveryType = '';
     this.filterDeliveryDate = '';
@@ -137,4 +137,10 @@ export class CustomerListingsPage implements OnInit {
     );
   }
 
+  handleRefresh(event: any) {
+    this.ionViewWillEnter();
+    setTimeout(() => {
+      event.target.complete();
+    }, 500);
+  }
 }

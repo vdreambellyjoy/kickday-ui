@@ -1,3 +1,16 @@
 .kd_orders_card {
     margin: 15px 0px !important;
 }
+
+ion-segment-button {
+    --color-checked: #61399f;
+    text-transform: none;
+    font-size: 12px;
+    --padding-start: 0px;
+    --padding-end: 0px;
+    min-width: min-content;
+}
+
+.flex_start {
+    align-items: flex-start;
+}

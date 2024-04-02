@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-row style="margin: 10px;">
       <ion-col style="display: flex; justify-content: start; align-items: center;">
-        <ion-icon name="arrow-back-outline" class="kd_svg_size" id="openCancelPopup"></ion-icon>
+        <ion-icon name="arrow-back-outline" class="kd_svg_size" (click)="goBack()"></ion-icon>
       </ion-col>
       <ion-col style="display: flex; justify-content: center; align-items: center;">
         <ion-icon *ngIf="!listingData.favourite" name="star-outline" class="kd_svg_size" (click)="favItem()"></ion-icon>
@@ -38,12 +38,6 @@
         <ion-text>{{listingData.category}}</ion-text>
       </ion-col>
 
-      <!-- <ion-col class="kd_center_align_items" size="7">
-        <ion-icon name="caret-back-outline" style="padding-right: 10px; color: #0aa26d;" class="kd_back_button"
-          (click)="goPrev()"></ion-icon>
-        <ion-icon name="caret-forward-outline" class="kd_back_button" style="color: #0aa26d;"
-          (click)="goNext()"></ion-icon>
-      </ion-col> -->
     </ion-row>
 
     <ion-row>
@@ -51,7 +45,7 @@
         <ion-text>Order Delivered On</ion-text>
         <div style="margin-top: 3px;">
           <ion-icon class="icon_style" name="calendar-outline"></ion-icon>
-          <ion-text>{{listingData.orderEndsOn | date:'d MMMM EEE h:mm a'}}</ion-text>
+          <ion-text>{{listingData.orderDeliveredOn | date:'d MMMM EEE'}}</ion-text>
         </div>
       </ion-col>
 
@@ -85,7 +79,7 @@
         <ion-text>Order Ends On</ion-text>
         <div style="margin-top: 3px;">
           <ion-icon class="icon_style" name="calendar-outline"></ion-icon>
-          <ion-text>{{listingData.orderDeliveredOn | date:'d MMMM EEE h:mm a'}}</ion-text>
+          <ion-text>{{listingData.orderEndsOn | date:'dd MMMM EEE hh:mm a'}}</ion-text>
         </div>
       </ion-col>
     </ion-row>
@@ -98,7 +92,7 @@
         </div>
       </ion-col>
       <ion-col size="2" class="kd_flex kd_center_align">
-        <ion-text>$ {{order.price}}</ion-text>
+        <ion-text>&#8377; {{order.price}}</ion-text>
       </ion-col>
       <ion-col size="3" class=" kd_flex kd_end_align">
         <ion-button class="count_button">
@@ -119,7 +113,7 @@
       </ion-col>
 
       <ion-col size="12" class="kd_flex kd_end_align">
-        <ion-text>Individual Item Cost: $ {{ order.individualItemCost }}</ion-text>
+        <ion-text>Individual Item Cost: &#8377; {{ order.individualItemCost }}</ion-text>
       </ion-col>
     </ion-row>
 
@@ -129,17 +123,6 @@
       </ion-col>
     </ion-row>
 
-    <!-- <ion-row>
-      <ion-col size="11" class="kd_flex">
-        <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
-        <ion-text class="kd_flex kd_center_align">Delivery from: <span class="kd_flex kd_center_align"><ion-icon
-              class="icon_style" name="location-outline"></ion-icon>
-            {{listingData.address}} </span></ion-text>
-      </ion-col>
-      <ion-col size="1" class="kd_flex kd_end_align">
-        <ion-icon class="icon_style kd_no_padding" name="chevron-forward-outline"></ion-icon>
-      </ion-col>
-    </ion-row> -->
 
     <ion-row>
       <ion-toolbar class="scroll_width">
@@ -164,42 +147,11 @@
       </ion-toolbar>
     </ion-row>
 
-    <!-- <ion-row>
-      <ion-col size="11" class="kd_flex">
-        <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
-        <ion-text class="kd_flex kd_center_align">Delivery Options: <span class="kd_flex kd_center_align">
-            <ion-icon class="icon_style" name="location-outline"></ion-icon>
-            {{selectedDeliveryType}} </span></ion-text>
-      </ion-col>
-      <ion-col size="1" class="kd_flex kd_end_align">
-        <ion-icon class="icon_style kd_no_padding" name="chevron-forward-outline"></ion-icon>
-      </ion-col>
-    </ion-row> -->
-
-    <!-- <ion-row (click)="openAddressList()">
-      <ion-col size="11" class="kd_flex">
-        <ion-icon class="icon_style" name="bicycle-outline"></ion-icon>
-        <ion-text class="kd_flex kd_center_align">Selected Address: <span class="kd_flex kd_center_align">
-            <ion-icon class="icon_style" name="location-outline"></ion-icon>
-            {{selectedAddress?.name}}<br>
-            {{selectedAddress?.address}}<br>
-            {{selectedAddress?.mobile}}
-          </span>
-        </ion-text>
-      </ion-col>
-      <ion-col size="1" class="kd_flex kd_end_align">
-        <ion-icon class="icon_style kd_no_padding" name="chevron-forward-outline"></ion-icon>
-      </ion-col>
-    </ion-row> -->
-
     <ion-row>
       <ion-col>
         <ion-button (click)="addToCart()">ADD TO CART</ion-button>
       </ion-col>
     </ion-row>
-
-    <ion-alert trigger="openCancelPopup" header="Sure you want to cancel the order?" [buttons]="alertButtons"
-      (didDismiss)="confirmationToCancel($event)"></ion-alert>
 
   </div>
 

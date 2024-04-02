@@ -14,7 +14,7 @@
 
   <ion-row>
     <ion-col class="kd_margin_bott_10">
-      <ion-input type="tel" class="input_selection" pattern="[0-9]*" minlength="10" maxlength="10"
+      <ion-input (keyup)="eventHandler($event.keyCode)" type="tel" class="input_selection" pattern="[0-9]*" minlength="10" maxlength="10"
         [(ngModel)]="mobileNumber" placeholder="Enter Mobile"></ion-input>
     </ion-col>
   </ion-row>
@@ -27,17 +27,23 @@
 
   <ion-row>
     <ion-col class="kd_margin_bott_10">
-      <ion-input class="input_selection" type="tel" pattern="[0-9]*" minlength="6" maxlength="6" [(ngModel)]="pin"
+      <ion-input (keyup)="eventHandler($event.keyCode)" class="input_selection" type="tel" pattern="[0-9]*" minlength="6" maxlength="6" [(ngModel)]="pin"
         placeholder="Enter Pin"></ion-input>
     </ion-col>
   </ion-row>
 
   <ion-row *ngIf="profileType === 'customer'">
     <ion-col class="kd_margin_bott_10">
-      <ion-input class="input_selection" pattern="[0-9]*" minlength="6" maxlength="6" [(ngModel)]="confirmPin"
+      <ion-input (keyup)="eventHandler($event.keyCode)" class="input_selection" pattern="[0-9]*" minlength="6" maxlength="6" [(ngModel)]="confirmPin"
         placeholder="Confirm Pin" *ngIf="showConfirmPin"></ion-input>
     </ion-col>
   </ion-row>
+
+  <div *ngIf="resCode" class="error">
+    <span *ngIf="resCode == 404">Account Not Found</span>
+    <span *ngIf="resCode == 409">Account exsist</span>
+    <span *ngIf="resCode == 403">Your Account has been disabled please contact business owner</span>
+  </div>
 
   <ion-row>
     <ion-col>

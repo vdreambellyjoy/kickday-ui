@@ -71,7 +71,7 @@
             <ion-item>
               <ion-label position="stacked">PIN*</ion-label>
               <ion-input formControlName="pin" aria-label="pin" placeholder="Enter PIN"
-                [disabled]="userData?.role == 'maker'"></ion-input>
+                [disabled]="userData?.role != 'maker'"></ion-input>
             </ion-item>
           </ion-card>
 
@@ -127,14 +127,14 @@
             <ion-text style="font-size: 16px;">Add Image</ion-text>
           </div>
 
-          <div class="selected-images"
-            style="max-height: 350px; overflow-y: auto; display: flex; flex-wrap: wrap; gap: 10px; border: solid 1px black;padding: 10px; margin-bottom: 20px;">
+          <div class="selected-images">
             <ng-container *ngFor="let image of mediaImages; let i = index">
-              <img [src]="image.image" alt="Selected image {{ i + 1 }}"
-                style="flex: 0 0 calc(30% - 10px); max-height: 30%;">
+              <div class="image-container">
+                <ion-icon name="close" (click)="removeImage(i)"></ion-icon>
+                <img [src]="image.image" alt="Selected image {{ i + 1 }}">
+              </div>
             </ng-container>
-          </div>
-
+          </div>          
         </ion-col>
       </ion-row>
       <ion-button class="kd_save_button" (click)="saveMedia()">Save</ion-button>
@@ -146,7 +146,7 @@
           <ion-card style="display: grid; align-items: center; width: 50%; margin-top: 0px;" class="input_selection">
             <ion-item>
               <ion-label position="stacked">Comission*</ion-label>
-              <ion-input formControlName="commission" aria-label="Comission" placeholder="Eg: 0%"></ion-input>
+              <ion-input type="number" formControlName="commission" aria-label="Comission" placeholder="Eg: 0%"></ion-input>
             </ion-item>
           </ion-card>
           <ion-card style="display: grid; align-items: center;" class="input_selection">

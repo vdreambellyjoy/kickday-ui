@@ -13,13 +13,27 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-toolbar style="padding: 0px; --background: white; box-shadow: none; background-color: #dfd9f1; --box-shadow: none">
+  <ion-segment (ionChange)="changeSegment($event.target.value)" [(ngModel)]="selectedSegment" mode="md">
+    <ion-segment-button value="Live">
+      <ion-label>Live</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Completed">
+      <ion-label>Completed</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="InActive">
+      <ion-label>InActive</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
 <ion-content [fullscreen]="true">
   <div style="margin: 15px">
     <ion-card class="kd_orders_card" *ngFor="let item of listings" (click)="openListing(item)">
       <ion-row>
         <ion-col>
           <ion-text>
-            Created on {{ item.orderEndsOn | date:'d MMMM EEE h:mma'}}
+            Created on {{ item.createdAt | date:'dd MMMM EEE'}}
           </ion-text>
         </ion-col>
       </ion-row>
@@ -34,7 +48,7 @@
         </ion-col>
 
         <ion-col>
-          <ion-text>Active</ion-text>
+          <ion-text>{{item?.status || 'Active'}}</ion-text>
         </ion-col>
 
         <ion-col>
@@ -67,14 +81,14 @@
         <ion-col class="kd_flex">
           <ion-icon class="icon_style" style="height: 30px; width: 30px" name="calendar-outline"></ion-icon>
           <div class="kd_flex" style="padding-top: 5px">
-            <ion-text>{{ item.orderDeliveredOn | date:'d MMMM EEE h:mma'}}</ion-text>
+            <ion-text>{{ item.orderEndsOn | date:'dd MMMM EEE hh:mm a'}}</ion-text>
           </div>
         </ion-col>
 
         <ion-col class="kd_flex">
           <ion-icon class="icon_style" style="height: 30px; width: 30px" name="calendar-outline"></ion-icon>
           <div class="kd_flex" style="padding-top: 5px">
-            <ion-text>{{ item.orderEndsOn | date:'d MMMM EEE h:mma'}}</ion-text>
+            <ion-text>{{ item.orderDeliveredOn | date:'dd MMMM EEE'}}</ion-text>
           </div>
         </ion-col>
       </ion-row>

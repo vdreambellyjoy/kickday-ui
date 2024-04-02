@@ -291,7 +291,8 @@ swiper-slide img {
 .search-results {
     position: absolute;
     z-index: 1000;
-    width: 98%;
+    width: max-content;
+    min-width: 100%;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -340,3 +341,19 @@ swiper-slide img {
 .item-inner {
     padding-right: 0px !important;
 }
+
+.custom-input {
+    height: 100px;
+    border-radius: 10px;
+    border: 1px solid #ccc !important;
+    padding: 5px !important;
+}
+
+.custom-input textarea {
+    padding: 10px 4px;
+}
+
+.delete-alert .delete-header {
+    color: red !important;
+    font-weight: bold;
+  }

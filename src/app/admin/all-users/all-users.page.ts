@@ -61,9 +61,7 @@ export class AllUsersPage implements OnInit {
   }
 
   onSearch(event: any) {
-    const searchTerm = event.target.value.trim().toLowerCase();
-    console.log(searchTerm, "4578343", searchTerm.length < 1);
-  
+    const searchTerm = event.target.value.trim().toLowerCase();  
     if (!searchTerm || searchTerm.length < 1) {
       this.filteredUsersList = [...this.usersList];
       return;
@@ -71,8 +69,8 @@ export class AllUsersPage implements OnInit {
   
     this.filteredUsersList = this.usersList.filter((user: any) => {
       const userName = user.userName.toLowerCase();
-      console.log(userName, "searchhhh");
-      return userName.includes(searchTerm);
+      const mobile = user.mobileNumber;
+      return userName.includes(searchTerm) || mobile.includes(searchTerm);
     });
   }
   

@@ -2,6 +2,7 @@
   min-width: 390px;
   margin: auto;
   padding: 15px;
+  overflow: auto;
 }
 
 .login-image {
@@ -29,4 +30,10 @@
   font-weight: bold;
   color: blue;
   text-align: end;
+}
+
+.error {
+  color: red;
+  font-size: 10px;
+  text-align: center;
 }

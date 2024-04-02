@@ -1,12 +1,12 @@
 .input_selection {
-    border: solid 2px black;
-    border-radius: 14px;
-    height: 70px;
-    margin: 20px 0px;
-    padding: 10px;
-    box-shadow: none;
-    padding-top: 15px;
-  }
+  border: solid 2px black;
+  border-radius: 14px;
+  height: 70px;
+  margin: 20px 0px;
+  padding: 10px;
+  box-shadow: none;
+  padding-top: 15px;
+}
 
 ion-label {
   font-size: 16px !important;
@@ -69,25 +69,25 @@ ion-item {
 }
 
 ion-segment-button {
-    text-transform: none;
-    min-width: 65px;
-    font-weight: bold;
+  text-transform: none;
+  min-width: 65px;
+  font-weight: bold;
 }
 
 ion-segment {
-    align-items: baseline;
+  align-items: baseline;
 }
 
 .add_img_div {
-    height: 180px;
-    width: 100%;
-    background: rgb(243, 246, 248);
-    border-radius: 9px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
+  height: 180px;
+  width: 100%;
+  background: rgb(243, 246, 248);
+  border-radius: 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 ion-input {
@@ -96,4 +96,27 @@ ion-input {
 
 ion-label {
   padding-top: 5px !important;
+}
+
+
+.selected-images {
+  max-height: 350px;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: solid 1px black;
+  padding: 10px;
+  margin-bottom: 20px;
+
+  .image-container {
+    position: relative;
+    ion-icon[name="close"] {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
 }

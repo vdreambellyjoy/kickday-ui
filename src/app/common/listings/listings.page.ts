@@ -12,26 +12,20 @@ import { AdminService } from '../../services/admin.service';
 export class ListingsPage implements OnInit {
   userData: any = {};
   listings: any = [];
+  selectedSegment: any = "Live"
 
   constructor(
     private router: Router,
     private navCtrl: NavController,
     private adminService: AdminService
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ionViewWillEnter() {
     let data: any = localStorage.getItem('userData');
     this.userData = JSON.parse(data);
-    this.adminService.getAllListings({}).subscribe(
-      (res: any) => {
-        if (res.success) this.listings = res.list.length ? res.list : [];
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.changeSegment(this.selectedSegment);
   }
 
   openListing(listing: any) {
@@ -50,5 +44,18 @@ export class ListingsPage implements OnInit {
     this.router.navigate(['/createListing']);
   }
 
-  
+
+  changeSegment(val: any = "Live") {
+    this.selectedSegment = val;
+    this.adminService.getAllListings({ selectedValue: this.selectedSegment }).subscribe(
+      (res: any) => {
+        if (res.success) this.listings = res.list.length ? res.list : [];
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+
 }

@@ -52,7 +52,7 @@ export class UserOverviewPage implements OnInit {
   toggleChanged() {
     this.adminService.activeDeActiveUser({ _id: this._id, value: this.isToggleChecked }).subscribe((res: any) => {
       if (res.success) {
-        this.userData = res.data || {};
+        // this.userData = res.data || {};
       } else {
         this.router.navigate(['/adminDashboard']);
       }

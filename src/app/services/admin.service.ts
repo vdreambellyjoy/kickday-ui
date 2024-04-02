@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment'
 
 @Injectable({
@@ -9,7 +10,11 @@ import { environment } from '../../environments/environment'
 })
 export class AdminService {
 
-  constructor(private http: HttpClient, private route: Router) { }
+  constructor(
+    private route: Router,
+    private http: HttpClient,
+    public alertController: AlertController
+  ) { }
 
   // admin page API START
   getUsersCount(data: any): Observable<any> {
@@ -34,6 +39,10 @@ export class AdminService {
 
   getUserBasedOnId(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/admin/getUserBasedOnId", data);
+  }
+
+  activeDeActiveListing(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/admin/activeDeActiveListing", data);
   }
 
 
@@ -133,4 +142,32 @@ export class AdminService {
   }
   // customer page API END
 
+
+  async presentDeleteConfirmation(header: any, message: any, cssClass: any): Promise<boolean> {
+    return new Promise<boolean>(async (resolve) => {
+      const alert = await this.alertController.create({
+        header: header,
+        message: message,
+        cssClass: cssClass,
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              resolve(false);
+            }
+          }, {
+            text: 'OK',
+            cssClass: 'primary',
+            handler: () => {
+              resolve(true);
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+    });
+  }
 }

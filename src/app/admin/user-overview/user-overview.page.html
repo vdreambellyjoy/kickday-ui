@@ -46,7 +46,7 @@
       <ion-label>{{userData.address}}</ion-label>
     </ion-col>
     <ion-col style="margin: 15px 0px;">
-      <ion-label class="kd_main_heading">$ 4500</ion-label><br>
+      <ion-label class="kd_main_heading">&#8377; 0</ion-label><br>
       <ion-label>Money Spent</ion-label>
     </ion-col>
   </ion-row>
@@ -86,21 +86,21 @@
   <div class="card-outline" *ngIf="userData?.role == 'maker'">
     <ion-row>
       <ion-col>
-        <ion-text class="kd_main_heading">02</ion-text><br>
+        <ion-text class="kd_main_heading">{{userData?.listingsCount}}</ion-text><br>
         <div class="pad-top5">
           <ion-text>Listings</ion-text>
         </div>
       </ion-col>
       <ion-col>
-        <ion-text class="kd_main_heading">$ 1254</ion-text><br>
+        <ion-text class="kd_main_heading">&#8377; {{userData?.totalAmount}}</ion-text><br>
         <div class="pad-top5">
           <ion-text>Money Earned</ion-text>
         </div>
       </ion-col>
       <ion-col class="kd_flex kd_end_align">
-        <ion-text class="kd_main_heading">$ 154</ion-text><br>
+        <ion-text class="kd_main_heading">&#8377; 0</ion-text><br>
         <div class="pad-top5" style="position: absolute; margin-top: 23px;">
-          <ion-text>%12</ion-text>
+          <ion-text>%{{userData?.commission}}</ion-text>
         </div>
       </ion-col>
     </ion-row>
@@ -108,11 +108,11 @@
 
   <ion-row *ngIf="userData?.role == 'maker'">
     <ion-col>
-      <ion-button expand="block" (click)="openKitchenImages(true)">Kitchen Images</ion-button>
+      <ion-button expand="block" (click)="openKitchenImages(true)">Images</ion-button>
     </ion-col>
-    <ion-col>
+    <!-- <ion-col>
       <ion-button expand="block" (click)="OpenDocuments(true)">Documents</ion-button>
-    </ion-col>
+    </ion-col> -->
     <!-- <ion-col>
       <ion-icon name="pencil-outline" class="kd_svg_size"></ion-icon>
     </ion-col> -->

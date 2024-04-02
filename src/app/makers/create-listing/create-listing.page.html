@@ -10,7 +10,6 @@
 
       <ion-col (click)="goToBack()">
         <div class="kd_flex kd_end_align">
-          <ion-text style="font-weight: bold; font-size: 12px; padding-right: 10px;">Cancel Listing</ion-text>
           <ion-icon class="icon_style kd_no_padding" name="close-circle-outline"></ion-icon>
         </div>
       </ion-col>
@@ -57,7 +56,7 @@
     <ion-row>
       <ion-col>
         <ion-textarea aria-label="Custom textarea" placeholder="Give a catchy title(150 words)" class="custom"
-          [(ngModel)]="label" [value]="bindingData?.label"></ion-textarea>
+          [(ngModel)]="label"></ion-textarea>
       </ion-col>
     </ion-row>
 
@@ -72,12 +71,14 @@
           <ion-row>
             <ion-col class="kd_col_center_align">
               <ion-icon name="calendar-number-outline" class="kd_svg_size"></ion-icon>
-              <ion-text class="date_text">{{orderEndDateTime | date:'d MMMM EEE h:mm a'}}</ion-text>
+              <ion-text class="date_text">{{orderEndDateTime | date:'d MMMM EEE hh:mm a'}}</ion-text>
             </ion-col>
           </ion-row>
         </div>
-        <ion-datetime *ngIf="showOrderEndDateTimePicker" [(ngModel)]="orderEndDateTime"
-          (ionChange)="onDateTimeChange('orderEndDateTime')" [showDefaultButtons]="true"></ion-datetime>
+        <ion-datetime max="2099-12-31" *ngIf="showOrderEndDateTimePicker" [(ngModel)]="orderEndDateTime"
+          (ionChange)="onDateTimeChange('orderEndDateTime')" (ionCancel)="onCancelDateSelection('endDate')"
+          [showDefaultButtons]="true">
+        </ion-datetime>
       </ion-col>
     </ion-row>
 
@@ -92,12 +93,14 @@
           <ion-row>
             <ion-col class="kd_col_center_align">
               <ion-icon name="calendar-number-outline" class="kd_svg_size"></ion-icon>
-              <ion-text class="date_text">{{orderDeliveredDateTime | date:'d MMMM EEE h:mm a'}}</ion-text>
+              <ion-text class="date_text">{{orderDeliveredDateTime | date:'dd MMMM EEE'}}</ion-text>
             </ion-col>
           </ion-row>
         </div>
-        <ion-datetime *ngIf="showOrderDeliveredDateTimePicker" [(ngModel)]="orderDeliveredDateTime"
-          (ionChange)="onDateTimeChange('orderDeliveredDateTime')" [showDefaultButtons]="true"></ion-datetime>
+        <ion-datetime max="2099-12-31" presentation="date" *ngIf="showOrderDeliveredDateTimePicker"
+          [(ngModel)]="orderDeliveredDateTime" (ionChange)="onDateTimeChange('orderDeliveredDateTime')"
+          (ionCancel)="onCancelDateSelection('delDate')" [showDefaultButtons]="true">
+        </ion-datetime>
       </ion-col>
     </ion-row>
 
@@ -140,7 +143,7 @@
       </ion-col>
 
       <ion-col size="2.75" class="kd_flex kd_flex_row_center">
-        <ion-text>$ {{ item.price }}</ion-text>
+        <ion-text>&#8377; {{ item.price }}</ion-text>
       </ion-col>
 
       <ion-col size="2.75" class="kd_flex kd_flex_row_center">
@@ -155,30 +158,30 @@
 
     <ion-row>
       <ion-col>
-        <ion-text style="font-size: 18px; font-weight: bold;">Delivery type</ion-text>
+        <ion-text style="font-size: 18px; font-weight: bold;">Delivery Type</ion-text>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col size="5">
         <ion-item style="border: solid 1px black; border-radius: 14px; padding-left: 10px;">
-          <ion-select label="Delivery type" aria-label="Fruit" [(ngModel)]="deliveryType" style="min-height: 48px;">
-            <ion-select-option value="Pickup Available">Pickup Available</ion-select-option>
-            <ion-select-option value="Neighbourhood 5KM">Neighbourhood 5KM</ion-select-option>
-            <ion-select-option value="Town/City 20KM">Town/City 20KM</ion-select-option>
-            <ion-select-option value="PAN India above 20KM">PAN India above 20KM</ion-select-option>
+          <ion-select aria-label="Fruit" [(ngModel)]="deliveryType" style="min-height: 48px;">
+            <ion-select-option *ngFor="let option of deliveryOptions" [disabled]="option.disabled"
+              [value]="option.type">{{ option.type }}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
 
       <ion-col size="2.75">
-        <ion-button (click)="toggleFreeDelivery()" style="font-size: 10px; margin: 0px;">{{ isFreeDelivery ? 'Delivery
-          Fee' : 'Free Delivery' }}</ion-button>
+        <ion-button *ngIf="deliveryType !='Pickup Available'" (click)="toggleFreeDelivery()"
+          style="font-size: 10px; margin: 0px;">
+          {{ isFreeDelivery ? 'Delivery Fee' : 'Free Delivery' }}
+        </ion-button>
       </ion-col>
 
       <ion-col size="2.75">
-        <ion-input [disabled]="isFreeDelivery" class="input_selection" style="margin-top: 0px;" placeholder="$ 0"
-          [(ngModel)]="deliveryPrice"></ion-input>
+        <ion-input [disabled]="isFreeDelivery" *ngIf="deliveryType !='Pickup Available'" class="input_selection"
+          style="margin-top: 0px;" placeholder="&#8377; 0" [(ngModel)]="deliveryPrice"></ion-input>
       </ion-col>
 
       <ion-col size="1.5" class="kd_flex kd_flex_row_center" (click)="addDeliveryItem()">
@@ -192,11 +195,16 @@
       </ion-col>
 
       <ion-col size="2.75" class="kd_flex kd_flex_row_center">
-        <ion-icon name="mail-outline" class="icon_size_30"></ion-icon>
+        <ion-icon name="document-text-outline" style="font-size: 25px;"
+          (click)="openNoteDialog(deliveryItem)"></ion-icon>
       </ion-col>
 
-      <ion-col size="2.75" class="kd_flex kd_flex_row_center">
-        <ion-text>$ {{deliveryItem.price}}</ion-text>
+      <ion-col size="2.75" class="kd_flex kd_flex_row_center" *ngIf="!deliveryItem.freeDelivery">
+        <ion-text>&#8377; {{deliveryItem.price}}</ion-text>
+      </ion-col>
+
+      <ion-col size="2.75" class="kd_flex kd_flex_row_center" *ngIf="deliveryItem.freeDelivery">
+        <ion-text>Free Delivery</ion-text>
       </ion-col>
 
       <ion-col size="1.5" class="kd_flex kd_flex_row_center" (click)="removeDeliveryItem(deliveryItem)">

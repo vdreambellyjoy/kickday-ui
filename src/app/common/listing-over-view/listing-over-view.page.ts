@@ -31,7 +31,7 @@ export class ListingOverViewPage implements OnInit {
     this.adminService.getListingBasedOnId({ _id: this._id }).subscribe((res: any) => {
       if (res.success && res.data) {
         this.listingData = res.data || {};
-        this.isToggleChecked = !this.listingData.makerData?.activeUser;
+        this.isToggleChecked = this.listingData.deActive;
       }
       else this.goToBack();
     }, (err) => {
@@ -53,9 +53,9 @@ export class ListingOverViewPage implements OnInit {
   }
 
   toggleChanged() {
-    this.adminService.activeDeActiveUser({ _id: this.listingData.refMakerId, value: this.isToggleChecked }).subscribe((res: any) => {
+    this.adminService.activeDeActiveListing({ _id: this.listingData._id, value: this.isToggleChecked }).subscribe((res: any) => {
       if (res.success) {
-        this.userData = res.data || {};
+        // this.userData = res.data || {};
       } else {
         this.router.navigate(['/adminDashboard']);
       }
@@ -64,8 +64,11 @@ export class ListingOverViewPage implements OnInit {
     })
   }
 
-  deleteListing() {
-    if (!this.listingData.customerOrders?.length) {
+
+  async deleteListing() {
+    const confirmed = await this.adminService.presentDeleteConfirmation('Confirm', 'Are you sure you want to delete?', '');
+    console.log({ confirmed });
+    if (confirmed) {
       this.adminService.deleteListing({ _id: this.listingData._id }).subscribe((res: any) => {
         this.navCtrl.back();
       }, (err: any) => {

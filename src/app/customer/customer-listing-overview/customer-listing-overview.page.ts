@@ -21,23 +21,6 @@ export class CustomerListingOverviewPage {
   note: any = '';
   swiperHeight: string = '240px';
 
-  public alertButtons = [
-    {
-      text: 'NO',
-      role: 'cancel',
-      handler: () => {
-        console.log('Alert canceled');
-      },
-    },
-    {
-      text: 'YES',
-      role: 'confirm',
-      handler: () => {
-        console.log('Alert confirmed');
-        this.router.navigate(['/customerListings']);
-      },
-    },
-  ];
 
   constructor(
     private router: Router,
@@ -55,8 +38,12 @@ export class CustomerListingOverviewPage {
     this.swiper = this.swiperRef?.nativeElement.swiper;
   }
 
-  ngAfterViewInit() {
+  ionViewWillEnter() {
     this._id = this.router.url.split('/')[2];
+    this.listingData = {};
+    this.totalCost = 0;
+    this.selectedDeliveryType = '';
+    this.note = '';
     this.adminService.getListingForUser({ _id: this._id }).subscribe((res: any) => {
       if (res.success && res.data) {
         this.listingData = res.data || {};
@@ -83,15 +70,6 @@ export class CustomerListingOverviewPage {
     console.log('changed: ', e);
   }
 
-  // goNext() {
-  //   if (!this.swiper || this.swiper.destroyed) this.swiperReady();
-  //   if (this.swiper && !this.swiper.destroyed) this.swiper.slideNext();
-  // }
-
-  // goPrev() {
-  //   if (!this.swiper || this.swiper.destroyed) this.swiperReady();
-  //   if (this.swiper && !this.swiper.destroyed) this.swiper.slidePrev();
-  // }
 
   favItem() {
     this.adminService.setFavItem({ _id: this._id }).subscribe((res: any) => {
@@ -168,10 +146,6 @@ export class CustomerListingOverviewPage {
     this.router.navigate(['/customerListings']);
   }
 
-  confirmationToCancel(ev: any) {
-    console.log(`Dismissed with role: ${ev.detail.role}`);
-  }
-
   async openAlert(header: any, message: any, buttons: any) {
     const alert = await this.alert.create({
       header: header,
@@ -181,5 +155,17 @@ export class CustomerListingOverviewPage {
     });
 
     await alert.present();
+  }
+
+  async goBack() {
+    let orderedItems = this.listingData?.listingOrders?.filter((e: any) => e.count);
+    console.log(orderedItems);
+    if (orderedItems.length) {
+      const confirmed = await this.adminService.presentDeleteConfirmation('Confirm', 'Sure you want to cancel the order?', '');
+      console.log({ confirmed });
+      if (confirmed)  this.router.navigate(['/customerListings']);
+    } else {
+      this.router.navigate(['/customerListings']);
+    }
   }
 }
