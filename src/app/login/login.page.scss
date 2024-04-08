@@ -1,6 +1,6 @@
 .login-container {
-  min-width: 390px;
-  margin: auto;
+  // min-width: 390px;
+  // margin: auto;
   padding: 15px;
   overflow: auto;
 }
@@ -36,4 +36,16 @@
   color: red;
   font-size: 10px;
   text-align: center;
+}
+
+ion-button {
+  width: auto !important;
+}
+
+.cancel_icon {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  height: 28px;
+  width: 28px;
 }

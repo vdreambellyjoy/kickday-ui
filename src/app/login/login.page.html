@@ -14,8 +14,8 @@
 
   <ion-row>
     <ion-col class="kd_margin_bott_10">
-      <ion-input (keyup)="eventHandler($event.keyCode)" type="tel" class="input_selection" pattern="[0-9]*" minlength="10" maxlength="10"
-        [(ngModel)]="mobileNumber" placeholder="Enter Mobile"></ion-input>
+      <ion-input (keyup)="eventHandler($event.keyCode)" type="tel" class="input_selection" pattern="[0-9]*"
+        minlength="10" maxlength="10" [(ngModel)]="mobileNumber" placeholder="Enter Mobile"></ion-input>
     </ion-col>
   </ion-row>
 
@@ -27,15 +27,15 @@
 
   <ion-row>
     <ion-col class="kd_margin_bott_10">
-      <ion-input (keyup)="eventHandler($event.keyCode)" class="input_selection" type="tel" pattern="[0-9]*" minlength="6" maxlength="6" [(ngModel)]="pin"
-        placeholder="Enter Pin"></ion-input>
+      <ion-input (keyup)="eventHandler($event.keyCode)" class="input_selection" type="tel" pattern="[0-9]*"
+        minlength="6" maxlength="6" [(ngModel)]="pin" placeholder="Enter Pin"></ion-input>
     </ion-col>
   </ion-row>
 
   <ion-row *ngIf="profileType === 'customer'">
     <ion-col class="kd_margin_bott_10">
-      <ion-input (keyup)="eventHandler($event.keyCode)" class="input_selection" pattern="[0-9]*" minlength="6" maxlength="6" [(ngModel)]="confirmPin"
-        placeholder="Confirm Pin" *ngIf="showConfirmPin"></ion-input>
+      <ion-input (keyup)="eventHandler($event.keyCode)" class="input_selection" pattern="[0-9]*" minlength="6"
+        maxlength="6" [(ngModel)]="confirmPin" placeholder="Confirm Pin" *ngIf="showConfirmPin"></ion-input>
     </ion-col>
   </ion-row>
 
@@ -62,4 +62,269 @@
     </ion-col>
   </ion-row>
 
+  <!-- <ion-button id="open-modal" expand="block">Open Modal</ion-button> -->
+
+  <ion-row>
+    <ion-col class="kd_flex kd_end_align cursor_pointer" id="open-modal">
+      <ion-text>Contact US</ion-text>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="kd_flex kd_end_align cursor_pointer" id="open-modal3">
+      <ion-text>Privacy Policy</ion-text>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="kd_flex kd_end_align cursor_pointer" id="open-modal4">
+      <ion-text>Terms & Conditions</ion-text>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="kd_flex kd_end_align cursor_pointer" id="open-modal2">
+      <ion-text>Shipping & Delivery Policy</ion-text>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col class="kd_flex kd_end_align cursor_pointer" id="open-modal5">
+      <ion-text>Cancellation & Refund Policy</ion-text>
+    </ion-col>
+  </ion-row>
+
+</div>
+
+<ion-modal [keepContentsMounted]="true" trigger="open-modal" #modal>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-icon class="cancel_icon" (click)="modal.dismiss()" name="close-circle-outline"></ion-icon>
+        </ion-buttons>
+        <ion-title>Contact US</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      You may contact us using the information below: <br><br>
+      Merchant Legal entity name: BELLYJOY FOODS PRIVATE LIMITED <br><br>
+      Registered Address: S2 - VNR Towers , Rajendra nagar , 1st lane, Guntur, Andhra Pradesh, PIN: 522006 <br><br>
+      Operational Address: S2 - VNR Towers , Rajendra nagar , 1st lane, Guntur, Andhra Pradesh, PIN: 522006 <br><br>
+      <b>Telephone No:</b> <a href="tel:9440974461">9440974461</a><br><br>
+      <b>E-Mail ID: </b> <a href="mailto:hello&#64;lovelychocos.com">hello&#64;lovelychocos.com</a>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [keepContentsMounted]="true" trigger="open-modal2" #modal2>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-icon class="cancel_icon" (click)="modal2.dismiss()" name="close-circle-outline"></ion-icon>
+        </ion-buttons>
+        <ion-title>Shipping & Delivery Policy</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      For International buyers, orders are shipped and delivered through registered international courier
+      companies and/or International speed post only. For domestic buyers, orders are shipped through
+      registered domestic courier companies and /or speed post only. Orders are shipped within 3-5 Days days
+      or as per the delivery date agreed at the time of order confirmation and delivering of the shipment subject
+      to Courier Company / post office norms. <br><br>
+      BELLYJOY FOODS PRIVATE LIMITED is not liable for any delay in delivery by the courier company
+      / postal authorities and only guarantees to hand over the consignment to the courier company or postal
+      authorities within 3-5 Days days from the date of the order and payment or as per the delivery date
+      agreed at the time of order confirmation. Delivery of all orders will be to the address provided by the
+      buyer. Delivery of our services will be confirmed on your mail ID as specified during registration. For
+      any issues in utilizing our services you may contact our helpdesk on <a href="tel:9440974461">9440974461</a> or <a
+        href="mailto:hello&#64;lovelychocos.com">hello&#64;lovelychocos.com</a>.
+      com. </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [keepContentsMounted]="true" trigger="open-modal3" #modal3>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-icon class="cancel_icon" (click)="modal3.dismiss()" name="close-circle-outline"></ion-icon>
+        </ion-buttons>
+        <ion-title>Privacy Policy</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding"> This privacy policy (“Policy”) relates to the manner BELLYJOY FOODS PRIVATE
+      LIMITED (“we”,
+      “us”, “our”) in which we use, handle and process the data that you provide us in connection with using
+      the products or services we offer. By using this website or by availing goods or services offered by us,
+      you agree to the terms and conditions of this Policy, and consent to our use, storage, disclosure, and
+      transfer of your information or data in the manner described in this Policy. <br><br>
+      We are committed to ensuring that your privacy is protected in accordance with applicable laws and
+      regulations. We urge you to acquaint yourself with this Policy to familiarize yourself with the manner in
+      which your data is being handled by us.<br><br>
+      BELLYJOY FOODS PRIVATE LIMITED may change this Policy periodically and we urge you to
+      check this page for the latest version of the Policy in order to keep yourself updated.<br><br>
+      <b>What data is being collected</b><br><br>
+      We may collect the following information from you:<br><br>
+      Name
+      Contact information including address and email address
+      Demographic information or, preferences or interests
+      Personal Data or Other information relevant/ required for providing the goods or services to you
+      The meaning of Personal Data will be as defined under relevant Indian laws<br><br>
+      Note: Notwithstanding anything under this Policy as required under applicable Indian laws, we will not
+      be storing any credit card, debit card or any other similar card data of yours. Please also note that all data
+      or information collected from you will be strictly in accordance with applicable laws and guidelines.<br><br>
+      <b>What we do with the data we gather</b><br><br>
+      We require this data to provide you with the goods or services offered by us including but not limited, for
+      the below set out purposes:<br><br>
+      Internal record keeping.
+      For improving our products or services.
+      For providing updates to you regarding our products or services including any special offers.
+      To communicate information to you
+      For internal training and quality assurance purposes<br><br>
+      <b>Who do we share your data with</b><br><br>
+      We may share your information or data with:<br><br>
+      Third parties including our service providers in order to facilitate the provisions of goods or
+      services to you, carry out your requests, respond to your queries, fulfil your orders or for other
+      operational and business reasons.
+      With our group companies (to the extent relevant)
+      Our auditors or advisors to the extent required by them for performing their services
+      Governmental bodies, regulatory authorities, law enforcement authorities pursuant to our legal
+      obligations or compliance requirements.<br><br>
+      <b>How we use cookies</b><br><br>
+      We use "cookies" to collect information and to better understand customer behaviour. You can instruct
+      your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not
+      accept cookies, you may not be able to avail our goods or services to the full extent. We do not control
+      the use of cookies by third parties. The third party service providers have their own privacy policies
+      addressing how they use such information.<br><br>
+      <b>Your rights relating to your data</b><br><br>
+      Right to Review - You can review the data provided by you and can request us to correct or amend such
+      data (to the extent feasible, as determined by us). That said, we will not be responsible for the
+      authenticity of the data or information provided by you.<br>
+      Withdrawal of your Consent - You can choose not to provide your data, at any time while availing our
+      goods or services or otherwise withdraw your consent provided to us earlier, in writing to our email ID:
+      <a href="mailto:hello&#64;lovelychocos.com">hello&#64;lovelychocos.com</a> In the event you choose to not provide
+      or later withdraw your consent, we may
+      not be able to provide you our services or goods.Please note that these rights are subject to our
+      compliance with applicable laws.<br><br>
+      <b>How long will we retain your information or data?</b><br><br>
+      We may retain your information or data (i) for as long as we are providing goods and services to you;
+      and (ii) as permitted under applicable law, we may also retain your data or information even after you
+      terminate the business relationship with us. However, we will process such information or data in
+      accordance with applicable laws and this Policy.<br><br>
+      <b>Data Security</b><br><br>
+      We will use commercially reasonable and legally required precautions to preserve the integrity and
+      security of your information and data.<br><br>
+      <b>Queries/ Grievance Officer</b><br><br>
+      For any queries, questions or grievances about this Policy, please contact us using the contact
+      information provided on this website. </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [keepContentsMounted]="true" trigger="open-modal4" #modal4>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-icon class="cancel_icon" (click)="modal4.dismiss()" name="close-circle-outline"></ion-icon>
+        </ion-buttons>
+        <ion-title>Terms & Conditions</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      These Terms and Conditions, along with privacy policy or other terms (“Terms”) constitute a binding
+      agreement by and between BELLYJOY FOODS PRIVATE LIMITED, ( “Website Owner” or “we” or
+      “us” or “our”) and you (“you” or “your”) and relate to your use of our website, goods (as applicable) or
+      services (as applicable) (collectively, “Services”). <br><br>
+      By using our website and availing the Services, you agree that you have read and accepted these Terms
+      (including the Privacy Policy). We reserve the right to modify these Terms at any time and without
+      assigning any reason. It is your responsibility to periodically review these Terms to stay informed of
+      updates.<br><br>
+      <ul>
+        <li>The use of this website or availing of our Services is subject to the following terms of use:<br><br>
+          To access and use the Services, you agree to provide true, accurate and complete information to us
+          during and after registration, and you shall be responsible for all acts done through the use of your
+          registered account.</li>
+        <li>Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness,
+          performance, completeness or suitability of the information and materials offered on this website
+          or through the Services, for any specific purpose. You acknowledge that such information and
+          materials may contain inaccuracies or errors and we expressly exclude liability for any such
+          inaccuracies or errors to the fullest extent permitted by law.</li>
+        <li>Your use of our Services and the websiteis solely at your own risk and discretion.. You are
+          required to independently assess and ensure that the Services meet your requirements.</li>
+        <li>The contents of the Website and the Services are proprietary to Us and you will not have any
+          authority to claim any intellectual property rights, title, or interest in its contents.</li>
+        <li>You acknowledge that unauthorized use of the Website or the Services may lead to action against
+          you as per these Terms or applicable laws.</li>
+        <li>You agree to pay us the charges associated with availing the Services.</li>
+        <li>You agree not to use the website and/ or Services for any purpose that is unlawful, illegal or
+          forbidden by these Terms, or Indian or local laws that might apply to you.</li>
+        <li>You agree and acknowledge that website and the Services may contain links to other third party
+          websites. On accessing these links, you will be governed by the terms of use, privacy policy and
+          such other policies of such third party websites.</li>
+        <li>You understand that upon initiating a transaction for availing the Services you are entering into a
+          legally binding and enforceable contract with the us for the Services.</li>
+        <li>You shall be entitled to claim a refund of the payment made by you in case we are not able to
+          provide the Service. The timelines for such return and refund will be according to the specific
+          Service you have availed or within the time period provided in our policies (as applicable). In case
+          you do not raise a refund claim within the stipulated time, than this would make you ineligible for
+          a refund.</li>
+        <li>Notwithstanding anything contained in these Terms, the parties shall not be liable for any failure to
+          perform an obligation under these Terms if performance is prevented or delayed by a force majeure
+          event.</li>
+        <li>These Terms and any dispute or claim relating to it, or its enforceability, shall be governed by and
+          construed in accordance with the laws of India.</li>
+        <li>
+          All disputes arising out of or in connection with these Terms shall be subject to the exclusive
+          jurisdiction of the courts in Guntur, Andhra Pradesh</li>
+        <li>All concerns or communications relating to these Terms must be communicated to us using the
+          contact information provided on this website.</li>
+      </ul>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [keepContentsMounted]="true" trigger="open-modal5" #modal5>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-icon class="cancel_icon" (click)="modal5.dismiss()" name="close-circle-outline"></ion-icon>
+        </ion-buttons>
+        <ion-title>Cancellation & Refund Policy</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      BELLYJOY FOODS PRIVATE LIMITED believes in helping its customers as far as possible, and has
+      therefore a liberal cancellation policy. Under this policy: <br><br>
+      • Cancellations will be considered only if the request is made immediately after placing the order.
+      However, the cancellation request may not be entertained if the orders have been communicated to the
+      vendors/merchants and they have initiated the process of shipping them.<br><br>
+      • BELLYJOY FOODS PRIVATE LIMITED does not accept cancellation requests for perishable items
+      like flowers, eatables etc. However, refund/replacement can be made if the customer establishes that the
+      quality of product delivered is not good.<br><br>
+      • In case of receipt of damaged or defective items please report the same to our Customer Service team.
+      The request will, however, be entertained once the merchant has checked and determined the same at his
+      own end. This should be reported within Only same day days of receipt of the products. In case you feel
+      that the product received is not as shown on the site or as per your expectations, you must bring it to the
+      notice of our customer service within Only same day days of receiving the product. The Customer
+      Service Team after looking into your complaint will take an appropriate decision.<br><br>
+      • In case of complaints regarding products that come with a warranty from manufacturers, please refer
+      the issue to them. In case of any Refunds approved by the BELLYJOY FOODS PRIVATE LIMITED, it’
+      ll take 3-5 Days days for the refund to be processed to the end customer.
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<div style="position: fixed; bottom: 0; right: 0;">
+  <ion-row>
+    <ion-col size="5"></ion-col>
+    <ion-col size="7" style="opacity: 0.4;">
+      <ion-label style="padding-right: 10px;">
+        <img style="width: 20px !important" src="../../assets/copyright.png" alt="">
+      </ion-label>
+      <ion-text style="font-size: 12px;">2023 Vdream Innovations (OPC) Pvt Ltd. All Rights Reserved.</ion-text>
+    </ion-col>
+  </ion-row>
 </div>
