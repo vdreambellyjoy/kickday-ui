@@ -61,7 +61,7 @@ export class MakerDashboardPage implements OnInit {
   logOut() {
     this.authService.logOut({}).subscribe((res: any) => {
       localStorage.clear();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/customerListings']);
     }, (err: any) => {
       console.log(err);
     })

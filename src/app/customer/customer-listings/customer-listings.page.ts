@@ -5,6 +5,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { AdminService } from 'src/app/services/admin.service';
 import { SearchPage } from 'src/app/customer/search/search.page';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 
 @Component({
   selector: 'app-customer-listings',
@@ -23,12 +24,14 @@ export class CustomerListingsPage implements OnInit {
   filterSearchTerm: string = '';
   filterDeliveryType: string = '';
   filterDeliveryDate: string = '';
+  showMenu: boolean = false;
 
   constructor(
     private router: Router,
     private model: ModalController,
     private alert: AlertController,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private authService: AuthServiceService
   ) { }
 
   ngOnInit() { }
@@ -46,6 +49,24 @@ export class CustomerListingsPage implements OnInit {
         console.log(err);
       }
     );
+    if (localStorage.getItem('token') && localStorage.getItem('userData')) {
+      let localToken: any = localStorage.getItem('token');
+      let token: any = JSON.parse(localToken);
+      this.authService.checkUserToken({ token: token }).subscribe((res: any) => {
+        if (res.data && res.success) {
+          localStorage.setItem('userData', JSON.stringify(res.data));
+          this.showMenu = true;
+        } else {
+          this.showMenu = false;
+        }
+      }, (err => {
+        localStorage.clear();
+        this.showMenu = false;
+      }))
+    } else {
+      localStorage.clear();
+      this.showMenu = false;
+    }
     this.swiperReady();
   }
 
@@ -81,6 +102,10 @@ export class CustomerListingsPage implements OnInit {
 
   goToProfile() {
     this.router.navigate(['/customerProfile']);
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
   }
 
 

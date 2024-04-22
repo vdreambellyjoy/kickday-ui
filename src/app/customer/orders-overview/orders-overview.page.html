@@ -11,7 +11,7 @@
   </ion-row>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="orderData?._id">
   <div style="margin: 15px;">
     <ion-row>
       <ion-col>

@@ -5,6 +5,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { AdminService } from 'src/app/services/admin.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CustomerAddressListPage } from 'src/app/customer/customer-address-list/customer-address-list.page';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-customer-order-summary',
@@ -56,11 +57,15 @@ export class CustomerOrderSummaryPage implements OnInit {
 
 
   goBack() {
-    if (this.orderData.refListingId) {
-      this.router.navigateByUrl('/customerListings/' + this.orderData.refListingId);
-    } else {
-      this.router.navigate(['/customerListings']);
-    }
+    this.adminService.deleteTempOrder({ _id: this._id }).subscribe((res: any) => {
+      if (this.orderData.refListingId) {
+        this.router.navigateByUrl('/customerListings/' + this.orderData.refListingId);
+      } else {
+        this.router.navigate(['/customerListings']);
+      }
+    }, (err: any) => {
+      console.log(err);
+    })
   }
 
   placeOrder() {

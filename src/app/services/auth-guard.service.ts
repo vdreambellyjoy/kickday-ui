@@ -14,7 +14,7 @@ export class AuthGuardService {
     if (tokenExists) {
       return true;
     } else {
-      this.router.createUrlTree(['/login']);
+      this.router.createUrlTree(['/customerListings']);
       return false
     }
   }

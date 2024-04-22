@@ -98,7 +98,7 @@ export class AdminService {
   }
 
   getAllListingsForCustomer(data: any): Observable<any> {
-    return this.http.post(environment.baseUrl + "/customer/getAllListingsForCustomer", data);
+    return this.http.post(environment.baseUrl + "/auth/getAllListingsForCustomer", data);
   }
 
   setFavItem(data: any): Observable<any> {
@@ -110,11 +110,15 @@ export class AdminService {
   }
 
   getListingForUser(data: any): Observable<any> {
-    return this.http.post(environment.baseUrl + "/customer/getListingForUser", data);
+    return this.http.post(environment.baseUrl + "/auth/getListingForUser", data);
   }
 
   getCustomerAddress(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/customer/getCustomerAddress", data);
+  }
+
+  deleteTempOrder(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/deleteTempOrder", data);
   }
 
   addCustomerAddress(data: any): Observable<any> {

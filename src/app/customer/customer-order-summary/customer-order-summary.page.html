@@ -2,7 +2,6 @@
   <ion-toolbar>
     <ion-row style="padding: 5px 10px 0px 10px;">
       <ion-col>
-        <ion-icon name="bag-handle-outline" class="kd_svg_size"></ion-icon>
       </ion-col>
       <ion-col class="kd_flex kd_end_align" (click)="goBack()">
         <ion-icon name="close-outline" class="kd_svg_size"></ion-icon>
@@ -19,14 +18,14 @@
           <ion-text style="font-weight: bold;">R</ion-text>
         </div>
         <ion-text style="padding-left: 20px; font-size: 13px;"><span style="font-weight: bold;">Maker
-            {{orderData.makerData.ID}}</span> <br> <span>{{orderData.makerData.userName}}</span> <br>
-          <span>{{orderData.makerData.address}}</span></ion-text>
+            {{orderData?.makerData?.ID}}</span> <br> <span>{{orderData?.makerData?.userName}}</span> <br>
+          <span>{{orderData?.makerData?.address}}</span></ion-text>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col style="margin-top: 10px;">
-        <ion-text style="font-weight: bold;">Mutton Biryani With paya preparation on weekend do not miss it.</ion-text>
+        <ion-text style="font-weight: bold;">{{orderData?.listingData?.label}}</ion-text>
       </ion-col>
     </ion-row>
 
@@ -34,7 +33,7 @@
       <ion-col class="kd_flex_row_center" style="margin: 5px 0px;">
         <div style="border: solid 2px; border-radius: 14px; padding: 10px; background-color: #f7f7f7;">
 
-          <ion-row class="kd_flex kd_center_align" *ngFor="let item of orderData.orderedItems">
+          <ion-row class="kd_flex kd_center_align" *ngFor="let item of orderData?.orderedItems">
             <ion-col size="8">
               <ion-text style="font-size: 16px; font-weight: bold;">{{item.name}}</ion-text>
             </ion-col>
@@ -45,17 +44,17 @@
                   name="close-outline"></ion-icon>{{item.count}}</ion-text>
             </ion-col>
             <ion-col class="kd_flex kd_end_align ion-no-padding" style="padding-right: 5px; padding-bottom: 10px;">
-              <ion-text style="font-weight: bold; font-size: 14px;"> = ${{item.individualItemCost}}</ion-text>
+              <ion-text style="font-weight: bold; font-size: 14px;"> = &#8377;{{item.individualItemCost}}</ion-text>
             </ion-col>
           </ion-row>
 
           <ion-row class="kd_flex kd_center_align">
             <ion-col size="8">
-              <ion-text style="font-size: 14px; color: #777;">Delivery ({{orderData.deliveryOption.type}})</ion-text>
+              <ion-text style="font-size: 14px; color: #777;">Delivery ({{orderData?.deliveryOption?.type}})</ion-text>
             </ion-col>
 
             <ion-col size="4" class="kd_flex kd_end_align">
-              <ion-text style="font-size: 14px; color: #555;">&#8377; {{orderData.deliveryOption.price}}</ion-text>
+              <ion-text style="font-size: 14px; color: #555;">&#8377; {{orderData?.deliveryOption?.price}}</ion-text>
             </ion-col>
           </ion-row>
 
@@ -76,7 +75,7 @@
 
             <ion-col size="4" class="kd_flex kd_end_align">
               <ion-text
-                style="font-size: 16px; font-weight: bold;">${{orderData.finalCostWithOutDeliveryOption}}</ion-text>
+                style="font-size: 16px; font-weight: bold;">&#8377;{{orderData?.finalCostWithOutDeliveryOption}}</ion-text>
             </ion-col>
           </ion-row>
 
@@ -126,6 +125,9 @@
 
 
 
-<ion-content [fullscreen]="true" *ngIf="orderData == false">
-  data not found
+<ion-content [fullscreen]="true" class="ion-padding" *ngIf="orderData === false">
+  <div class="error-container" [@fadeInOut]>
+    <ion-icon name="alert-circle" class="error-icon"></ion-icon>
+    <p class="error-message">Data not found. Please try again.</p>
+  </div>
 </ion-content>

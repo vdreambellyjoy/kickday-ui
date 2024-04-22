@@ -16,7 +16,7 @@ export class AppComponent {
     this.platform.ready().then((res) => {
       if (localStorage.getItem('token') && localStorage.getItem('userData')) {
         let userData: any = localStorage.getItem('userData');
-        if (!userData) this.route.navigateByUrl('/login');
+        if (!userData) this.route.navigateByUrl('/customerListings');
       }
     });
   }

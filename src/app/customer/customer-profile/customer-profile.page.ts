@@ -111,9 +111,9 @@ export class CustomerProfilePage implements OnInit {
   }
 
   logOut() {
-    this.authService.logOut({}).subscribe((res: any) => {
-      localStorage.clear();
-      this.router.navigate(['/login']);
+    this.authService.logOut({}).subscribe(async (res: any) => {
+      await localStorage.clear();
+      this.router.navigate(['/customerListings']);
     }, (err: any) => {
       console.log(err);
     })

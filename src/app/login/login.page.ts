@@ -53,6 +53,11 @@ export class LoginPage implements OnInit {
     this.showConfirmPin = false;
   }
 
+  async goToListings() {
+    await localStorage.clear();
+    this.route.navigate(['/customerListings']);
+  }
+
   createCustomer() {
     if (this.pin == this.confirmPin) {
       this.auth.createCustomer({ mobile: this.mobileNumber, pin: this.pin, role: this.profileType }).subscribe((res: any) => {
@@ -77,14 +82,23 @@ export class LoginPage implements OnInit {
     if (userData) {
       let userCopy = JSON.parse(userData);
       if (userCopy.role == 'admin') {
+        localStorage.removeItem("order");
         this.route.navigate(['/adminDashboard']);
       }
       else if (userCopy.role == 'maker') {
+        localStorage.removeItem("order");
         this.route.navigate(['/makerDashboard']);
       }
       else if (userCopy.role == 'customer') {
-        let page = userCopy.firstTimeLogin ? '/customerProfile' : '/customerListings'
-        this.route.navigate([page]);
+        let page = userCopy.firstTimeLogin ? '/customerProfile' : '/customerListings';
+        let orderData: any = localStorage.getItem('order');
+        let placedOrder = JSON.parse(orderData);
+        console.log(`Order`, placedOrder);
+        if (placedOrder) {
+          this.route.navigateByUrl('/customerListings/' + placedOrder.refListingId);
+        } else {
+          this.route.navigate([page]);
+        }
       }
     }
   }

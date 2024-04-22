@@ -4,6 +4,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 
 import { AdminService } from 'src/app/services/admin.service';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
 @Component({
   selector: 'app-customer-listing-overview',
   templateUrl: './customer-listing-overview.page.html',
@@ -27,6 +28,7 @@ export class CustomerListingOverviewPage {
     private model: ModalController,
     private alert: AlertController,
     private adminService: AdminService,
+    private authService: AuthServiceService
   ) {
     this.selectedDeliveryType = null;
   }
@@ -56,7 +58,13 @@ export class CustomerListingOverviewPage {
       } else this.navigateToListings();
     }, (err) => {
       this.navigateToListings();
-    })
+    });
+    let orderData: any = localStorage.getItem('order');
+    if (orderData) {
+      let placedOrder = JSON.parse(orderData);
+      localStorage.removeItem("order");
+      this.continueProcess(placedOrder);
+    }
   }
 
 
@@ -129,17 +137,41 @@ export class CustomerListingOverviewPage {
       orderedItems: orderedItems
     }
     if (this.totalCost && this.selectedDeliveryType) {
-      this.adminService.addToCart(obj).subscribe((res: any) => {
-        if (res.success && res._id) {
-          this.router.navigateByUrl('/orderSummary/' + res._id);
-        }
-        else this.openAlert('ERROR', 'something went wrong please try again later', ['close']);
-      }, (err) => {
-        this.openAlert('ERROR', 'something went wrong please try again later', ['close']);
-      })
+      if (localStorage.getItem('token') && localStorage.getItem('userData')) {
+        let localToken: any = localStorage.getItem('token');
+        let token: any = JSON.parse(localToken);
+        this.authService.checkUserToken({ token: token }).subscribe((res: any) => {
+          if (res.data && res.success) {
+            localStorage.setItem('userData', JSON.stringify(res.data));
+            this.continueProcess(obj);
+          } else {
+            localStorage.setItem('order', JSON.stringify(obj));
+            this.router.navigate(['/login']);
+          }
+        }, (err => {
+          localStorage.clear();
+          localStorage.setItem('order', JSON.stringify(obj));
+          this.router.navigate(['/login']);
+        }))
+      } else {
+        localStorage.clear();
+        localStorage.setItem('order', JSON.stringify(obj));
+        this.router.navigate(['/login']);
+      }
     } else {
       console.log("Please select")
     }
+  }
+
+  continueProcess(obj: any) {
+    this.adminService.addToCart(obj).subscribe((res: any) => {
+      if (res.success && res._id) {
+        this.router.navigateByUrl('/orderSummary/' + res._id);
+      }
+      else this.openAlert('ERROR', 'something went wrong please try again later', ['close']);
+    }, (err) => {
+      this.openAlert('ERROR', 'something went wrong please try again later', ['close']);
+    })
   }
 
   navigateToListings() {
@@ -159,11 +191,10 @@ export class CustomerListingOverviewPage {
 
   async goBack() {
     let orderedItems = this.listingData?.listingOrders?.filter((e: any) => e.count);
-    console.log(orderedItems);
     if (orderedItems.length) {
       const confirmed = await this.adminService.presentDeleteConfirmation('Confirm', 'Sure you want to cancel the order?', '');
       console.log({ confirmed });
-      if (confirmed)  this.router.navigate(['/customerListings']);
+      if (confirmed) this.router.navigate(['/customerListings']);
     } else {
       this.router.navigate(['/customerListings']);
     }

@@ -32,10 +32,14 @@ export class AuthServiceService {
 
   localLogOut() {
     localStorage.clear();
-    this.route.navigateByUrl('/login');
+    this.route.navigateByUrl('/customerListings');
   }
 
   getLogoImageById(fileId: any): Promise<any> {
     return this.http.post(environment.baseUrl + "/auth/getlogofile", fileId).toPromise();
+  };
+
+  checkUserToken(token: any){
+    return this.http.post(environment.baseUrl + "/auth/checkUserToken", token)
   };
 }

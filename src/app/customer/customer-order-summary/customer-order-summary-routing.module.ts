@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CustomerOrderSummaryPage } from './customer-order-summary.page';
+import { SharedModule } from 'src/app/shared.module';
 
 const routes: Routes = [
   {
@@ -11,7 +12,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [SharedModule,RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class CustomerOrderSummaryPageRoutingModule {}

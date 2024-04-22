@@ -2,10 +2,18 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './services/auth-guard.service'
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'customerListings', pathMatch: 'full' },
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+  },
+  {
+    path: 'customerListings',
+    loadChildren: () => import('./customer/customer-listings/customer-listings.module').then(m => m.CustomerListingsPageModule)
+  },
+  {
+    path: 'customerListings/:id',
+    loadChildren: () => import('./customer/customer-listing-overview/customer-listing-overview.module').then(m => m.CustomerListingOverviewPageModule)
   },
   // {
   //   path: 'home',
@@ -81,14 +89,6 @@ const routes: Routes = [
     loadChildren: () => import('./customer/customer-profile/customer-profile.module').then(m => m.CustomerProfilePageModule)
   },
   {
-    path: 'customerListings',
-    loadChildren: () => import('./customer/customer-listings/customer-listings.module').then(m => m.CustomerListingsPageModule)
-  },
-  {
-    path: 'customerListings/:id',
-    loadChildren: () => import('./customer/customer-listing-overview/customer-listing-overview.module').then(m => m.CustomerListingOverviewPageModule)
-  },
-  {
     path: 'AddressList',
     loadChildren: () => import('./customer/customer-address-list/customer-address-list.module').then(m => m.CustomerAddressListPageModule)
   },
@@ -104,8 +104,7 @@ const routes: Routes = [
     path: 'search',
     loadChildren: () => import('./customer/search/search.module').then(m => m.SearchPageModule)
   },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' },
-
+  { path: '**', redirectTo: 'customerListings', pathMatch: 'full' },
 ];
 
 @NgModule({
