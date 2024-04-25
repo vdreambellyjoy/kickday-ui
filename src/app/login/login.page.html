@@ -1,17 +1,20 @@
 <div class="login-container">
   <ion-row>
-    <ion-col style="justify-content: end;display: flex;">
+    <ion-col size="10">
+      <ion-text class="kd_main_heading gradient-text">Welcome to Kickday</ion-text>
+    </ion-col>
+    <ion-col style="justify-content: end;display: flex;" size="2">
       <ion-icon name='close-circle-outline' (click)='goToListings()' style='font-size: 25px; color: #777;'></ion-icon>
     </ion-col>
   </ion-row>
 
   <ion-row>
     <ion-col class="kd_center_align">
-      <img src="../../assets/sample_food_img.webp" alt="Food Image" class="login-image">
+      <img src="../../assets/bannerImg.jpeg" alt="Food Image" class="login-image">
     </ion-col>
   </ion-row>
 
-  <ion-row>
+  <ion-row style="margin-top: 20px;">
     <ion-col>
       <ion-text class="login-heading">Mobile Number</ion-text>
     </ion-col>
@@ -37,6 +40,12 @@
     </ion-col>
   </ion-row>
 
+  <div *ngIf="resCode" class="error">
+    <span *ngIf="resCode == 404">Account Not Found</span>
+    <span *ngIf="resCode == 409">Account exsist</span>
+    <span *ngIf="resCode == 403">Your Account has been disabled please contact business owner</span>
+  </div>
+
   <ion-row *ngIf="profileType === 'customer'">
     <ion-col class="kd_margin_bott_10">
       <ion-input (keyup)="eventHandler($event.keyCode)" class="input_selection" pattern="[0-9]*" minlength="6"
@@ -44,18 +53,13 @@
     </ion-col>
   </ion-row>
 
-  <div *ngIf="resCode" class="error">
-    <span *ngIf="resCode == 404">Account Not Found</span>
-    <span *ngIf="resCode == 409">Account exsist</span>
-    <span *ngIf="resCode == 403">Your Account has been disabled please contact business owner</span>
-  </div>
 
   <ion-row>
     <ion-col>
-      <ion-button expand="full" shape="round" color="primary" *ngIf="!showConfirmPin"
-        (click)="login()">Login</ion-button>
-      <ion-button expand="full" shape="round" color="primary" *ngIf="showConfirmPin"
-        (click)="createCustomer()">Create</ion-button>
+      <ion-button expand="full" shape="round" *ngIf="!showConfirmPin" (click)="login()"
+        class="login_button_styles">Login</ion-button>
+      <ion-button expand="full" shape="round" *ngIf="showConfirmPin" (click)="createCustomer()"
+        class="login_button_styles">Create</ion-button>
     </ion-col>
   </ion-row>
 
@@ -70,31 +74,36 @@
   <!-- <ion-button id="open-modal" expand="block">Open Modal</ion-button> -->
 
   <ion-row>
-    <ion-col class="cursor_pointer" id="open-modal">
+    <ion-col class="cursor_pointer kd_col_center_align" id="open-modal">
+      <img src="../../assets/Contact-Us.png" style="height: 22px; width: 32px; padding-right: 10px;" />
       <ion-text>Contact US</ion-text>
     </ion-col>
   </ion-row>
 
   <ion-row>
-    <ion-col class="cursor_pointer" id="open-modal3">
+    <ion-col class="cursor_pointer kd_col_center_align" id="open-modal3">
+      <img src="../../assets/privacy-policy.png" style="height: 22px; width: 32px; padding-right: 10px;" />
       <ion-text>Privacy Policy</ion-text>
     </ion-col>
   </ion-row>
 
   <ion-row>
-    <ion-col class="cursor_pointer" id="open-modal4">
+    <ion-col class="cursor_pointer kd_col_center_align" id="open-modal4">
+      <img src="../../assets/terms-and-conditions.png" style="height: 22px; width: 32px; padding-right: 10px;" />
       <ion-text>Terms & Conditions</ion-text>
     </ion-col>
   </ion-row>
 
   <ion-row>
-    <ion-col class="cursor_pointer" id="open-modal2">
+    <ion-col class="cursor_pointer kd_col_center_align" id="open-modal2">
+      <img src="../../assets/delivery-van.png" style="height: 22px; width: 32px; padding-right: 10px;" />
       <ion-text>Shipping & Delivery Policy</ion-text>
     </ion-col>
   </ion-row>
 
   <ion-row>
-    <ion-col class="cursor_pointer" id="open-modal5">
+    <ion-col class="cursor_pointer kd_col_center_align" id="open-modal5">
+      <img src="../../assets/Book Club.png" style="height: 22px; width: 32px; padding-right: 10px;" />
       <ion-text>Cancellation & Refund Policy</ion-text>
     </ion-col>
   </ion-row>

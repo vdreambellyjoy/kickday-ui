@@ -1,15 +1,12 @@
 <ion-header [translucent]="true" style="box-shadow: none">
   <ion-toolbar>
     <ion-row style="margin: 10px">
-      <ion-col size="3" style="display: flex; justify-content: start; align-items: center">
-        <img src="../../../assets/icons/Kickday-logo-removebg-preview.png" alt="" style="height: 40px; width: 40px;">
+      <ion-col size="9" style="display: flex; justify-content: start; align-items: center">
+        <img src="../../../assets/icons/Kickday-logo-removebg-preview.png" alt=""
+          style="position: absolute; height: 120px; width: 120px;">
       </ion-col>
-      <ion-col size="5" class="kd_flex kd_flex_row_center">
-      </ion-col>
-      <ion-col size="2" class="kd_flex kd_end_align">
-      </ion-col>
-      <ion-col size="2" class="kd_flex kd_end_align">
-        <ion-icon name="log-in-outline" class="kd_svg_size" *ngIf="!showMenu" (click)="goToLogin()"></ion-icon>
+      <ion-col size="3" class="kd_flex kd_end_align">
+        <ion-button *ngIf="!showMenu" (click)="goToLogin()" style="margin: 0px; min-height: 30px">Login</ion-button>
       </ion-col>
     </ion-row>
   </ion-toolbar>
@@ -47,24 +44,28 @@
       </swiper-slide>
     </swiper-container>
 
-    <ion-row style="padding: 10px" style="font-weight: bold">
-      <ion-col class="kd_flex">{{listing.label}}</ion-col>
-    </ion-row>
+    <!-- <ion-row style="padding: 10px" style="font-weight: bold">
+      <ion-col class="kd_flex">
+        <ion-text class="kd_main_heading">{{listing.label}}</ion-text>
+      </ion-col>
+    </ion-row> -->
     <ion-row style="padding: 10px">
       <ion-col class="kd_flex">
         <div class="first_letter_styles">
           <ion-text style="font-weight: bold">{{listing?.makerData?.userName?.charAt(0) }}</ion-text>
         </div>
-        <ion-text style="padding-left: 20px; font-size: 13px"><span style="font-weight: bold">Maker</span> <br />
-          <span>{{listing.makerData.userName}}</span> <br />
-          <span>{{listing.makerData.address}}</span></ion-text>
+        <ion-text style="padding-left: 10px;"><span style="font-weight: bold">Maker</span>
+          <br />
+          <span class="kd_font_size_14">{{listing.makerData.userName}}</span> <br />
+          <span class="kd_font_size_14">{{listing.makerData.address}}</span></ion-text>
       </ion-col>
       <ion-col class="kd_flex kd_end_align">
         <div>
-          <ion-text style="font-size: 13px; font-weight: bold">Order will end on</ion-text>
+          <!-- <ion-text>{{listing.label}}</ion-text> <br> -->
+          <ion-text style="font-weight: bold">Order Ends on</ion-text>
           <div class="kd_flex" style="padding-top: 5px">
             <ion-icon class="icon_style" style="height: 20px; width: 20px" name="calendar-outline"></ion-icon>
-            <ion-text style="font-size: 13px">{{listing.orderEndsOn | date:'dd MMMM EEE hh:mm a'}}</ion-text>
+            <ion-text style="font-size: 14px !important">{{listing.orderEndsOn | date:'dd MMMM EEE hh:mm a'}}</ion-text>
           </div>
         </div>
       </ion-col>

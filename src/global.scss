@@ -25,6 +25,10 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+body {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 .kd_col_center_align {
     display: flex;
     align-items: center;
@@ -46,6 +50,10 @@
     font-weight: bold;
 }
 
+.searchbar-custom .searchbar-clear-icon {
+    display: none;
+}
+
 .kd_transperent_header {
     --background: white;
     --border-width: 0px !important;
@@ -53,7 +61,7 @@
 
 ion-button {
     --background: #ededed;
-    --background-activated: rgb(187, 53, 53);
+    --background-activated: #946142;
     --color: black;
     --border-radius: 5px;
     --border-color: black;
@@ -210,6 +218,10 @@ ion-textarea.custom {
 
 .kd_font_size_12 {
     font-size: 12px;
+}
+
+.kd_font_size_14 {
+    font-size: 14px;
 }
 
 .kd_bold_font {

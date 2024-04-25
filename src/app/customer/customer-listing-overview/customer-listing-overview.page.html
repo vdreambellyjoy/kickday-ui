@@ -35,7 +35,7 @@
     <ion-row>
       <ion-col class="kd_center_align_items" size="5">
         <ion-icon class="icon_style" style="padding-bottom: 6px;" name="bag-handle-outline"></ion-icon>
-        <ion-text>{{listingData.category}}</ion-text>
+        <ion-text>{{ listingData?.listingOrders?.[0]?.name }}</ion-text>
       </ion-col>
 
     </ion-row>
@@ -54,7 +54,7 @@
           <ion-text style="font-weight: bold;">R</ion-text>
         </div>
         <ion-text style="padding-left: 20px; font-size: 13px;">
-          <span style="font-weight: bold;">Maker ({{listingData.ID}})</span> <br>
+          <span style="font-weight: bold;">Maker</span> <br>
 
           <ng-container *ngIf="listingData.makerData">
             <span>{{listingData.makerData.userName}}</span> <br>
