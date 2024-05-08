@@ -10,7 +10,7 @@
 <ion-content *ngIf="!showAddressForm">
   <ion-list>
     <ion-button (click)="showAddressForm = true;" lines="none">
-      <ion-icon name="add" style="color: #3880ff;"></ion-icon>
+      <ion-icon name="add" style="color: white;"></ion-icon>
       Add Address
     </ion-button>
 
@@ -18,7 +18,7 @@
       style="padding: 16px; padding-right: 0px">
       <div class="address-card">
         <ion-avatar slot="start">
-          <ion-icon name="location-outline" [style.color]="address.default ? 'blue' : 'grey'"
+          <ion-icon name="location-outline" [style.color]="address.default ? '#946142' : 'grey'"
             style="padding-right: 10px;"></ion-icon>
         </ion-avatar>
         <ion-label>
@@ -87,7 +87,7 @@
 
     <ion-row>
       <ion-col class="kd_flex kd_flex_col_center kd_no_padding">
-        <ion-button expand="full" shape="round" color="primary" (click)="saveDetails()"
+        <ion-button expand="full" shape="round" (click)="saveDetails()"
           style="width: 100%; margin: 0px;">SAVE</ion-button>
       </ion-col>
     </ion-row>

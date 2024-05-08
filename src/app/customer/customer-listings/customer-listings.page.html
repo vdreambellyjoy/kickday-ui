@@ -1,6 +1,6 @@
 <ion-header [translucent]="true" style="box-shadow: none">
   <ion-toolbar>
-    <ion-row style="margin: 10px">
+    <ion-row style="margin: 22px 15px;">
       <ion-col size="9" style="display: flex; justify-content: start; align-items: center">
         <img src="../../../assets/icons/Kickday-logo-removebg-preview.png" alt=""
           style="position: absolute; height: 120px; width: 120px;">
@@ -9,26 +9,26 @@
         <ion-button *ngIf="!showMenu" (click)="goToLogin()" style="margin: 0px; min-height: 30px">Login</ion-button>
       </ion-col>
     </ion-row>
+
+    <div style="display: flex; align-items: center;">
+      <ion-searchbar class="searchbar-custom" style="padding: 20px;" (keyup)="onSearch($event)"
+        placeholder="Search by Category"></ion-searchbar>
+      <ion-icon name="filter-circle-outline" class="kd_svg_size" style="padding-right: 20px;"
+        (click)="openSearchModel()" *ngIf="!filterSearchTerm && !filterDeliveryType && !filterDeliveryDate"></ion-icon>
+      <ion-icon name="filter-circle-outline" class="kd_svg_size" style="padding-right: 20px;color:blue"
+        (click)="openSearchModel()" *ngIf="filterSearchTerm || filterDeliveryType || filterDeliveryDate"></ion-icon>
+
+      <ion-icon name="rocket-outline" *ngIf="filterSearchTerm || filterDeliveryType || filterDeliveryDate"
+        style="padding-right: 20px;color:blue;font-size: 30px;" (click)="clearFilter()"></ion-icon>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="filteredItems?.length">
 
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
-  <div style="display: flex; align-items: center;">
-    <ion-searchbar class="searchbar-custom" style="padding: 20px;" (keyup)="onSearch($event)"
-      placeholder="Search by Category"></ion-searchbar>
-    <ion-icon name="filter-circle-outline" class="kd_svg_size" style="padding-right: 20px;" (click)="openSearchModel()"
-      *ngIf="!filterSearchTerm && !filterDeliveryType && !filterDeliveryDate"></ion-icon>
-    <ion-icon name="filter-circle-outline" class="kd_svg_size" style="padding-right: 20px;color:blue"
-      (click)="openSearchModel()" *ngIf="filterSearchTerm || filterDeliveryType || filterDeliveryDate"></ion-icon>
-
-    <ion-icon name="rocket-outline" *ngIf="filterSearchTerm || filterDeliveryType || filterDeliveryDate"
-      style="padding-right: 20px;color:blue;font-size: 30px;" (click)="clearFilter()"></ion-icon>
-  </div>
 
   <div style="border: solid 1px lightgray; border-radius: 14px; margin: 20px" *ngFor="let listing of filteredItems"
     (click)="goToListingOverview(listing)">
@@ -71,9 +71,19 @@
       </ion-col>
     </ion-row>
   </div>
-
-  <div style="height: 100px;"></div>
 </ion-content>
+
+<ion-content *ngIf="!filteredItems?.length">
+  <!-- <div class="background_img_styles">
+  </div> -->
+  <div style="height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <ion-text style="padding: 0px 10px; text-align: center; z-index: 10;">We've just launched and are building our
+      community. If you don't see any food delights listed yet or if you have any suggestions, please WhatsApp us at <a
+        href="tel:9652177277">9652177277</a>.</ion-text>
+    <img style="height: 500px; width: 500px;" src="../../../assets/Untitled design.svg" />
+  </div>
+</ion-content>
+
 <ion-footer style="bottom: 0px; position: absolute" *ngIf="showMenu">
   <ion-card style="margin: 0px; border-radius: 0px; padding: 10px">
     <ion-row>

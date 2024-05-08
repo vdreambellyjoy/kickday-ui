@@ -60,9 +60,9 @@ body {
 }
 
 ion-button {
-    --background: #ededed;
+    --background: #ce9a79;
     --background-activated: #946142;
-    --color: black;
+    --color: White;
     --border-radius: 5px;
     --border-color: black;
     --border-style: solid;
@@ -79,6 +79,8 @@ ion-button {
 }
 
 .count_button {
+    --background: #ededed;
+    --color: black;
     --padding-bottom: 0px;
     --padding-top: 0px;
     --padding-end: 0px;

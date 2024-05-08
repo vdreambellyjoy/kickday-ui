@@ -199,4 +199,50 @@ export class CustomerListingOverviewPage {
       this.router.navigate(['/customerListings']);
     }
   }
+
+  formatDate(dateString: string | number | Date) {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    };
+
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    const weekday = date.toLocaleString('en-US', { weekday: 'short' });
+    const time = date.toLocaleString('en-US', options);
+    const formattedDate = `${day} ${month} ${weekday} ${time}`;
+
+    return formattedDate;
+  }
+
+  shareLink() {
+    if (navigator.share) {
+      const title = this.listingData.label || 'Title not available';
+      const orderEndsOn = this.listingData.orderEndsOn ? this.formatDate(this.listingData.orderEndsOn) : 'End date not available';
+      const orderDeliveredOn = this.listingData.orderDeliveredOn ? this.formatDate(this.listingData.orderDeliveredOn) : 'Delivered date not available';
+      const makerLocation = this.listingData.makerData?.address || 'Location not available';
+
+      let text = `Listing Details\n`;
+      text += `Title: ${title}\n`;
+      text += `Order Ends On: ${orderEndsOn}\n`;
+      text += `Order Delivered On: ${orderDeliveredOn}\n`;
+      text += `Location: ${makerLocation}\n`;
+
+      navigator.share({
+        text: text,
+        url: location.href
+      })
+        .then(() => console.log('Successful share'))
+        .catch((error) => {
+          console.log('Error sharing:', error);
+          alert('Error sharing content. Please try again.');
+        });
+    } else {
+      console.log('Web Share API not supported.');
+      alert('Web Share API not supported.');
+    }
+  }
+
 }

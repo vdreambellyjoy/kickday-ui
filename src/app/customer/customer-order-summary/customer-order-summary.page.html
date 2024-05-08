@@ -74,8 +74,10 @@
             </ion-col>
 
             <ion-col size="4" class="kd_flex kd_end_align">
-              <ion-text
-                style="font-size: 16px; font-weight: bold;">&#8377;{{orderData?.finalCostWithOutDeliveryOption}}</ion-text>
+              <ion-text style="font-size: 16px; font-weight: bold;">
+                &#8377;{{ parsePrice(orderData?.finalCostWithOutDeliveryOption) +
+                parsePrice(orderData?.deliveryOption.price) }}
+              </ion-text>
             </ion-col>
           </ion-row>
 

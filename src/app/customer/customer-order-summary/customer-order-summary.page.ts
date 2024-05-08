@@ -48,6 +48,10 @@ export class CustomerOrderSummaryPage implements OnInit {
     })
   }
 
+  parsePrice(priceString: string | undefined): number {
+    return parseFloat(priceString || '0');
+  }
+
   async openAddressList() {
     const modal = await this.model.create({ component: CustomerAddressListPage });
     modal.present();

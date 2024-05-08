@@ -9,7 +9,7 @@
         <ion-icon *ngIf="listingData.favourite" name="star" class="kd_svg_size" style="color:blue"
           (click)="unFavItem()"></ion-icon>
       </ion-col>
-      <ion-col style="display: flex; justify-content: center; align-items: center;">
+      <ion-col style="display: flex; justify-content: center; align-items: center;" (click)="shareLink()">
         <ion-icon name="share-social-outline" class="kd_svg_size"></ion-icon>
       </ion-col>
       <ion-col style="display: flex; justify-content: end; align-items: center;">
@@ -33,15 +33,15 @@
 
 
     <ion-row>
-      <ion-col class="kd_center_align_items" size="5">
-        <ion-icon class="icon_style" style="padding-bottom: 6px;" name="bag-handle-outline"></ion-icon>
+      <ion-col class="kd_center_align_items" size="5" style="margin: 10px 0px; font-weight: bold;">
+        <ion-icon class="icon_style" style="padding-right: 6px;" name="bag-handle-outline"></ion-icon>
         <ion-text>{{ listingData?.listingOrders?.[0]?.name }}</ion-text>
       </ion-col>
 
     </ion-row>
 
     <ion-row>
-      <ion-col>
+      <ion-col size="6">
         <ion-text>Order Delivered On</ion-text>
         <div style="margin-top: 3px;">
           <ion-icon class="icon_style" name="calendar-outline"></ion-icon>
@@ -49,12 +49,32 @@
         </div>
       </ion-col>
 
-      <ion-col class="kd_flex">
+      <ion-col size="6">
+        <ion-text style="font-weight: bold;">Maker Details</ion-text>
+        <div style="margin-top: 3px;" class="kd_flex">
+          <div class="first_letter_styles">
+            <ion-text style="font-weight: bold;">R</ion-text>
+          </div>
+          <ion-text style="padding-left: 10px; font-size: 13px;">
+
+            <ng-container *ngIf="listingData.makerData">
+              <span>{{listingData.makerData.userName}}</span> <br>
+            </ng-container>
+
+            <ng-container *ngIf="listingData.makerData">
+              <span>{{listingData.makerData.address}}</span>
+            </ng-container>
+
+          </ion-text>
+        </div>
+      </ion-col>
+
+      <!-- <ion-col class="kd_flex" size="6">
+        <span style="font-weight: bold;">Maker</span> <br>
         <div class="first_letter_styles">
           <ion-text style="font-weight: bold;">R</ion-text>
         </div>
         <ion-text style="padding-left: 20px; font-size: 13px;">
-          <span style="font-weight: bold;">Maker</span> <br>
 
           <ng-container *ngIf="listingData.makerData">
             <span>{{listingData.makerData.userName}}</span> <br>
@@ -65,7 +85,7 @@
           </ng-container>
 
         </ion-text>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
 
     <ion-row>
@@ -85,19 +105,19 @@
     </ion-row>
 
     <ion-row style="padding-top: 15px;" *ngFor="let order of listingData.listingOrders">
-      <ion-col size="7">
+      <ion-col>
         <ion-text>{{order.name}}</ion-text> <br>
         <div style="padding-top: 5px;">
           <ion-text>{{ order.quantity - order.count }} Left</ion-text>
         </div>
       </ion-col>
-      <ion-col size="2" class="kd_flex kd_center_align">
+      <ion-col class="kd_flex kd_center_align">
         <ion-text>&#8377; {{order.price}}</ion-text>
       </ion-col>
-      <ion-col size="3" class=" kd_flex kd_end_align">
+      <ion-col class=" kd_flex kd_end_align">
         <ion-button class="count_button">
           <ion-button class="count_button"
-            style="--border-radius: 0px; --background: white; --background-activated: #bcc4e8;"
+            style="--border-radius: 0px; --background: white !important; --background-activated: #bcc4e8;"
             (click)="decrementCount(order)">
             <ion-icon name="remove-outline"></ion-icon>
           </ion-button>
@@ -105,7 +125,7 @@
           <span class="count" style="padding: 0px 8px;">{{ order.count }}</span>
 
           <ion-button class="count_button"
-            style="--border-radius: 0px; --background: white; --background-activated: #bcc4e8;"
+            style="--border-radius: 0px; --background: white !important; --background-activated: #bcc4e8;"
             (click)="incrementCount(order)" [disabled]="order.count >= order.quantity">
             <ion-icon name="add-outline"></ion-icon>
           </ion-button>
@@ -118,7 +138,7 @@
     </ion-row>
 
     <ion-row>
-      <ion-col style="padding-top: 15px;">
+      <ion-col style="padding: 15px 5px;">
         <ion-textarea class="custom-textarea" placeholder="Note" [(ngModel)]="note"></ion-textarea>
       </ion-col>
     </ion-row>
@@ -139,7 +159,7 @@
             </ion-row>
             <ion-row>
               <ion-col style="text-align: center;">
-                <ion-text class="kd_font_size_12">Delivered on <br> 24th May 2:30PM</ion-text>
+                <ion-text class="kd_font_size_12">Delivery Available</ion-text>
               </ion-col>
             </ion-row>
           </button>
