@@ -76,4 +76,21 @@ export class ListingOverViewPage implements OnInit {
       })
     }
   }
+
+  formatTimestamp(dateString: string | number | Date) {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    };
+
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    const weekday = date.toLocaleString('en-US', { weekday: 'short' });
+    const time = date.toLocaleString('en-US', options);
+    const formattedDate = `${day} ${month} ${weekday} ${time}`;
+
+    return formattedDate;
+  }
 }

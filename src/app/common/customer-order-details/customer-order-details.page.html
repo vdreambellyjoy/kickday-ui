@@ -1,14 +1,9 @@
 <ion-header [translucent]="true" style="box-shadow: none;">
   <ion-toolbar>
     <ion-row style="margin: 10px;">
-      <ion-col size="2" style="display: flex; justify-content: start; align-items: center;" (click)="goToBack()">
+      <ion-col style="display: flex; justify-content: start; align-items: center;" (click)="goToBack()">
         <ion-icon name="arrow-back-outline" class="kd_back_button"></ion-icon>
-      </ion-col>
-      <ion-col size="8">
-        <ion-text>Order 11225544</ion-text> <br>
-        <ion-text style="font-size: 12px; font-weight: bold;">Received on 23 may 2023 3:00PM</ion-text>
-      </ion-col>
-      <ion-col size="2">
+        <ion-text style="padding-left: 15px;">Order Overview</ion-text>
       </ion-col>
     </ion-row>
   </ion-toolbar>
@@ -16,19 +11,24 @@
 
 <ion-content [fullscreen]="true">
   <div style="margin: 15px;">
+    <div style="margin-bottom: 10px; padding: 5px;">
+      <ion-text>Order {{ orderData[0]?.ID }}</ion-text> <br>
+      <ion-text style="font-size: 12px; font-weight: bold;">Received on: {{ formatTimestamp(orderData[0]?.timeStamp)
+        }}</ion-text>
+    </div>
     <ion-toolbar class="scroll_width">
       <div style="overflow-x: auto; white-space: nowrap; display: flex; margin: 5px;">
         <button style="border: solid 2px; border-radius: 14px; padding: 10px 0px; margin-right: 15px;"
           (click)="changeStatus('confirmed')" [disabled]="confirmedDisabled">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
-              <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>
+              <ion-icon class="icon_style" style="padding-right: 5px; color: blue;" name="home"></ion-icon>
               <ion-text style="font-size: 12px; font-weight: bold;">Order confirmed</ion-text>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col style="text-align: center;">
-              <ion-text class="kd_font_size_12">Confirmed on <br> 24th May 2:30PM</ion-text>
+              <ion-text class="kd_font_size_12">Mark as <br> Order confirmed</ion-text>
             </ion-col>
           </ion-row>
         </button>
@@ -37,13 +37,13 @@
           (click)="changeStatus('Dispatched')" [disabled]="dispatchedDisabled">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
-              <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>
+              <ion-icon class="icon_style" style="padding-right: 5px; color: #e6cc00;" name="home"></ion-icon>
               <ion-text style="font-size: 12px; font-weight: bold;">Order Dispatched</ion-text>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col style="text-align: center;">
-              <ion-text class="kd_font_size_12">Dispatched on <br> 24th May 2:30PM</ion-text>
+              <ion-text class="kd_font_size_12">Mark as <br> Order Dispatched</ion-text>
             </ion-col>
           </ion-row>
         </button>
@@ -52,13 +52,13 @@
           (click)="changeStatus('Delivered')" [disabled]="deliveredDisabled">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
-              <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>
+              <ion-icon class="icon_style" style="padding-right: 5px; color: green;" name="home"></ion-icon>
               <ion-text style="font-size: 12px; font-weight: bold;">Order Delivered</ion-text>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col style="text-align: center;">
-              <ion-text class="kd_font_size_12">Delivered on <br> 29th May 2:30PM</ion-text>
+              <ion-text class="kd_font_size_12">Mark as <br> Order Delivered</ion-text>
             </ion-col>
           </ion-row>
         </button>
@@ -67,13 +67,13 @@
           [disabled]="cancelledDisabled">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
-              <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>
+              <ion-icon class="icon_style" style="padding-right: 5px; color: red;" name="home"></ion-icon>
               <ion-text style="font-size: 12px; font-weight: bold;">Order Cancelled</ion-text>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col style="text-align: center;">
-              <ion-text class="kd_font_size_12">Cancelled on <br> 30th May 2:30PM</ion-text>
+              <ion-text class="kd_font_size_12">Mark as <br> Order Cancelled</ion-text>
             </ion-col>
           </ion-row>
         </button>
@@ -81,31 +81,22 @@
       </div>
     </ion-toolbar>
 
-    <ion-row>
-      <ion-col>
-        <ion-input class="input_selection" placeholder="Tracking link with tracking ID paste here"></ion-input>
-      </ion-col>
-    </ion-row>
-
     <ion-row style="margin-top: 10px;">
-      <ion-col class="kd_flex" size="8">
+      <ion-col class="kd_flex" size="10">
         <div class="first_letter_styles">
           <ion-text style="font-weight: bold;">R</ion-text>
         </div>
-        <ion-text style="padding-left: 20px;"><span>Raj Kumar</span> <br>
-          <span>Kphb, Hyderabad</span></ion-text>
+        <ion-text style="padding-left: 20px;"><span>{{orderData[0]?.deliveryAddress?.name}}</span> <br>
+          <span>{{orderData[0]?.deliveryAddress?.address}}</span></ion-text>
       </ion-col>
-      <ion-col size="2" class="kd_flex kd_center_align">
+      <ion-col size="2" class="kd_flex kd_center_align" (click)="callNumber(orderData[0]?.deliveryAddress?.mobile)">
         <ion-icon name="call-outline" class="kd_svg_size"></ion-icon>
-      </ion-col>
-      <ion-col size="2" class="kd_flex kd_end_align">
-        <ion-icon name="mail-outline" class="kd_svg_size"></ion-icon>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col style="margin: 10px 0px;">
-        <ion-text style="font-weight: bold;">Mutton Biryani with paya preparation on weekend do not miss it.</ion-text>
+        <ion-text style="font-weight: bold;">{{orderData[0]?.listingData?.label}}</ion-text>
       </ion-col>
     </ion-row>
 
@@ -113,28 +104,29 @@
       <ion-col class="kd_flex_row_center" style="margin: 5px 0px;">
         <div style="border: solid 2px; border-radius: 14px; padding: 10px; background-color: #f7f7f7;">
 
-          <ion-row class="kd_flex kd_center_align">
+          <ion-row class="kd_flex kd_center_align" *ngFor="let item of orderData[0]?.orderedItems">
             <ion-col size="8">
-              <ion-text style="font-size: 16px; font-weight: bold;">Mutton Biryani Boneless</ion-text>
+              <ion-text style="font-size: 16px; font-weight: bold;">{{item.name}}</ion-text>
             </ion-col>
 
             <ion-col size="4" class="kd_flex kd_end_align">
-              <ion-text class="kd_flex" style="font-size: 14px; color: black; font-weight: bold;">&#8377; 350
+              <ion-text class="kd_flex" style="font-size: 14px; color: black; font-weight: bold;">&#8377; {{item.price}}
                 <ion-icon style="padding-right: 5px; padding-left: 5px;" class="icon_style"
-                  name="close-outline"></ion-icon> 1</ion-text>
+                  name="close-outline"></ion-icon> {{item.count}}</ion-text>
             </ion-col>
             <ion-col class="kd_flex kd_end_align ion-no-padding" style="padding-right: 5px;">
-              <ion-text style="font-weight: bold; font-size: 14px;"> = &#8377; 350</ion-text>
+              <ion-text style="font-weight: bold; font-size: 14px;"> = &#8377; {{item.individualItemCost}}</ion-text>
             </ion-col>
           </ion-row>
 
           <ion-row class="kd_flex kd_center_align">
             <ion-col size="8">
-              <ion-text style="font-size: 14px; color: #777;">Delivery (Neighborhood)</ion-text>
+              <ion-text style="font-size: 14px; color: #777;">Delivery
+                ({{orderData[0]?.deliveryOption.type}})</ion-text>
             </ion-col>
 
             <ion-col size="4" class="kd_flex kd_end_align">
-              <ion-text style="font-size: 14px; color: #555;">Free Delivery</ion-text>
+              <ion-text style="font-size: 14px; color: #555;">{{orderData[0]?.deliveryOption.price}}</ion-text>
             </ion-col>
           </ion-row>
 
@@ -144,7 +136,7 @@
             </ion-col>
 
             <ion-col size="4" class="kd_flex kd_end_align">
-              <ion-text style="font-size: 14px; color: #555;">&#8377; 40</ion-text>
+              <ion-text style="font-size: 14px; color: #555;">&#8377; 0</ion-text>
             </ion-col>
           </ion-row>
 
@@ -154,17 +146,11 @@
             </ion-col>
 
             <ion-col size="4" class="kd_flex kd_end_align">
-              <ion-text style="font-size: 16px; font-weight: bold;">&#8377; 4000</ion-text>
+              <ion-text style="font-size: 16px; font-weight: bold;">&#8377; {{orderData[0]?.totalPrice}}</ion-text>
             </ion-col>
           </ion-row>
 
         </div>
-      </ion-col>
-    </ion-row>
-
-    <ion-row>
-      <ion-col style="padding-top: 15px;">
-        <ion-textarea class="custom-textarea" placeholder="Note"></ion-textarea>
       </ion-col>
     </ion-row>
 
@@ -174,38 +160,52 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row *ngIf="orderData[0]?.deliveryOption.type == 'Pickup Available'">
       <ion-col class="kd_center_align_items">
         <ion-icon name="bicycle-outline" class="kd_back_button"></ion-icon>
         <ion-text style="padding-left: 10px;">Delivery ( Pickup )</ion-text>
       </ion-col>
+    </ion-row>
 
+    <ion-row *ngIf="orderData[0]?.deliveryOption.type == 'Pickup Available'">
       <ion-col>
-        <ion-text style="font-size: 14px;">Pickup on 24th May Friday between 2:00PM to 3:00PM</ion-text>
+        <ion-text style="font-size: 14px;">Pickup on {{orderData[0]?.listingData?.orderDeliveredOn | date:'dd MMMM
+          EEE'}}</ion-text>
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row *ngIf="orderData[0]?.deliveryOption.type != 'Pickup Available'">
       <ion-col class="kd_center_align_items">
-        <ion-icon name="home-outline" class="kd_back_button"></ion-icon>
-        <ion-text style="padding-left: 10px;">Delivery Address</ion-text>
+        <ion-icon name="home" class="kd_back_button"></ion-icon>
+        <ion-text style="padding-left: 10px; font-weight: bold;">Delivery Address</ion-text>
       </ion-col>
+    </ion-row>
 
+    <ion-row *ngIf="orderData[0]?.deliveryOption.type != 'Pickup Available'">
       <ion-col>
-        <ion-text style="font-size: 14px;">G1 Gayatri Sri Nilayam Dharma reddy colony kbhb1, Hyderabad</ion-text>
+        <ion-text style="font-size: 14px;">
+          {{orderData[0]?.deliveryAddress?.name}} <br>
+          {{orderData[0]?.deliveryAddress?.email}} <br>
+          {{orderData[0]?.deliveryAddress?.mobile}} <br><br>
+          <ion-text style="font-size: 14px;" [innerHTML]="getSanitizedLocationUrl()"></ion-text>
+        </ion-text>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col class="kd_center_align_items">
         <ion-icon name="location-outline" class="kd_back_button"></ion-icon>
-        <ion-text style="padding-left: 10px;">Delivery Location / Pickup Location</ion-text> <br>
+        <ion-text style="font-size: 18px; font-weight: bold;"
+          *ngIf="orderData[0]?.deliveryOption?.type != 'Pickup Available'">Delivery Location</ion-text>
+        <ion-text style="font-size: 18px; font-weight: bold;"
+          *ngIf="orderData[0]?.deliveryOption?.type == 'Pickup Available'">Pickup Location</ion-text> <br>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
         <ion-text>
-          <a href="www.google.com" style="color: #007bff; text-decoration: none;">www.google.com</a>
+          <a href="orderData[0]?.deliveryAddress?.LocationUrl"
+            style="color: #007bff; text-decoration: none;">{{orderData[0]?.deliveryAddress?.LocationUrl}}</a>
         </ion-text>
       </ion-col>
     </ion-row>

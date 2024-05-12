@@ -25,8 +25,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div style="margin: 15px 15px 20px 15px;" *ngFor="let order of orders">
-    <ion-card class="kd_orders_card" (click)="navigateToOrderOverView(order)">
+  <div style="margin: 15px 5px 20px 5px;" *ngFor="let order of orders">
+    <ion-card class="kd_orders_card" (click)="navigateToOrderOverView(order)" style="padding: 10px;">
       <ion-row>
         <ion-col>
           <ion-text>Order {{order.ID}}</ion-text>
