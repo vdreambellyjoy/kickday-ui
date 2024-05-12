@@ -181,7 +181,7 @@ ion-textarea.custom {
 }
 
 .native-textarea.sc-ion-textarea-md {
-    --padding-bottom: 5px !important;
+    --padding-bottom: 10px !important;
     --padding-top: 5px !important;
 }
 
@@ -228,14 +228,6 @@ ion-textarea.custom {
 
 .kd_bold_font {
     font-weight: bold;
-}
-
-.kd_orders_card {
-    border: solid 1px black;
-    padding: 5px;
-    margin: 0px;
-    border-radius: 14px;
-    box-shadow: none;
 }
 
 ion-input {
@@ -374,4 +366,38 @@ swiper-slide img {
 
 .cursor_pointer {
     cursor: pointer;
+}
+
+ion-toggle::part(track) {
+    height: 32px;
+    width: 60px;
+}
+
+ion-toggle {
+    --handle-height: 27px;
+    --handle-width: 27px;
+    --handle-spacing: 2px;
+    --handle-background: white;
+    --track-background: #ce9a79;
+    --ion-color-base: white !important;
+    --border-radius: 40px;
+}
+
+ion-toggle.ios {
+    --ion-color-base: #ce9a79 !important;
+}
+
+.kd_orders_card {
+    border-radius: 14px;
+    box-shadow: 0 4px 8px rgba(206, 154, 121, 0.6);
+    border: none !important;
+}
+
+.kd_orders_card:hover {
+    transform: scale(1.02);
+}
+
+.kd_orders_card ion-text {
+    font-size: 14px;
+    color: #333;
 }

@@ -30,7 +30,7 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <div style="border: solid 1px lightgray; border-radius: 14px; margin: 20px" *ngFor="let listing of filteredItems"
+  <ion-card class="kd_orders_card" style="margin: 20px" *ngFor="let listing of filteredItems"
     (click)="goToListingOverview(listing)">
     <swiper-container style="height: 240px" #swiper (afterinit)="swiperReady()"
       (slidechange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true" [slidesPerView]="1"
@@ -38,10 +38,10 @@
       <swiper-slide *ngFor="let image of listing.imageArray">
         <img [src]="image | getLogo | async" />
       </swiper-slide>
-      <swiper-slide>
+      <!-- <swiper-slide>
         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/7Y5q41D8_hs" frameborder="0"
           allowfullscreen (press)="handlePress($event)"></iframe>
-      </swiper-slide>
+      </swiper-slide> -->
     </swiper-container>
 
     <!-- <ion-row style="padding: 10px" style="font-weight: bold">
@@ -70,7 +70,8 @@
         </div>
       </ion-col>
     </ion-row>
-  </div>
+  </ion-card>
+  <div style="height: 100px;" *ngIf="showMenu"></div>
 </ion-content>
 
 <ion-content *ngIf="!filteredItems?.length">

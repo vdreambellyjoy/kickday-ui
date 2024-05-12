@@ -508,7 +508,7 @@ export class CreateListingPage implements OnInit {
       role: this.userData?.primaryRole || this.userData?.role,
       refMakerId: this.bindingData?.refMakerId,
     }
-    if(!obj.orders.length) return;
+    if (!obj.orders.length) return;
     if (this._id) obj._id = this._id
     this.adminService.addEditListing(obj).subscribe((res: any) => {
       if (res.success) {

@@ -21,8 +21,8 @@
     <div>
       <ion-row>
         <ion-col class="text_center" style="margin-top: 0px">
-          <ion-toggle aria-label="Dark toggle" color="dark" [(ngModel)]="isToggleChecked"
-            (ionChange)="toggleChanged()"></ion-toggle> <br>
+          <ion-toggle aria-label="Dark toggle" color="success" [(ngModel)]="isToggleChecked"
+            (ionChange)="toggleChanged()" style="padding-bottom: 15px;"></ion-toggle> <br>
           <ion-text *ngIf="isToggleChecked; else customerText">Switch to Maker</ion-text>
           <ng-template #customerText>Switch to Customer</ng-template>
         </ion-col>

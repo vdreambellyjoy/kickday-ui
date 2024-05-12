@@ -2,15 +2,16 @@
   <div style="margin: 15px;">
     <ion-row class="kd_center_align" style="margin-top: 10px;">
       <ion-col>
-        <div class="kd_flex">
-          <ion-icon class="icon_style" name="newspaper-outline"></ion-icon>
+        <div class="kd_col_center_align">
+          <ion-icon class="icon_style" name="newspaper-outline" style="height: 30px; width: 30px;"></ion-icon>
           <ion-text style="font-weight: bold; font-size: 18px;">Create Listing</ion-text>
         </div>
       </ion-col>
 
       <ion-col (click)="goToBack()">
         <div class="kd_flex kd_end_align">
-          <ion-icon class="icon_style kd_no_padding" name="close-circle-outline"></ion-icon>
+          <ion-icon class="icon_style kd_no_padding" style="height: 30px; width: 30px;"
+            name="close-circle-outline"></ion-icon>
         </div>
       </ion-col>
     </ion-row>
@@ -34,11 +35,9 @@
 
         <div style="position: relative;">
           <ion-item class="search_item">
-            <ion-label style="display: flex; justify-content: end;">
-              <ion-icon name="location-outline" style="height: 20px; width: 20px;"></ion-icon>
-            </ion-label>
+            <ion-icon name="location-outline" style="height: 20px; width: 20px; padding-left: 10px;"></ion-icon>
             <ion-searchbar [(ngModel)]="search" (keypress)="onSearchInput()" placeholder="Enter Your location"
-              [value]="bindingData?.address" style="width: 91%; height: 100%; --box-shadow: 0; padding: 0px"
+              [value]="bindingData?.address" style="width: 100%; height: 100%; --box-shadow: 0; padding: 0px"
               search-icon="false"></ion-searchbar>
           </ion-item>
           <ion-list style="padding: 0px !important; position: absolute; z-index: 1000; width: 100%; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -56,7 +55,7 @@
     <ion-row>
       <ion-col>
         <ion-textarea aria-label="Custom textarea" placeholder="Give a catchy title(150 words)" class="custom"
-          [(ngModel)]="label"></ion-textarea>
+          [(ngModel)]="label" style="padding-bottom: 0px;"></ion-textarea>
       </ion-col>
     </ion-row>
 
@@ -104,12 +103,12 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-col style="margin: 15px 0px 0px 0px;" size="5">
+    <ion-row style="padding: 5px;">
+      <ion-col style="margin: 10px 0px 0px 0px; padding-bottom: 0px;" size="12">
         <ion-text style="font-size: 18px; font-weight: bold;">Item</ion-text> <br>
         <div class="search_item" lines="none">
-          <ion-searchbar placeholder="Add Item" search-icon="false" [debounce]="100" [(ngModel)]="newItemName"
-            (ionInput)="handleInput($event)"></ion-searchbar>
+          <ion-searchbar placeholder="Search Item" search-icon="false" [debounce]="100" [(ngModel)]="newItemName"
+            (ionInput)="handleInput($event)" style="--box-shadow: none;"></ion-searchbar>
         </div>
 
         <ion-list *ngIf="results.length > 0" class="search-results">
@@ -122,12 +121,12 @@
         </div>
       </ion-col>
 
-      <ion-col style="margin: 15px 0px 0px 0px;" size="2.75">
+      <ion-col size="5.25">
         <ion-text style="font-size: 18px; font-weight: bold;">Price</ion-text> <br>
         <ion-input class="input_selection" placeholder="$0" [(ngModel)]="newItemPrice"></ion-input>
       </ion-col>
 
-      <ion-col style="margin: 15px 0px 0px 0px;" size="2.75">
+      <ion-col size="5.25">
         <ion-text style="font-size: 18px; font-weight: bold;">Quantity</ion-text> <br>
         <ion-input class="input_selection" placeholder="Eg:2" [(ngModel)]="newItemQuantity"></ion-input>
       </ion-col>
@@ -156,13 +155,13 @@
     </ion-row>
 
 
-    <ion-row>
+    <ion-row style="margin-top: 10px;">
       <ion-col>
         <ion-text style="font-size: 18px; font-weight: bold;">Delivery Type</ion-text>
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col size="5">
         <ion-item style="border: solid 1px black; border-radius: 14px; padding-left: 10px;">
           <ion-select aria-label="Fruit" [(ngModel)]="deliveryType" style="min-height: 48px;">
@@ -187,7 +186,33 @@
       <ion-col size="1.5" class="kd_flex kd_flex_row_center" (click)="addDeliveryItem()">
         <ion-icon name="add-circle-outline" class="kd_svg_size"></ion-icon>
       </ion-col>
+    </ion-row> -->
+
+    <ion-row>
+      <ion-col size="5.5">
+        <ion-item style="border: solid 1px black; border-radius: 14px; padding-left: 10px;">
+          <ion-select aria-label="Fruit" [(ngModel)]="deliveryType" style="min-height: 48px;" label="Delivery Type">
+            <ion-select-option *ngFor="let option of deliveryOptions" [disabled]="option.disabled"
+              [value]="option.type">{{ option.type }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="2.25" class="kd_col_center_align">
+        <ion-toggle [enableOnOffLabels]="true" aria-label="Dark toggle" color="success" [(ngModel)]="isFreeDelivery"
+          (change)="toggleFreeDelivery()" style="padding-bottom: 0px;"></ion-toggle>
+      </ion-col>
+
+      <ion-col size="2.75">
+        <ion-input [disabled]="isFreeDelivery" *ngIf="deliveryType != 'Pickup Available'" class="input_selection"
+          style="margin-top: 0px;" placeholder="&#8377; 0" [(ngModel)]="deliveryPrice"></ion-input>
+      </ion-col>
+
+      <ion-col size="1.5" class="kd_flex kd_flex_row_center" (click)="addDeliveryItem()">
+        <ion-icon name="add-circle-outline" class="kd_svg_size"></ion-icon>
+      </ion-col>
     </ion-row>
+
 
     <ion-row *ngFor="let deliveryItem of deliveryItems">
       <ion-col size="5" class="kd_flex kd_flex_row_center" style="justify-content: start;">
@@ -230,7 +255,7 @@
       </ion-col>
     </ion-row> -->
 
-    <ion-row>
+    <ion-row style="margin-top: 10px;">
       <ion-col>
         <div class="add_img_div ion-activatable ripple-parent" (click)="fileInput.click()">
           <input #fileInput type="file" accept="image/*" (change)="addMediaImages($event)" multiple
