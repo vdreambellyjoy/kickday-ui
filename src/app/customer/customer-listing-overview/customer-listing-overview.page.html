@@ -21,7 +21,7 @@
 
 <ion-content [fullscreen]="true">
   <div style="margin: 15px;">
-    <ion-card class="kd_orders_card">
+    <ion-card class="kd_orders_card" style="margin: 0px;">
       <swiper-container [style.height]="swiperHeight" style="overflow: hidden;" #swiper (afterinit)="swiperReady()"
         (change)="swiperSlideChanged($event)" [loop]="true" [pagination]="true" [slidesPerView]="1"
         [slidesPerGroup]="1">

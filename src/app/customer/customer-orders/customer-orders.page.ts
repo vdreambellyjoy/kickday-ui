@@ -19,13 +19,16 @@ export class CustomerOrdersPage implements OnInit {
     this.changeSegment({ target: { value: this.defaultSegment } });
   }
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
+    const loading = await this.adminService.presentLoading();
     this.adminService.getCustomerOrders({}).subscribe((res: any) => {
       if (res.success && res.data) {
         this.orders = res.data;
       }
+      loading.dismiss()
     }, (err) => {
       console.log(err);
+      loading.dismiss()
     })
   }
 

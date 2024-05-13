@@ -36,7 +36,8 @@ export class CustomerListingsPage implements OnInit {
 
   ngOnInit() { }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
+    const loading = await this.adminService.presentLoading();
     this.filterSearchTerm = '';
     this.filterDeliveryType = '';
     this.filterDeliveryDate = '';
@@ -44,9 +45,11 @@ export class CustomerListingsPage implements OnInit {
       (res: any) => {
         this.listings = res.data || [];
         this.filteredItems = this.listings
+        loading.dismiss()
       },
       (err: any) => {
         console.log(err);
+        loading.dismiss()
       }
     );
     if (localStorage.getItem('token') && localStorage.getItem('userData')) {

@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment'
 
@@ -13,7 +13,8 @@ export class AdminService {
   constructor(
     private route: Router,
     private http: HttpClient,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private loadingController: LoadingController
   ) { }
 
   // admin page API START
@@ -173,5 +174,15 @@ export class AdminService {
 
       await alert.present();
     });
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      translucent: true,
+      backdropDismiss: false
+    });
+    await loading.present();
+    return loading;
   }
 }

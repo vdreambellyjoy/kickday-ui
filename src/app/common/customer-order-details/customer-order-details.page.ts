@@ -30,7 +30,8 @@ export class CustomerOrderDetailsPage implements OnInit {
   ngOnInit() {
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
+    const loading = await this.adminService.presentLoading();
     this._id = this.router.url.split('/')[2];
     this.adminService.getCustomerOrders({ _id: this._id }).subscribe((res: any) => {
       if (res.success && res.data) {
@@ -40,7 +41,9 @@ export class CustomerOrderDetailsPage implements OnInit {
         // Update disabled status based on order status
         this.updateDisabledStatus();
       }
+      loading.dismiss()
     }, (err) => {
+      loading.dismiss()
       console.log(err);
     });
 

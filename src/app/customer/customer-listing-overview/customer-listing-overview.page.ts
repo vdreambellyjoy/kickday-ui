@@ -40,12 +40,13 @@ export class CustomerListingOverviewPage {
     this.swiper = this.swiperRef?.nativeElement.swiper;
   }
 
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this._id = this.router.url.split('/')[2];
     this.listingData = {};
     this.totalCost = 0;
     this.selectedDeliveryType = '';
     this.note = '';
+    const loading = await this.adminService.presentLoading();
     this.adminService.getListingForUser({ _id: this._id }).subscribe((res: any) => {
       if (res.success && res.data) {
         this.listingData = res.data || {};
@@ -55,9 +56,13 @@ export class CustomerListingOverviewPage {
           order.individualItemCost = order.price * order.count || 0;
         });
         this.calculateTotalCost();
-      } else this.navigateToListings();
+      } else {
+        this.navigateToListings();
+      }
+      loading.dismiss()
     }, (err) => {
       this.navigateToListings();
+      loading.dismiss()
     });
     let orderData: any = localStorage.getItem('order');
     if (orderData) {
@@ -84,6 +89,7 @@ export class CustomerListingOverviewPage {
       if (res.success) {
         this.listingData.favourite = true;
       }
+
     }, (err: any) => {
       console.log(err);
     })

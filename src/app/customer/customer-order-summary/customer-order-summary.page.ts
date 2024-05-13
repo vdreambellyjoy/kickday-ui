@@ -28,12 +28,15 @@ export class CustomerOrderSummaryPage implements OnInit {
 
   ngOnInit() {
   }
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
+    const loading = await this.adminService.presentLoading();
     this._id = this.router.url.split('/')[2];
     this.adminService.getCustomerAddress({}).subscribe((res: any) => {
       this.addressList = res.data || [];
       this.selectedAddress = this.addressList?.find((e: any) => e.default);
+      loading.dismiss()
     }, (err) => {
+      loading.dismiss()
       this.addressList = []
     })
     this.adminService.getCustomerOrderSummary({ _id: this._id }).subscribe((res: any) => {
@@ -42,7 +45,9 @@ export class CustomerOrderSummaryPage implements OnInit {
       } else {
         this.orderData = false;
       }
+      loading.dismiss()
     }, (err) => {
+      loading.dismiss()
       this.orderData = false;
       this.openAlert('ERROR', 'something went wrong please try again later', ['close']);
     })
@@ -72,7 +77,8 @@ export class CustomerOrderSummaryPage implements OnInit {
     })
   }
 
-  placeOrder() {
+  async placeOrder() {
+    const loading = await this.adminService.presentLoading();
     if (!this.selectedAddress?._id) {
       console.log('address not found')
     }
@@ -81,12 +87,15 @@ export class CustomerOrderSummaryPage implements OnInit {
         if (res.success) {
           this.router.navigate(['/orders']);
         }
+        loading.dismiss()
       }, (err: any) => {
         if (err.status == 410) {
+          loading.dismiss()
           this.openAlert('OUT OF STOCK',
             "We're sorry, but some items in your order are currently out of stock. We're working to restock our inventory soon. Please remove the out-of-stock items or adjust the quantities, or contact our support team for further assistance. Thank you for your understanding.",
             ['close']);
         } else {
+          loading.dismiss()
           this.openAlert('ERROR', 'something went wrong please try again later', ['close']);
         }
       })
