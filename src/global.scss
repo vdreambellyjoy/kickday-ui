@@ -401,3 +401,19 @@ ion-toggle.ios {
     font-size: 14px;
     color: #333;
 }
+
+.kd_header_title_div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    padding: 0px 15px;
+}
+
+.cancel_icon {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    height: 24px;
+    width: 24px;
+}

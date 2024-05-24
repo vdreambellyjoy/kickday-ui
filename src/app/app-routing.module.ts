@@ -104,7 +104,28 @@ const routes: Routes = [
     path: 'search',
     loadChildren: () => import('./customer/search/search.module').then(m => m.SearchPageModule)
   },
+  {
+    path: 'contact-us',
+    loadChildren: () => import('./contact-us/contact-us.module').then(m => m.ContactUsPageModule)
+  },
+  {
+    path: 'privacy-policy',
+    loadChildren: () => import('./privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyPageModule)
+  },
+  {
+    path: 'terms-and-conditions',
+    loadChildren: () => import('./terms-and-conditions/terms-and-conditions.module').then(m => m.TermsAndConditionsPageModule)
+  },
+  {
+    path: 'shipping-and-delivery-policy',
+    loadChildren: () => import('./shipping-and-delivery-policy/shipping-and-delivery-policy.module').then(m => m.ShippingAndDeliveryPolicyPageModule)
+  },
+  {
+    path: 'cancellation-and-refund-policy',
+    loadChildren: () => import('./cancellation-and-refund-policy/cancellation-and-refund-policy.module').then(m => m.CancellationAndRefundPolicyPageModule)
+  },
   { path: '**', redirectTo: 'customerListings', pathMatch: 'full' },
+
 ];
 
 @NgModule({

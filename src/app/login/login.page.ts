@@ -103,4 +103,24 @@ export class LoginPage implements OnInit {
     }
   }
 
+  navigateToContatUs() {
+    this.route.navigate(['/contact-us'])
+  }
+
+  navigateToPrivacyPolicy() {
+    this.route.navigate(['/privacy-policy'])
+  }
+
+  navigateToTermsAndConditions() {
+    this.route.navigate(['/terms-and-conditions'])
+  }
+
+  navigateToShippingAndDeliveyPolicy() {
+    this.route.navigate(['/shipping-and-delivery-policy'])
+  }
+
+  navigateToCancellationANdRefundPolicy() {
+    this.route.navigate(['/cancellation-and-refund-policy'])
+  }
+
 }
