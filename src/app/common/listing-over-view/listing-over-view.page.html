@@ -65,17 +65,22 @@
       </ion-col>
     </ion-row>
 
-    <ion-row style="margin-top: 10px;">
-      <ion-col size="2.5">
-        <ion-text>Amount</ion-text>
+    <ion-row style="margin-top: 10px;" class="kd_orders_card">
+      <ion-col size="6">
+        <ion-text>Total Earned : <span style="color: green; font-weight: bold;">&#8377;
+            {{listingData?.totalEarnings}}</span></ion-text>
       </ion-col>
-      <ion-col size="7" class="kd_center_align">
-        <ion-text><span style="padding-right: 10px;">&#8377; 0</span> - <span
-            style="padding-left: 10px;padding-right: 10px;">&#8377; 0({{listingData?.makerData?.commission ||
-            0}}%)</span> =</ion-text>
+      <ion-col size="4" class="kd_center_align">
+        <ion-text>Kickday : <span style="color: red; font-weight: bold;">&#8377;
+            {{listingData?.totalCommisionAmount}}</span></ion-text>
       </ion-col>
-      <ion-col size="2.5">
-        <ion-text>&#8377; 0</ion-text>
+      <ion-col size="6">
+        <ion-text>Delivery : <span style="color: red; font-weight: bold;">&#8377;
+            {{listingData?.totalDeliveryCost}}</span></ion-text>
+      </ion-col>
+      <ion-col size="6">
+        <ion-text>GST : <span style="color: red; font-weight: bold;">&#8377;
+            {{listingData?.totalGstAmount}}</span></ion-text>
       </ion-col>
     </ion-row>
   </div>
@@ -110,7 +115,7 @@
         </ion-col>
 
         <ion-col size="2.5">
-          <ion-text class="kd_bold_font">&#8377; {{order.finalPrice}}</ion-text> <br>
+          <ion-text class="kd_bold_font">&#8377; {{order.itemsCostIncludingCharges}}</ion-text> <br>
           <!-- <ion-text>Pay through wallet</ion-text> -->
         </ion-col>
 

@@ -86,6 +86,10 @@ export class AdminService {
   changeOrderStatus(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/maker/changeOrderStatus", data);
   }
+
+  toggleMakerStatus(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/maker/toggleMakerStatus", data);
+  }
   // maker page API END
 
 

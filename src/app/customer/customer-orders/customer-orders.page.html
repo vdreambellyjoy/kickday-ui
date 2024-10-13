@@ -1,6 +1,6 @@
 <ion-header [translucent]="true" style="box-shadow: none; background: white;">
   <ion-row>
-    <ion-col class="kd_center_align_items">
+    <ion-col class="kd_center_align_items" style="padding: 12px 0px;">
       <ion-icon name="bag-handle-outline" class="kd_svg_size padd_left"></ion-icon>
       <ion-text style="padding-left: 10px;">Orders</ion-text>
     </ion-col>
@@ -74,7 +74,7 @@
         </ion-col>
 
         <ion-col class="kd_flex kd_end_align" size="3">
-          <ion-text style="font-weight: bold;">&#8377; {{order.totalPrice}}</ion-text>
+          <ion-text style="font-weight: bold;">&#8377; {{order.itemsCostIncludingCharges}}</ion-text>
         </ion-col>
       </ion-row>
 

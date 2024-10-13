@@ -67,6 +67,16 @@
 
           <ion-row class="kd_flex kd_center_align">
             <ion-col size="8">
+              <ion-text style="font-size: 14px; color: #777;">GST</ion-text>
+            </ion-col>
+
+            <ion-col size="4" class="kd_flex kd_end_align">
+              <ion-text style="font-size: 14px; color: #555;">&#8377; {{orderData.gstAmount}}</ion-text>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="kd_flex kd_center_align">
+            <ion-col size="8">
               <ion-text style="font-size: 14px; color: #777;">Delivery ({{orderData.deliveryOption.type}})</ion-text>
             </ion-col>
 
@@ -75,15 +85,6 @@
             </ion-col>
           </ion-row>
 
-          <ion-row class="kd_flex kd_center_align">
-            <ion-col size="8">
-              <ion-text style="font-size: 14px; color: #777;">GST</ion-text>
-            </ion-col>
-
-            <ion-col size="4" class="kd_flex kd_end_align">
-              <ion-text style="font-size: 14px; color: #555;">$0</ion-text>
-            </ion-col>
-          </ion-row>
 
           <ion-row class="kd_flex kd_center_align">
             <ion-col size="8">
@@ -91,7 +92,7 @@
             </ion-col>
 
             <ion-col size="4" class="kd_flex kd_end_align">
-              <ion-text style="font-size: 16px; font-weight: bold;">${{orderData.totalPrice}}</ion-text>
+              <ion-text style="font-size: 16px; font-weight: bold;">${{orderData.itemsCostIncludingCharges}}</ion-text>
             </ion-col>
           </ion-row>
 

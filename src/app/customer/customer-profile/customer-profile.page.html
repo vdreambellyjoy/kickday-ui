@@ -20,6 +20,14 @@
         </div>
       </ion-col>
     </ion-row>
+    <ion-row style="border-bottom: none !important; width: 100%;text-align: center;"
+      *ngIf="userData?.primaryRole === 'maker'">
+      <ion-col class="text_center" style="margin-top: 0px">
+        <ion-toggle aria-label="Dark toggle" color="success" [(ngModel)]="isToggleChecked" (ionChange)="toggleChanged()"
+          style="padding-top: 15px;"></ion-toggle> <br>
+        <ion-text>Switch to Maker</ion-text>
+      </ion-col>
+    </ion-row>
     <form [formGroup]="userDataForm">
       <div>
         <ion-card style="display: grid; align-items: center;" class="input_selection">

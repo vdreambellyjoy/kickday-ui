@@ -17,20 +17,22 @@
     <ion-item *ngFor="let address of addressList" (click)='selectAddress(address);' lines="none"
       style="padding: 16px; padding-right: 0px">
       <div class="address-card">
-        <ion-avatar slot="start">
-          <ion-icon name="location-outline" [style.color]="address.default ? '#946142' : 'grey'"
-            style="padding-right: 10px;"></ion-icon>
-        </ion-avatar>
-        <ion-label>
-          <h2>{{address.name}}</h2>
-          <p>{{address.address}}</p>
-          <p>{{address.LocationUrl}}</p>
-          <p>{{address.email}}</p>
-          <p>{{address.mobile}}</p>
-          <a *ngIf="!address.default" (click)='makeDefaultAddresses(address._id);$event.stopPropagation()'>
-            Set as Default
-          </a>
-        </ion-label>
+        <div style="justify-content: start; display: flex; align-items: center;">
+          <ion-avatar slot="start">
+            <ion-icon name="location-outline" [style.color]="address.default ? '#946142' : 'grey'"
+              style="padding-right: 10px;"></ion-icon>
+          </ion-avatar>
+          <ion-label>
+            <h2>{{address.name}}</h2>
+            <p>{{address.address}}</p>
+            <p>{{address.LocationUrl}}</p>
+            <p>{{address.email}}</p>
+            <p>{{address.mobile}}</p>
+            <a *ngIf="!address.default" (click)='makeDefaultAddresses(address._id);$event.stopPropagation()'>
+              Set as Default
+            </a>
+          </ion-label>
+        </div>
         <ion-icon class="delete-icon" name='trash-outline'
           (click)='deleteAddress(address._id);;$event.stopPropagation()' *ngIf="!address.default"></ion-icon>
       </div>

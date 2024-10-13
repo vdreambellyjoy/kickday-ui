@@ -10,7 +10,7 @@ register();
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private platform: Platform, private route: Router) {}
+  constructor(private platform: Platform, private route: Router) { }
 
   ngOnInit() {
     this.platform.ready().then((res) => {

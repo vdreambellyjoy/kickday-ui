@@ -16,6 +16,7 @@ export class CustomerProfilePage implements OnInit {
   userDataForm: FormGroup;
   userData: any;
   edit: any = false;
+  isToggleChecked: Boolean = false;
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -39,6 +40,7 @@ export class CustomerProfilePage implements OnInit {
   async ionViewWillEnter() {
     let userDataCopy: any = localStorage.getItem('userData');
     this.userData = JSON.parse(userDataCopy) || {};
+    this.isToggleChecked = false;
 
     if (this.userData.profileId) {
       this.edit = true;
@@ -64,6 +66,18 @@ export class CustomerProfilePage implements OnInit {
         city: this.userData.address,
       });
     }
+  }
+
+  toggleChanged() {
+    this.adminService.toggleMakerStatus({ value: false }).subscribe((res: any) => {
+      if (res.success && res.userData) {
+        localStorage.setItem('userData', JSON.stringify(res.userData));
+        localStorage.removeItem("order");
+        this.router.navigate(['/makerDashboard']);
+      }
+    }, ((err: any) => {
+      console.log('error at updating role', err.message);
+    }))
   }
 
   onFileSelected(event: any) {

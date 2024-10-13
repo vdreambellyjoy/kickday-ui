@@ -33,7 +33,7 @@
 
 
     <ion-row>
-      <ion-col class="kd_center_align_items" size="5" style="margin: 10px 0px; font-weight: bold;">
+      <ion-col class="kd_center_align_items" style="margin: 10px 0px; font-weight: bold;">
         <ion-icon class="icon_style" style="padding-right: 6px;" name="bag-handle-outline"></ion-icon>
         <ion-text>{{ listingData?.listingOrders?.[0]?.name }}</ion-text>
       </ion-col>
@@ -153,13 +153,13 @@
             [ngClass]="{'selected-button': selectedDeliveryType === option.type}">
             <ion-row>
               <ion-col class="kd_flex kd_center_align">
-                <ion-icon class="icon_style" style="padding-right: 5px;" name="home-outline"></ion-icon>
-                <ion-text style="font-size: 12px; font-weight: bold;">{{option.type}}</ion-text>
+                <ion-icon class="icon_style" style="padding-right: 5px; color: white;" name="home-outline"></ion-icon>
+                <ion-text style="font-size: 12px; font-weight: bold; color: white;">{{option.type}}</ion-text>
               </ion-col>
             </ion-row>
             <ion-row>
               <ion-col style="text-align: center;">
-                <ion-text class="kd_font_size_12">Delivery Available</ion-text>
+                <ion-text class="kd_font_size_12" style="color: white;">Delivery Available</ion-text>
               </ion-col>
             </ion-row>
           </button>

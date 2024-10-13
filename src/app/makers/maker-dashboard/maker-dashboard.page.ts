@@ -31,6 +31,7 @@ export class MakerDashboardPage implements OnInit {
     }
     else {
       this.userData = JSON.parse(data);
+      this.isToggleChecked = false;
       this.adminService.getMakerDashboardData({}).subscribe((res: any) => {
         if (res.success) {
           this.moneyEarned = res.moneyEarned;
@@ -43,7 +44,14 @@ export class MakerDashboardPage implements OnInit {
   }
 
   toggleChanged() {
-    !this.isToggleChecked;
+    this.adminService.toggleMakerStatus({ value: true }).subscribe((res: any) => {
+      if (res.success && res.userData) {
+        localStorage.setItem('userData', JSON.stringify(res.userData));
+        if (this.isToggleChecked) this.router.navigate(['/customerListings']);
+      }
+    }, ((err: any) => {
+      console.log('error at updating role', err.message);
+    }))
   }
 
   navigateToAllListings() {

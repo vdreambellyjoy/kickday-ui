@@ -21,6 +21,7 @@ export class CustomerListingOverviewPage {
   selectedDeliveryType: any;
   note: any = '';
   swiperHeight: string = '240px';
+  userData: any;
 
 
   constructor(
@@ -46,8 +47,10 @@ export class CustomerListingOverviewPage {
     this.totalCost = 0;
     this.selectedDeliveryType = '';
     this.note = '';
+    let data: any = localStorage.getItem('userData');
+    this.userData = JSON.parse(data);
     const loading = await this.adminService.presentLoading();
-    this.adminService.getListingForUser({ _id: this._id }).subscribe((res: any) => {
+    this.adminService.getListingForUser({ _id: this._id, userId: this.userData?._id || '' }).subscribe((res: any) => {
       if (res.success && res.data) {
         this.listingData = res.data || {};
         this.swiperHeight = '241px';
@@ -225,20 +228,31 @@ export class CustomerListingOverviewPage {
 
   shareLink() {
     if (navigator.share) {
-      const title = this.listingData.label || 'Title not available';
-      const orderEndsOn = this.listingData.orderEndsOn ? this.formatDate(this.listingData.orderEndsOn) : 'End date not available';
-      const orderDeliveredOn = this.listingData.orderDeliveredOn ? this.formatDate(this.listingData.orderDeliveredOn) : 'Delivered date not available';
-      const makerLocation = this.listingData.makerData?.address || 'Location not available';
+      const title = this.listingData?.listingOrders?.[0]?.name || '🍽️ Title not available';
+      const orderEndsOn = this.listingData.orderEndsOn ? this.formatDate(this.listingData.orderEndsOn) : '⏳ End date not available';
+      const orderDeliveredOn = this.listingData.orderDeliveredOn ? this.formatDate(this.listingData.orderDeliveredOn) : '📦 Delivered date not available';
+      const makerLocation = this.listingData.makerData?.address || '📍 Location not available';
 
-      let text = `Listing Details\n`;
-      text += `Title: ${title}\n`;
-      text += `Order Ends On: ${orderEndsOn}\n`;
-      text += `Order Delivered On: ${orderDeliveredOn}\n`;
-      text += `Location: ${makerLocation}\n`;
+      // Build a more engaging message
+      let text = `🍔✨ *Delicious Food Alert!* ✨🍕\n\n`;
+
+      text += `🍽️ *Item* : ${title}\n`;
+
+      text += `\n⏰ *Order Ends On* : ${orderEndsOn}\n`;
+
+      text += `📦 *Order Delivered On* : ${orderDeliveredOn}\n`;
+
+      text += `📍 *Location* : ${makerLocation}\n`;
+
+      // Fun call-to-action
+      text += `\n👉 *Order Now and Savor the Flavor!* 🍴💖\n`;
+
+      // Final call-to-action with the link
+      text += `\n🚀 *Check it out here* : ${location.href}\n`;
 
       navigator.share({
         text: text,
-        url: location.href
+        // url: location.href,
       })
         .then(() => console.log('Successful share'))
         .catch((error) => {
@@ -250,5 +264,6 @@ export class CustomerListingOverviewPage {
       alert('Web Share API not supported.');
     }
   }
+
 
 }

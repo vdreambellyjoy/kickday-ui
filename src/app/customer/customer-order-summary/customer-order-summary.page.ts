@@ -42,6 +42,7 @@ export class CustomerOrderSummaryPage implements OnInit {
     this.adminService.getCustomerOrderSummary({ _id: this._id }).subscribe((res: any) => {
       if (res.success && res.data) {
         this.orderData = res.data;
+        this.orderData.gst = Math.round((5 / 100) * this.orderData?.finalCostWithOutDeliveryOption);
       } else {
         this.orderData = false;
       }
@@ -78,12 +79,12 @@ export class CustomerOrderSummaryPage implements OnInit {
   }
 
   async placeOrder() {
-    const loading = await this.adminService.presentLoading();
     if (!this.selectedAddress?._id) {
       console.log('address not found')
     }
     else {
-      this.adminService.placeOrder({ _id: this._id, deliveryAddress: this.selectedAddress }).subscribe((res: any) => {
+      const loading = await this.adminService.presentLoading();
+      this.adminService.placeOrder({ _id: this._id, deliveryAddress: { ...this.selectedAddress, commision: this.orderData?.makerData?.commission || 0 } }).subscribe((res: any) => {
         if (res.success) {
           this.router.navigate(['/orders']);
         }
