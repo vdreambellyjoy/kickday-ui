@@ -57,6 +57,11 @@ export class OrdersOverviewPage implements OnInit {
 
   getSanitizedLocationUrl(): SafeHtml {
     let locationUrl = this.orderData?.deliveryAddress?.LocationUrl || '';
+    if (this.orderData?.deliveryOption?.type != "Pickup Available") {
+      locationUrl = this.orderData?.deliveryAddress?.LocationUrl;
+    } else {
+      locationUrl = this.orderData?.listingData?.address;
+    }
     if (!locationUrl && this.orderData && this.orderData.deliveryAddress) {
       locationUrl = this.orderData.deliveryAddress.LocationUrl || '';
     }
@@ -64,8 +69,10 @@ export class OrdersOverviewPage implements OnInit {
   }
 
   redirectToGoogleMaps() {
-    if (this.orderData?.deliveryAddress?.LocationUrl) {
+    if (this.orderData.deliveryOption?.type != "Pickup Available" && this.orderData?.deliveryAddress?.LocationUrl) {
       window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(this.orderData?.deliveryAddress?.LocationUrl)}`, '_blank');
+    } else {
+      window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(this.orderData?.listingData?.address)}`, '_blank');
     }
   }
 

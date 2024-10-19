@@ -22,6 +22,9 @@ export class CustomerListingOverviewPage {
   note: any = '';
   swiperHeight: string = '240px';
   userData: any;
+  atleastOneItemErrorMsg: any;
+  deliveryOptionErrorMsg: any;
+
 
 
   constructor(
@@ -78,6 +81,14 @@ export class CustomerListingOverviewPage {
 
   selectDeliveryType(type: any) {
     this.selectedDeliveryType = type;
+    this.checkIfDeliveryOptionSelected();
+  }
+
+  // Check if a valid delivery option is selected and clear the error message
+  checkIfDeliveryOptionSelected() {
+    if (this.selectedDeliveryType) {
+      this.deliveryOptionErrorMsg = '';
+    }
   }
 
 
@@ -114,6 +125,7 @@ export class CustomerListingOverviewPage {
         order.count = (order.count || 0) + 1;
         order.individualItemCost = order.price * order.count || 0;
         this.calculateTotalCost();
+        this.checkIfItemsAdded();
       }
     } else {
       console.warn('Order object or its properties are undefined or missing.');
@@ -125,6 +137,7 @@ export class CustomerListingOverviewPage {
       order.count--;
       order.individualItemCost = order.price * order.count || 0;
       this.calculateTotalCost();
+      this.checkIfItemsAdded();
     }
   }
 
@@ -132,6 +145,12 @@ export class CustomerListingOverviewPage {
     this.totalCost = this.listingData.listingOrders.reduce((sum: number, order: any) => {
       return sum + order.individualItemCost || 0;
     }, 0);
+  }
+
+  // Check if at least one item is added and clear the error message if so
+  checkIfItemsAdded() {
+    const hasItems = this.listingData.listingOrders.some((order: any) => order.count > 0);
+    this.atleastOneItemErrorMsg = hasItems ? '' : 'Add at least 1 item';
   }
 
   addToCart() {
@@ -145,6 +164,26 @@ export class CustomerListingOverviewPage {
       finalCostWithOutDeliveryOption: this.totalCost,
       orderedItems: orderedItems
     }
+
+    // Check if at least one item is added
+    if (orderedItems.length === 0) {
+      this.atleastOneItemErrorMsg = "Add at least 1 item";
+      console.log("Add at least 1 item");
+      return;
+    }
+
+    // Clear the error message if at least one item is added
+    this.atleastOneItemErrorMsg = '';
+
+    if (!this.selectedDeliveryType) {
+      this.deliveryOptionErrorMsg = "Please select delivery option";
+      console.log("Please select delivery option");
+      return;
+    }
+
+    // Clear the error message if a valid delivery option is selected
+    this.deliveryOptionErrorMsg = '';
+
     if (this.totalCost && this.selectedDeliveryType) {
       if (localStorage.getItem('token') && localStorage.getItem('userData')) {
         let localToken: any = localStorage.getItem('token');
@@ -168,7 +207,8 @@ export class CustomerListingOverviewPage {
         this.router.navigate(['/login']);
       }
     } else {
-      console.log("Please select")
+      this.deliveryOptionErrorMsg = "Please select delivery option"
+      console.log("Please select delivery option")
     }
   }
 
@@ -227,11 +267,13 @@ export class CustomerListingOverviewPage {
   }
 
   shareLink() {
+    console.log(this.listingData, "Shareeeee");
+
     if (navigator.share) {
       const title = this.listingData?.listingOrders?.[0]?.name || '🍽️ Title not available';
       const orderEndsOn = this.listingData.orderEndsOn ? this.formatDate(this.listingData.orderEndsOn) : '⏳ End date not available';
       const orderDeliveredOn = this.listingData.orderDeliveredOn ? this.formatDate(this.listingData.orderDeliveredOn) : '📦 Delivered date not available';
-      const makerLocation = this.listingData.makerData?.address || '📍 Location not available';
+      const makerLocation = this.listingData?.address || '📍 Location not available';
 
       // Build a more engaging message
       let text = `🍔✨ *Delicious Food Alert!* ✨🍕\n\n`;

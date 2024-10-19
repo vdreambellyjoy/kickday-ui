@@ -33,5 +33,11 @@ button[disabled] {
 }
 
 button {
-    background-color: lightgray;
+    background-color: gray;
+}
+
+.selected-status {
+    border: solid 2px green;
+    /* Change this to match your color scheme */
+    background-color: #d4edda;
 }

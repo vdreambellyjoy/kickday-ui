@@ -25,52 +25,72 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="filteredItems?.length">
-
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <ion-card class="kd_orders_card" style="margin: 20px" *ngFor="let listing of filteredItems"
-    (click)="goToListingOverview(listing)">
-    <swiper-container style="height: 240px" #swiper (afterinit)="swiperReady()"
-      (slidechange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true" [slidesPerView]="1"
-      [slidesPerGroup]="1">
-      <swiper-slide *ngFor="let image of listing.imageArray">
-        <img [src]="image | getLogo | async" />
-      </swiper-slide>
-      <!-- <swiper-slide>
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/7Y5q41D8_hs" frameborder="0"
-          allowfullscreen (press)="handlePress($event)"></iframe>
-      </swiper-slide> -->
-    </swiper-container>
-
-    <!-- <ion-row style="padding: 10px" style="font-weight: bold">
-      <ion-col class="kd_flex">
-        <ion-text class="kd_main_heading">{{listing.label}}</ion-text>
-      </ion-col>
-    </ion-row> -->
-    <ion-row style="padding: 10px">
-      <ion-col class="kd_flex">
-        <div class="first_letter_styles">
-          <ion-text style="font-weight: bold">{{listing?.makerData?.userName?.charAt(0) }}</ion-text>
-        </div>
-        <ion-text style="padding-left: 10px;"><span style="font-weight: bold">Maker</span>
-          <br />
-          <span class="kd_font_size_14">{{listing.makerData.userName}}</span> <br />
-          <span class="kd_font_size_14">{{listing.makerData.address}}</span></ion-text>
-      </ion-col>
-      <ion-col class="kd_flex kd_end_align">
-        <div>
-          <!-- <ion-text>{{listing.label}}</ion-text> <br> -->
-          <ion-text style="font-weight: bold">Order Ends on</ion-text>
-          <div class="kd_flex" style="padding-top: 5px">
-            <ion-icon class="icon_style" style="height: 20px; width: 20px" name="calendar-outline"></ion-icon>
-            <ion-text style="font-size: 14px !important">{{listing.orderEndsOn | date:'dd MMMM EEE hh:mm a'}}</ion-text>
+  <!-- Skeleton Loader for Listings -->
+  <div *ngIf="isLoading || !imagesLoaded">
+    <ion-card class="kd_orders_card" style="margin: 20px" *ngFor="let listing of filteredItems">
+      <ion-skeleton-text animated style="width: 100%; height: 240px;"></ion-skeleton-text>
+      <ion-row style="padding: 10px">
+        <ion-col class="kd_flex">
+          <div class="first_letter_styles">
+            <ion-skeleton-text animated style="width: 40px; height: 40px; border-radius: 50%;"></ion-skeleton-text>
           </div>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-card>
+          <ion-text style="padding-left: 10px;">
+            <ion-skeleton-text animated style="width: 100px;"></ion-skeleton-text>
+            <br />
+            <ion-skeleton-text animated style="width: 150px;"></ion-skeleton-text>
+          </ion-text>
+        </ion-col>
+        <ion-col class="kd_flex kd_end_align">
+          <div>
+            <ion-skeleton-text animated style="width: 100px;"></ion-skeleton-text>
+            <div class="kd_flex" style="padding-top: 5px">
+              <ion-skeleton-text animated style="width: 20px; height: 20px; border-radius: 50%;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 150px; margin-left: 10px;"></ion-skeleton-text>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+
+  <!-- Actual Content -->
+  <div *ngIf="!isLoading || imagesLoaded">
+    <ion-card class="kd_orders_card" style="margin: 20px" *ngFor="let listing of filteredItems"
+      (click)="goToListingOverview(listing)">
+      <swiper-container style="height: 240px" #swiper (afterinit)="swiperReady()"
+        (slidechange)="swiperSlideChanged($event)" [loop]="true" [pagination]="true" [slidesPerView]="1"
+        [slidesPerGroup]="1">
+        <swiper-slide *ngFor="let image of listing.imageArray">
+          <img [src]="image | getLogo | async" (load)="onImageLoad()" />
+        </swiper-slide>
+      </swiper-container>
+      <ion-row style="padding: 10px">
+        <ion-col class="kd_flex">
+          <div class="first_letter_styles">
+            <ion-text style="font-weight: bold">{{listing?.makerData?.userName?.charAt(0) }}</ion-text>
+          </div>
+          <ion-text style="padding-left: 10px;"><span style="font-weight: bold">Maker</span>
+            <br />
+            <span class="kd_font_size_14">{{listing.makerData.userName}}</span> <br />
+            <span class="kd_font_size_14">{{listing.makerData.address}}</span></ion-text>
+        </ion-col>
+        <ion-col class="kd_flex kd_end_align">
+          <div>
+            <ion-text style="font-weight: bold">Order Ends on</ion-text>
+            <div class="kd_flex" style="padding-top: 5px">
+              <ion-icon class="icon_style" style="height: 20px; width: 20px" name="calendar-outline"></ion-icon>
+              <ion-text style="font-size: 14px !important">{{listing.orderEndsOn | date:'dd MMMM EEE hh:mm
+                a'}}</ion-text>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
   <div style="height: 100px;" *ngIf="showMenu"></div>
 </ion-content>
 

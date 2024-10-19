@@ -14,6 +14,7 @@ export class CustomerOrderDetailsPage implements OnInit {
   _id: any = '';
   userData: any = {};
   orderData: any = {};
+  selectedStatus: string = '';
 
   confirmedDisabled: boolean = false;
   dispatchedDisabled: boolean = false;
@@ -36,10 +37,12 @@ export class CustomerOrderDetailsPage implements OnInit {
     this.adminService.getCustomerOrders({ _id: this._id }).subscribe((res: any) => {
       if (res.success && res.data) {
         this.orderData = res.data;
-        console.log(this.orderData, "order Dataaaa");
-
-        // Update disabled status based on order status
-        this.updateDisabledStatus();
+        console.log(this.orderData, "order Dataaaa", this.orderData[0].status);
+        this.selectedStatus = this.orderData[0].status;
+        // const savedStatus = localStorage.getItem('selectedStatus');
+        // if (savedStatus) {
+        //   this.selectedStatus = savedStatus;
+        // }
       }
       loading.dismiss()
     }, (err) => {
@@ -58,17 +61,10 @@ export class CustomerOrderDetailsPage implements OnInit {
 
   changeStatus(status: any) {
     console.log(status);
-    if (status === 'Dispatched') {
-      this.confirmedDisabled = true;
-    } else if (status === 'Delivered') {
-      this.confirmedDisabled = true;
-      this.dispatchedDisabled = true;
-      this.cancelledDisabled = true;
-    } else if (status === 'Cancelled') {
-      this.confirmedDisabled = true;
-      this.dispatchedDisabled = true;
-      this.deliveredDisabled = true;
-    }
+    this.selectedStatus = status;
+
+    // Save the selected status to local storage if needed
+    localStorage.setItem('selectedStatus', status);
 
     this.adminService.changeOrderStatus({ status: status, _id: this._id }).subscribe((res: any) => {
 
@@ -104,19 +100,5 @@ export class CustomerOrderDetailsPage implements OnInit {
       locationUrl = this.orderData[0]?.deliveryAddress.LocationUrl || '';
     }
     return this.sanitizer.bypassSecurityTrustHtml(locationUrl.replace(/,/g, ',<br>'));
-  }
-
-  private updateDisabledStatus() {
-    if (this.orderData.status === 'Dispatched') {
-      this.confirmedDisabled = true;
-    } else if (this.orderData.status === 'Delivered') {
-      this.confirmedDisabled = true;
-      this.dispatchedDisabled = true;
-      this.cancelledDisabled = true;
-    } else if (this.orderData.status === 'Cancelled') {
-      this.confirmedDisabled = true;
-      this.dispatchedDisabled = true;
-      this.deliveredDisabled = true;
-    }
   }
 }

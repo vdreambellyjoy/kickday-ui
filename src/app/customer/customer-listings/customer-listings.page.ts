@@ -18,8 +18,11 @@ export class CustomerListingsPage implements OnInit {
   swiper?: Swiper;
 
   selectedSegment: string = 'All';
-  listings: any;
+  listings: any[] = [];
   filteredItems: any[] = [];
+  isLoading = true; // Default to true
+  imagesLoaded: boolean = false;
+  loadedImagesCount: number = 0;
 
   filterSearchTerm: string = '';
   filterDeliveryType: string = '';
@@ -32,11 +35,14 @@ export class CustomerListingsPage implements OnInit {
     private alert: AlertController,
     private adminService: AdminService,
     private authService: AuthServiceService
-  ) { }
+  ) {
+    this.filteredItems = this.listings;
+  }
 
   ngOnInit() { }
 
   async ionViewWillEnter() {
+    this.isLoading = true; // Set loading to true while data is being fetched
     const loading = await this.adminService.presentLoading();
     this.filterSearchTerm = '';
     this.filterDeliveryType = '';
@@ -44,11 +50,13 @@ export class CustomerListingsPage implements OnInit {
     this.adminService.getAllListingsForCustomer({}).subscribe(
       (res: any) => {
         this.listings = res.data || [];
-        this.filteredItems = this.listings
+        this.filteredItems = this.listings;
+        this.isLoading = false; // Set loading to false once data is fetched
         loading.dismiss()
       },
       (err: any) => {
         console.log(err);
+        this.isLoading = false; // Set loading to false in case of error
         loading.dismiss()
       }
     );
@@ -71,6 +79,27 @@ export class CustomerListingsPage implements OnInit {
       this.showMenu = false;
     }
     this.swiperReady();
+  }
+
+  onImageLoad() {
+    this.loadedImagesCount++;
+    console.log(`Image loaded. Count: ${this.loadedImagesCount}`);
+    if (this.loadedImagesCount === this.getTotalImageCount()) {
+      this.imagesLoaded = true;
+      console.log('All images loaded.');
+    }
+  }
+
+  getTotalImageCount(): number {
+    let total = 0;
+    this.filteredItems.forEach(item => {
+      total += (item.imageArray && item.imageArray.length) ? item.imageArray.length : 0;
+    });
+    if (total === 0) {
+      this.imagesLoaded = true; // If there are no images, set imagesLoaded to true
+    }
+    console.log(`Total image count: ${total}`);
+    return total;
   }
 
   handlePress(event: any) {

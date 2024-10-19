@@ -138,6 +138,12 @@
     </ion-row>
 
     <ion-row>
+      <ion-col>
+        <ion-text style="color: red; font-size: 12px;">{{atleastOneItemErrorMsg}}</ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
       <ion-col style="padding: 15px 5px;">
         <ion-textarea class="custom-textarea" placeholder="Note" [(ngModel)]="note"></ion-textarea>
       </ion-col>
@@ -165,6 +171,12 @@
           </button>
         </div>
       </ion-toolbar>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-text style="color: red; font-size: 12px;">{{deliveryOptionErrorMsg}}</ion-text>
+      </ion-col>
     </ion-row>
 
     <ion-row>

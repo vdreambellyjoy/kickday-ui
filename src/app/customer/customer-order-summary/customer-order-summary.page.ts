@@ -84,22 +84,52 @@ export class CustomerOrderSummaryPage implements OnInit {
     }
     else {
       const loading = await this.adminService.presentLoading();
-      this.adminService.placeOrder({ _id: this._id, deliveryAddress: { ...this.selectedAddress, commision: this.orderData?.makerData?.commission || 0 } }).subscribe((res: any) => {
-        if (res.success) {
-          this.router.navigate(['/orders']);
-        }
-        loading.dismiss()
-      }, (err: any) => {
-        if (err.status == 410) {
-          loading.dismiss()
-          this.openAlert('OUT OF STOCK',
-            "We're sorry, but some items in your order are currently out of stock. We're working to restock our inventory soon. Please remove the out-of-stock items or adjust the quantities, or contact our support team for further assistance. Thank you for your understanding.",
-            ['close']);
-        } else {
-          loading.dismiss()
-          this.openAlert('ERROR', 'something went wrong please try again later', ['close']);
-        }
-      })
+      try {
+        let amount = this.orderData?.finalCostWithOutDeliveryOption + (this.orderData?.deliveryOption?.price || 0) + this.orderData?.gst || 0
+        // let amount = 1
+        this.adminService.createOrderInRazorPay({ _id: this.orderData._id, amount: amount * 100, receipt: 'order_rcptid_11', currency: "INR" }).subscribe((details: any) => {
+          let razorPayOrderDetails = details.order || {}
+          if (details.success && razorPayOrderDetails.id) {
+            this.adminService.payWithRazorpay(razorPayOrderDetails.id, amount, this.orderData._id).then(paymentDetails => {
+              if (paymentDetails) {
+                this.adminService.placeOrder({ _id: this._id, paymentDetails: paymentDetails, deliveryAddress: { ...this.selectedAddress, commision: this.orderData?.makerData?.commission || 0 } }).subscribe((res: any) => {
+                  loading.dismiss()
+                  if (res.success) this.router.navigate(['/orders']);
+                }, (err: any) => {
+                  if (err.status == 410) {
+                    loading.dismiss()
+                    this.openAlert('OUT OF STOCK',
+                      "We're sorry, but some items in your order are currently out of stock. We're working to restock our inventory soon. Please remove the out-of-stock items or adjust the quantities, or contact our support team for further assistance. Thank you for your understanding.",
+                      ['close']);
+                  } else {
+                    loading.dismiss()
+                    this.openAlert('ERROR', 'something went wrong please try again later', ['close']);
+                  }
+                })
+              } else {
+                loading.dismiss();
+                this.adminService.savePaymentFailedDetails({ tempOrderId: this.orderData._id, razorPayOrderDetails: razorPayOrderDetails, ...paymentDetails }).subscribe(resp => { console.log(resp) }, (err => { console.log(err) }))
+                // this.openAlert('ERROR', `${err.message}`, ['close']);
+              }
+            }).catch(err => {
+              loading.dismiss();
+              this.adminService.savePaymentFailedDetails({ tempOrderId: this.orderData._id, razorPayOrderDetails: razorPayOrderDetails, ...err }).subscribe(resp => { console.log(resp) }, (err => { console.log(err) }))
+              this.openAlert('ERROR', `${err.message}`, ['close']);
+            })
+          } else {
+            loading.dismiss();
+            this.openAlert('ERROR', 'something went wrong please try again later', ['close']);
+          }
+        }, (err => {
+          loading.dismiss();
+          this.openAlert('ERROR', `${err.message}`, ['close']);
+        }));
+
+      } catch (err) {
+        loading.dismiss();
+        console.log('Error creating order', err);
+      }
+
     }
   }
 
@@ -116,13 +146,23 @@ export class CustomerOrderSummaryPage implements OnInit {
 
   getSanitizedLocationUrl(): SafeHtml {
     let locationUrl = this.selectedAddress?.LocationUrl || '';
+    if (this.orderData.deliveryOption?.type != "Pickup Available") {
+      locationUrl = this.selectedAddress?.LocationUrl;
+    } else {
+      locationUrl = this.orderData?.listingData?.address;
+    }
     if (!locationUrl && this.orderData && this.orderData.deliveryAddress) {
       locationUrl = this.orderData.deliveryAddress.LocationUrl || '';
     }
     return this.sanitizer.bypassSecurityTrustHtml(locationUrl.replace(/,/g, ',<br>'));
   }
   async copyLocationUrl() {
-    const locationUrl = this.selectedAddress?.LocationUrl;
+    let locationUrl = this.selectedAddress?.LocationUrl;
+    if (this.orderData.deliveryOption?.type != "Pickup Available") {
+      locationUrl = this.selectedAddress?.LocationUrl;
+    } else {
+      locationUrl = this.orderData?.listingData?.address;
+    }
     if (locationUrl) {
       const tempInput = document.createElement('input');
       tempInput.value = locationUrl;
@@ -141,8 +181,10 @@ export class CustomerOrderSummaryPage implements OnInit {
   }
 
   redirectToGoogleMaps() {
-    if (this.selectedAddress?.LocationUrl) {
+    if (this.orderData.deliveryOption?.type != "Pickup Available" && this.selectedAddress?.LocationUrl) {
       window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(this.selectedAddress?.LocationUrl)}`, '_blank');
+    } else {
+      window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(this.orderData?.listingData?.address)}`, '_blank');
     }
   }
 

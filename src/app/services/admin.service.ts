@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment'
+declare var Razorpay: any;
 
 @Injectable({
   providedIn: 'root'
@@ -149,6 +150,63 @@ export class AdminService {
   placeOrder(data: any): Observable<any> {
     return this.http.post(environment.baseUrl + "/customer/placeOrder", data);
   }
+
+  createOrderInRazorPay(paymentDetails: any) {
+    return this.http.post(environment.baseUrl + "/customer/createOrderInRazorPay", paymentDetails);
+  }
+
+  async payWithRazorpay(orderId: string, amount: any, tempOrderId: any): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      const options = {
+        key: environment.razorpayKey,
+        amount: amount * 100,
+        currency: 'INR',
+        name: 'Vdream Innovations (OPC) private limited',
+        description: 'Vdream Innovations',
+        order_id: orderId,
+        handler: async (response: any) => {
+          try {
+            const verificationResponse: any = await this.verifyPayment({ verify: response });
+            let obj = { ...verificationResponse, ...response };
+            console.log({ obj })
+            resolve(obj);
+          } catch (error) {
+            console.log({ error })
+            reject(error);
+          }
+        },
+        prefill: { name: 'test', email: 'test', contact: 'test' },
+        theme: { color: '#3399cc' },
+        modal: {
+          ondismiss: () => {
+            reject({ message: "Your payment has been cancelled." });
+          },
+        },
+        retry: {
+          enabled: false,  // Disable retry option
+        },
+      };
+
+      const rzp = new Razorpay(options);
+      await rzp.on('payment.failed', async (response: any) => {
+        let error = response.error || response || {};
+        error.message = error.message || error.description;
+        rzp.close();
+        console.log('closed')
+        reject(error);
+      });
+      await rzp.open();
+    });
+  }
+
+  verifyPayment(paymentDetails: any) {
+    return this.http.post(environment.baseUrl + "/customer/verifyPaymentDetails", paymentDetails);
+  }
+
+  savePaymentFailedDetails(data: any): Observable<any> {
+    return this.http.post(environment.baseUrl + "/customer/savePaymentFailedDetails", data);
+  }
+
   // customer page API END
 
 

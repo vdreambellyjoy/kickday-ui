@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   // baseUrl: 'https://kickday.com/api',
   baseUrl: 'http://localhost:3800/kickDay',
+  razorpayKey: 'rzp_live_0y0pOT9U7y7zzf'
 };
 
 /*

@@ -1,3 +1,26 @@
 <ion-app>
+  <div *ngIf="showPrompt" class="prompt-slide-down"
+    style="z-index: 111; background: linear-gradient(45deg, #ce9a79, #e68c54, #e4732c); border-radius: 20px; padding: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); position: fixed; top: 0; left: 50%; transform: translateX(-50%); max-width: 400px; width: 90%; opacity: 0;">
+    <!-- Header Section -->
+    <div style="display: flex; align-items: center; justify-content: center; padding-bottom: 20px;">
+      <ion-icon name="arrow-down-circle-outline" style="height: 55px; width: 55px; color: #fff;"></ion-icon>
+      <ion-text style="font-size: 22px; padding-left: 10px; color: #fff; font-weight: bold;">Get Kickday on Your
+        Phone</ion-text>
+    </div>
+
+    <!-- Button Section -->
+    <div style="display: flex; justify-content: space-between;">
+      <ion-button (click)="openModal(false)" class="app-ion-button"
+        style="flex-grow: 1; --border-width: 0px; border-radius: 15px; color: #fff; font-weight: bold; padding: 12px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); transition: transform 0.2s;">
+        Cancel
+      </ion-button>
+      <ion-button (click)="openModal(true)" class="app-ion-button"
+        style="flex-grow: 1; --border-width: 0px;
+    --background: #ed7118; border-radius: 15px; color: #fff; font-weight: bold; padding: 12px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); transition: transform 0.2s;">
+        Install App
+      </ion-button>
+    </div>
+  </div>
+
   <ion-router-outlet></ion-router-outlet>
 </ion-app>

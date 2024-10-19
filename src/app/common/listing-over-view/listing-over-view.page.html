@@ -86,21 +86,27 @@
   </div>
 
   <ion-toolbar class="toolbar_styles">
-    <ion-segment [(ngModel)]="selectedSegment" mode="md">
+    <ion-segment [(ngModel)]="selectedSegment" mode="md" (ionChange)="changeSegment($event)">
       <ion-segment-button value="All">
         <ion-label>All</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="orderTaken">
+      <!-- <ion-segment-button value="Pending">
+        <ion-label>Pending</ion-label>
+      </ion-segment-button> -->
+      <ion-segment-button value="confirmed">
         <ion-label>Confirmed</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="dispached">
+      <ion-segment-button value="Dispatched">
         <ion-label>Dispached</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="pickupDelivered">
+      <ion-segment-button value="Delivered">
         <ion-label>Delivered</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="cancelled">
+      <ion-segment-button value="Cancelled">
         <ion-label>Cancelled</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="pickUp">
+        <ion-label>PickUp</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>

@@ -2,8 +2,8 @@
   <ion-toolbar class="kd_transperent_header">
     <ion-row style="padding: 10px;">
       <ion-col class="kd_col_center_align">
-        <ion-icon name="grid-outline" style="height: 30px; width: 30px; padding-right: 10px;"></ion-icon>
-        <ion-text>Dashboard</ion-text>
+        <ion-icon name="person-circle-outline" style="height: 30px; width: 30px; padding-right: 10px;"></ion-icon>
+        <ion-text>Profile</ion-text>
       </ion-col>
       <ion-col class="kd_flex kd_end_align" style="align-items: center;">
         <ion-text style="margin-right: 10px;" (click)="logOut()">Logout</ion-text>
@@ -30,13 +30,15 @@
 
       <ion-row>
         <ion-col class="text_center" (click)="editMaker()">
-          <img src="../../../assets/edit-text.png" alt="" style="height: 40px; width: 40px; margin-bottom: 15px;"> <br>
+          <!-- <img src="../../../assets/edit-text.png" alt="" style="height: 40px; width: 40px; margin-bottom: 15px;"> <br> -->
+          <ion-icon style="height: 40px; width: 40px;" name="people-outline"></ion-icon>
+          <br>
           <ion-text>Edit Profile</ion-text>
         </ion-col>
       </ion-row>
 
       <ion-row>
-        <ion-col class="text_center">
+        <ion-col class="text_center" (click)="navigateToAllListings()">
           <ion-text class="kd_main_heading" style="font-size: 45px;">{{listingsCount}}</ion-text><br>
           <ion-text style="top: 5px; position: relative;">Listings</ion-text>
         </ion-col>

@@ -19,7 +19,7 @@
     <ion-toolbar class="scroll_width">
       <div style="overflow-x: auto; white-space: nowrap; display: flex; margin: 5px;">
         <button style="border: solid 2px; border-radius: 14px; padding: 10px 0px; margin-right: 15px;"
-          (click)="changeStatus('confirmed')" [disabled]="confirmedDisabled">
+          (click)="changeStatus('confirmed')" [ngClass]="{'selected-status': selectedStatus === 'confirmed'}">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
               <ion-icon class="icon_style" style="padding-right: 5px; color: blue;" name="home"></ion-icon>
@@ -34,22 +34,28 @@
         </button>
 
         <button style="border: solid 2px; border-radius: 14px; padding: 10px 0px; margin-right: 15px;"
-          (click)="changeStatus('Dispatched')" [disabled]="dispatchedDisabled">
+          (click)="changeStatus('Dispatched')" [ngClass]="{'selected-status': selectedStatus === 'Dispatched'}">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
               <ion-icon class="icon_style" style="padding-right: 5px; color: #e6cc00;" name="home"></ion-icon>
-              <ion-text style="font-size: 12px; font-weight: bold;">Order Dispatched</ion-text>
+              <ion-text style="font-size: 12px; font-weight: bold;"
+                *ngIf="orderData[0]?.deliveryOption?.type !== 'Pickup Available'">Order Dispatched</ion-text>
+              <ion-text style="font-size: 12px; font-weight: bold;"
+                *ngIf="orderData[0]?.deliveryOption?.type === 'Pickup Available'">Order Pickup</ion-text>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col style="text-align: center;">
-              <ion-text class="kd_font_size_12">Mark as <br> Order Dispatched</ion-text>
+              <ion-text *ngIf="orderData[0]?.deliveryOption?.type !== 'Pickup Available'" class="kd_font_size_12">Mark
+                as <br> Order Dispatched</ion-text>
+              <ion-text *ngIf="orderData[0]?.deliveryOption?.type === 'Pickup Available'" class="kd_font_size_12">Mark
+                as <br> Order Pickup</ion-text>
             </ion-col>
           </ion-row>
         </button>
 
         <button style="border: solid 2px; border-radius: 14px; padding: 10px 0px; margin-right: 15px;"
-          (click)="changeStatus('Delivered')" [disabled]="deliveredDisabled">
+          (click)="changeStatus('Delivered')" [ngClass]="{'selected-status': selectedStatus === 'Delivered'}">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
               <ion-icon class="icon_style" style="padding-right: 5px; color: green;" name="home"></ion-icon>
@@ -64,7 +70,7 @@
         </button>
 
         <button style="border: solid 2px; border-radius: 14px; padding: 10px 0px" (click)="changeStatus('Cancelled')"
-          [disabled]="cancelledDisabled">
+          [ngClass]="{'selected-status': selectedStatus === 'Cancelled'}">
           <ion-row>
             <ion-col class="kd_flex kd_center_align">
               <ion-icon class="icon_style" style="padding-right: 5px; color: red;" name="home"></ion-icon>

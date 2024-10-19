@@ -15,6 +15,7 @@ export class ListingOverViewPage implements OnInit {
   listingData: any = {};
   selectedSegment: string = 'All';
   isToggleChecked: any = false;
+  orderData: any = [];
 
   constructor(
     private router: Router,
@@ -31,7 +32,10 @@ export class ListingOverViewPage implements OnInit {
     this.adminService.getListingBasedOnId({ _id: this._id }).subscribe((res: any) => {
       if (res.success && res.data) {
         this.listingData = res.data || {};
+        this.orderData = this.listingData?.customerOrders?.length ? [...this.listingData?.customerOrders] : [];
         this.isToggleChecked = this.listingData.deActive;
+        this.selectedSegment = 'All'; // Set the segment to All when entering the view
+        this.changeSegment({ target: { value: this.selectedSegment } }); // Apply the filter
       }
       else this.goToBack();
     }, (err) => {
@@ -39,7 +43,22 @@ export class ListingOverViewPage implements OnInit {
     })
   }
 
+  changeSegment(event: any) {
+    this.selectedSegment = event.target.value;
+    if (this.selectedSegment == "pickUp") {
+      this.listingData.customerOrders = this.orderData.filter((e: any) => (e.deliveryOption?.type == "Pickup Available"));
+    } else if (this.selectedSegment == "All") {
+      this.listingData.customerOrders = this.orderData;
+    } else {
+      this.listingData.customerOrders = this.orderData.filter((e: any) => e.status == this.selectedSegment);
+    }
+    // if(event)
+  }
+
+
+
   goToBack() {
+    this.selectedSegment = 'All';
     this.router.navigate(['/listings']);
   }
 

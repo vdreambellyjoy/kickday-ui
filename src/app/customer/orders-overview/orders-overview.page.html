@@ -1,11 +1,11 @@
 <ion-header [translucent]="true" style="box-shadow: none; padding: 10px 20px; background: white;">
   <ion-row>
-    <ion-col class="kd_center_align_items">
+    <ion-col class="kd_center_align_items" size="9">
       <ion-icon name="bag-handle-outline" class="kd_svg_size padd_left"></ion-icon>
-      <ion-text class="kd_main_heading" style="padding-left: 15px;">Order Taken</ion-text>
+      <ion-text class="kd_main_heading" style="padding-left: 15px;">Order Overview</ion-text>
     </ion-col>
 
-    <ion-col class="kd_flex kd_end_align" (click)="navigateToOrders()">
+    <ion-col class="kd_flex kd_end_align" size="3" (click)="navigateToOrders()">
       <ion-icon name="close-outline" class="kd_svg_size"></ion-icon>
     </ion-col>
   </ion-row>
@@ -141,20 +141,22 @@
           <ion-text style="font-size: 18px; font-weight: bold;"
             *ngIf="orderData.deliveryOption.type == 'Pickup Available'">Pickup Location</ion-text>
         </div>
-        <ion-text>
-          <a href="orderData.deliveryAddress.LocationUrl"
-            style="color: #007bff; text-decoration: none;">{{orderData.deliveryAddress.LocationUrl}}</a>
+        <ion-text *ngIf="orderData.deliveryOption.type != 'Pickup Available'" (click)="redirectToGoogleMaps()">
+          <span style="color: #007bff; text-decoration: none;">{{orderData.deliveryAddress.LocationUrl}}</span>
+        </ion-text>
+        <ion-text *ngIf="orderData.deliveryOption.type == 'Pickup Available'" (click)="redirectToGoogleMaps()">
+          <span style="color: #007bff; text-decoration: none;">{{orderData.listingData?.address}}</span>
         </ion-text>
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-col class="kd_center_align_items" (click)="redirectToGoogleMaps()" style="cursor: pointer;">
         <ion-icon name="navigate-circle-outline" style="height: 25px; width: 25px;"></ion-icon>
         <ion-text style="padding: 0px 10px;">Track Delivery</ion-text>
         <img src="../../assets/right_arrow.png" alt="" style="height: 25px; width: 25px;">
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
   </div>
 </ion-content>

@@ -1,0 +1,27 @@
+/* Slide-down animation for the prompt */
+.prompt-slide-down {
+    animation: slideDown 0.7s ease-out forwards;
+}
+
+@keyframes slideDown {
+    0% {
+        transform: translateX(-50%) translateY(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(20px);
+        opacity: 1;
+    }
+}
+
+/* Hover effects for buttons */
+.app-ion-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Active state effect for buttons */
+.app-ion-button:active {
+    transform: scale(0.98);
+}
